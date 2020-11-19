@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ProjectAssignment</string>
+    <string name="davidButton">AUDIO DATABASE API</string>
+    <string name="juhoonButton">COVID-19 CASE DATA</string>
+    <string name="nintendoButton">TICKETMASTER EVENT SEARCH</string>
+    <string name="mattButton">RECIPE SEARCH PAGE</string>
 </resources>
