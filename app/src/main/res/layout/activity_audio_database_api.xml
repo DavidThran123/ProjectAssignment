@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AUDIO_DATABASE_API">
+
+
+    <TextView
+        android:id="@+id/askTextBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#CFF4F1"
+        android:text="@string/titleDavidThran"
+        android:textColor="#3F51B5"
+        android:textSize="27dp" />
+
+    <EditText
+        android:id="@+id/artistName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/askTextBox"
+        android:background="#CFF4F1"
+        android:hint="Search Artist Here"
+        android:shadowColor="#CFF4F1"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#3F51B5"
+        android:textColorHighlight="#03A9F4"
+        android:textColorHint="#3F51B5" />
+
+    <Button
+        android:id="@+id/searchArtistButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/artistName"
+        android:background="#CFF4F1"
+        android:cursorVisible="false"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/searchButtonText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#6EE4F3"
+        android:visibility="visible"
+        app:backgroundTint="#3F51B5"
+        app:backgroundTintMode="add"
+        app:iconTint="#00BCD4" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchArtistButton"
+        android:background="#CFF4F1"
+        android:soundEffectsEnabled="false" />
+
+    <TextView
+        android:id="@+id/artistResultsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressBar"
+        android:layout_marginTop="-2dp"
+        android:background="#CFF4F1"
+        android:text=""
+        android:textColor="#3F51B5"
+        android:textSize="25dp" />
+
+    <ListView
+        android:id="@+id/listViewAT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/artistResultsText"
+        android:background="#CFF4F1"
+        android:verticalScrollbarPosition="right" />
+
+
+</RelativeLayout>

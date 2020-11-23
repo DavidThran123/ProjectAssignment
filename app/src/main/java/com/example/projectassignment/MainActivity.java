@@ -15,10 +15,13 @@ public class MainActivity extends AppCompatActivity {
 
         Button david = findViewById(R.id.davidsButton);
         david.setOnClickListener(v -> {
-            Intent goToAudio = new Intent(MainActivity.this, .class);
+            Intent goToAudio = new Intent(MainActivity.this, AUDIO_DATABASE_API.class);
             startActivity(goToAudio);
 
+
+
         });
+        /*
         Button juhoon = findViewById(R.id.juhoonsButton);
         juhoon.setOnClickListener(v -> {
             Intent goToCovidCase = new Intent(MainActivity.this, .class);
@@ -37,6 +40,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(goToRecipe);
 
         });
-
+    */
     }
 }
