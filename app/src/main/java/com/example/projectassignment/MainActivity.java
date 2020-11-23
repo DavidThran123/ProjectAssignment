@@ -12,18 +12,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+/*
         Button david = findViewById(R.id.davidsButton);
         david.setOnClickListener(v -> {
             Intent goToAudio = new Intent(MainActivity.this, .class);
             startActivity(goToAudio);
-
         });
+
+ */
         Button juhoon = findViewById(R.id.juhoonsButton);
         juhoon.setOnClickListener(v -> {
             Intent goToCovidCase = new Intent(MainActivity.this, .class);
             startActivity(goToCovidCase);
-
+/*
         });
         Button nintendo = findViewById(R.id.nintendosButton);
         nintendo.setOnClickListener(v -> {
@@ -37,6 +38,5 @@ public class MainActivity extends AppCompatActivity {
             startActivity(goToRecipe);
 
         });
-
-    }
+    }*/
 }
