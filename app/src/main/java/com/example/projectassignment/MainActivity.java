@@ -22,10 +22,12 @@ public class MainActivity extends AppCompatActivity {
  */
         Button juhoon = findViewById(R.id.juhoonsButton);
         juhoon.setOnClickListener(v -> {
-            Intent goToCovidCase = new Intent(MainActivity.this, .class);
+            Intent goToCovidCase = new Intent(MainActivity.this, COVID_19_CASE_DATA.class);
             startActivity(goToCovidCase);
-/*
+
         });
+
+ /*
         Button nintendo = findViewById(R.id.nintendosButton);
         nintendo.setOnClickListener(v -> {
             Intent goToTicketMaster = new Intent(MainActivity.this, .class);
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             Intent goToRecipe = new Intent(MainActivity.this, .class);
             startActivity(goToRecipe);
 
-        });
-    }*/
+        });*/
+    }
+
 }
