@@ -4,4 +4,7 @@
     <string name="juhoonButton">COVID-19 CASE DATA</string>
     <string name="nintendoButton">TICKETMASTER EVENT SEARCH</string>
     <string name="mattButton">RECIPE SEARCH PAGE</string>
+    <string name="recipeWelcome">Welcome to the Recipe Search Page</string>
+    <string name="recipeOnlineText">Online Recipe Searcher</string>
+
 </resources>
