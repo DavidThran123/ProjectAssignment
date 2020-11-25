@@ -4,6 +4,49 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".COVID_19_CASE_DATA">
+    tools:context=".COVID_19_CASE_DATA"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/caseTitleJPark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/caseTextView"
+        android:textSize="27dp"/>
+
+    <EditText
+        android:id="@+id/caseSearchCountry"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Search country"
+        />
+
+    <Button
+        android:id="@+id/caseSearchCountryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:text="@string/searchCountryButtonText"
+        android:visibility="visible"/>
+
+    <ProgressBar
+        android:id="@+id/caseProgressBar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:soundEffectsEnabled="false"
+        style="?android:attr/progressBarStyleHorizontal"/>
+
+    <TextView
+        android:id="@+id/caseCountryResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""/>
+
+    <ListView
+        android:id="@+id/caseListView"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+
 
 </LinearLayout>

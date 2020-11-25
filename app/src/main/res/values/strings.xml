@@ -4,4 +4,6 @@
     <string name="juhoonButton">COVID-19 CASE DATA</string>
     <string name="nintendoButton">TICKETMASTER EVENT SEARCH</string>
     <string name="mattButton">RECIPE SEARCH PAGE</string>
+    <string name="caseTextView">COVID-19 CASE DATA - Fred Park</string>
+    <string name="searchCountryButtonText">COVID-19 CASE DATA - Fred Park</string>
 </resources>
