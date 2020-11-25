@@ -77,7 +77,7 @@ private class CovidListAdapter extends BaseAdapter{
             View newView = inflater.inflate(R.layout.activity_covid, parent, false);
             TextView textview = newView.findViewById(R.id.covidTitle);
             Covid thisCovid = (Covid) getItem(i);
-            textview.setText(thisCovid.getCountryName());
+            textview.setText(thisCovid.getCountry());
             return newView;
 
         }
