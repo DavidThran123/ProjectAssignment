@@ -18,11 +18,13 @@
         android:text="@string/recipeOnlineText"
         />
     <EditText
+        android:id="@+id/recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Recipe"
         />
     <EditText
+        android:id="@+id/ingredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Preferred Ingredients"

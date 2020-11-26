@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         //Matthew Chik's Search Recipe Activity
         Button searchRecipeBtn = findViewById(R.id.recipeSearchButton);
         searchRecipeBtn.setOnClickListener(v -> {
+
             Intent goToRecipe = new Intent(MainActivity.this, RecipeSearchActivity.class);
             startActivity(goToRecipe);
 

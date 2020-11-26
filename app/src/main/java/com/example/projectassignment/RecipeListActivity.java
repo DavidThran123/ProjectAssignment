@@ -2,6 +2,7 @@ package com.example.projectassignment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,9 +41,13 @@ public class RecipeListActivity extends AppCompatActivity
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
+        Intent intent = getIntent();
+        String recipeStr = intent.getStringExtra("recipe");
+        Log.e("AA",recipeStr);
+        String ingredientsStr = intent.getStringExtra("ingredients");
 
         RecipeQuery query = new RecipeQuery();
-        query.execute("http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3&format=xml");
+        query.execute("http://www.recipepuppy.com/api/?i="+ ingredientsStr +"&q="+ recipeStr +"&p=3&format=xml");
 
 
 
