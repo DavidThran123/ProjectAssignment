@@ -2,18 +2,29 @@ package com.example.projectassignment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class RecipeListActivity extends AppCompatActivity
 {
+    ProgressBar progressBar;
+
     private MyListAdapter listAdapter;
     private ArrayList<Recipe> recipes = new ArrayList<>();
 
@@ -26,8 +37,14 @@ public class RecipeListActivity extends AppCompatActivity
         ListView listView = findViewById(R.id.recipeList);
         listView.setAdapter(listAdapter = new MyListAdapter());
 
-        recipes.add(new Recipe("Recipe Title","Recipes.com","Onions, Food"));
-        listAdapter.notifyDataSetChanged();
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
+
+        RecipeQuery query = new RecipeQuery();
+        query.execute("http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3&format=xml");
+
+
 
     }
 
@@ -123,4 +140,92 @@ public class RecipeListActivity extends AppCompatActivity
         }
 
     }
+
+    //It wants recipe, then ingredients, then format
+    class RecipeQuery extends AsyncTask<String, Integer,String>
+    {
+        String title = "";
+        String website = "";
+        String ingredients = "";
+        private ArrayList<Recipe> tempRecipes = new ArrayList<>();
+        @Override
+        protected String doInBackground(String... args)
+        {
+            try
+            {
+                URL url = new URL(args[0]);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream response = urlConnection.getInputStream();
+                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                factory.setNamespaceAware(false);
+                XmlPullParser xpp = factory.newPullParser();
+                xpp.setInput( response  , "UTF-8");
+
+                int eventType = xpp.getEventType();
+
+                while(eventType != XmlPullParser.END_DOCUMENT)
+                {
+
+
+                    if (eventType == XmlPullParser.START_TAG)
+                    {
+                        if (xpp.getName().equals("title"))
+                        {
+                            title = xpp.nextText();
+                            publishProgress(25);
+                        }
+                        else if (xpp.getName().equals("href"))
+                        {
+                            website = xpp.nextText();
+                            publishProgress(50);
+                        }
+                        else if (xpp.getName().equals("ingredients"))
+                        {
+                            ingredients = xpp.nextText();
+                            publishProgress(75);
+                        }
+
+                        if (!title.equals("") && !website.equals("") && !ingredients.equals("")) //if we have a full recipe object
+                        {
+                            recipes.add(new Recipe(title,website,ingredients));
+                            title = "";
+                            website = "";
+                            ingredients = "";
+
+                        }
+
+                    }
+                    eventType = xpp.next();
+
+                }
+
+
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            //recipes.add(new Recipe("Recipe Title","Recipes.com","Onions, Food"));
+
+
+            return "Done";
+        }
+        @Override
+        protected void onProgressUpdate(Integer ... values)
+        {
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(values[0]);
+        }
+
+        @Override
+        public void onPostExecute(String fromDoInBackground)
+        {
+            //recipes = tempRecipes;
+            listAdapter.notifyDataSetChanged();
+            progressBar.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
 }
