@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
@@ -46,15 +47,21 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class AUDIO_DATABASE_API extends AppCompatActivity {
-    public MusicListAdapter musicAdapter = new MusicListAdapter();
+    public MusicListAdapter musicAdapter = new MusicListAdapter(); //Variable for Album listview adapter
+    //Initialize both Arraylist for songs and albums
     public ArrayList<Album> albumsArrayList = new ArrayList<>();
-    public int boat;
     public ArrayList<String> songsArrayList = new ArrayList<>();
+    Button helpButton;
+    public int boat; //Variable saves position of item clicked for later use
+
+    //init all units inide layout
     private Button search;
     private EditText artistSearch;
     private ProgressBar loadingBar;
     public ListView albumsListView;
     public TextView tv;
+
+    //Sets final names for the bundle to pass to fragment
     public Bundle dataToPassDavid;
     public static final String ALBUM_NAME = "ALNAME";
     public static final String ARTIST_NAME = "ABNAME";
@@ -64,28 +71,47 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
     public static final String SOD = "SOD";
     public static final String SONGS = "SONGS";
 
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_database_api);
 
+        //to use for tablets
         AlbumFragment albumFragment = new AlbumFragment();
+
         loadingBar = findViewById(R.id.progressBar);
         artistSearch = findViewById(R.id.artistName);
-        search = findViewById(R.id.searchArtistButton);
+        tv = findViewById(R.id.artistResultsText);
+
+        sp = this.getPreferences(Context.MODE_PRIVATE);
+        //Initialize shared preference variable
+        if (sp.getString("input", "")!=null) {
+            artistSearch.setText(sp.getString("input", ""));
+        }
+
 
         albumsListView = (ListView)findViewById(R.id.listViewAT);
         albumsListView.setAdapter( musicAdapter );
 
+        //Initialize and set onClick listener for help button
+        helpButton = findViewById(R.id.helpButton);
+        helpButton.setOnClickListener(clk -> {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("How to use application AUDIO_DATABASE_API")
+                    .setMessage("Fuck you")
+                    .setPositiveButton("OK", (click, arg) ->{
+                    })
+                    .create().show();
+        });
 
-
-        tv = findViewById(R.id.artistResultsText);
-
+        search = findViewById(R.id.searchArtistButton);
         search.setOnClickListener(v -> {
             albumsListView.removeAllViewsInLayout();
             albumsArrayList.clear();
             AlbumQuery music = new AlbumQuery();
-            artistSearch = findViewById(R.id.artistName);
             music.execute("https://www.theaudiodb.com/api/v1/json/1/searchalbum.php?s="+artistSearch.getText().toString().replaceAll(" ", "%20"));
             artistSearch.setText("");
         });
@@ -105,6 +131,13 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
                     .create().show();
         });
 
+    }
+
+    protected void onPause() {
+        super.onPause();
+        editor = sp.edit();
+        editor.putString("input", artistSearch.getText().toString());
+        editor.apply();
 
     }
 
@@ -127,7 +160,7 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
                 //wait for data:
                 InputStream response = urlConnection.getInputStream();
 
-
+                //create buffer reader to read and initialize the JSON Array inside object track
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
                 StringBuilder sb = new StringBuilder();
                 String line = "";
@@ -139,6 +172,7 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
                 if(!object.isNull("track")) {
                     JSONArray jsonArray = object.getJSONArray("track");
                     for (int i = 0; i < jsonArray.length(); i++) {
+                        //Grab each object inside array and save all song names to a songs Arraylist of Strings
                         JSONObject JO = (JSONObject) jsonArray.get(i);
                         String songName = JO.getString("strTrack");
                         songsArrayList.add(songName);
@@ -161,6 +195,8 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
         }
 
         public void onPostExecute(String fromDoInBackground) {
+            //This is where the bundle will grab all needed information to pass along to the fragment once
+            //do in background grabs all songs and saves them
             dataToPassDavid = new Bundle();
             dataToPassDavid.putString(ALBUM_NAME, albumsArrayList.get(boat).getAlbumName());
             dataToPassDavid.putString(ARTIST_NAME, albumsArrayList.get(boat).getArtistName());
@@ -170,6 +206,7 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
             dataToPassDavid.putString(DESCRIPTION, albumsArrayList.get(boat).getAlbumDis());
             dataToPassDavid.putStringArrayList(SONGS, songsArrayList);
             albumsArrayList.get(boat).setSongsInAlbum(songsArrayList);
+            //Starts activity to open fragment and populate new view
             Intent nextActivityFragDave = new Intent(AUDIO_DATABASE_API.this, AlbumFragmentEmpty.class);
             nextActivityFragDave.putExtras(dataToPassDavid);
             startActivity(nextActivityFragDave);
@@ -182,7 +219,7 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
 
 
 
-
+    //Made to
     private class AlbumQuery extends AsyncTask<String, Integer, String> {
         public String AlbName;
         public String ArtName;
@@ -274,7 +311,7 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
             return  albumsArrayList.size();
         }
 
-        @Override // what string goes at row i
+        @Override // what object goes at row i
         public Object getItem(int i) {
             return albumsArrayList.get(i);
         }

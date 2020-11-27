@@ -15,6 +15,9 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 
 
@@ -58,10 +61,12 @@ public class AlbumFragment extends Fragment {
         SD.notifyDataSetChanged();
 
         // get the delete button, and add a click listener:
-        Button button = (Button)albumOpened.findViewById(R.id.albumSaveButton);
-        button.setText(buttonText);
-        button.setOnClickListener( clk -> {
-
+        Button saveAlbum = (Button)albumOpened.findViewById(R.id.albumSaveButton);
+        saveAlbum.setText(buttonText);
+        saveAlbum.setOnClickListener( clk -> {
+            Snackbar snackbar = Snackbar
+                    .make(clk, "Saved album "+AlbumName, Snackbar.LENGTH_SHORT);
+            snackbar.show();
         });
 
 

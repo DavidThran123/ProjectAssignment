@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CFF4F1"
     tools:context=".AUDIO_DATABASE_API">
 
 
@@ -24,12 +25,10 @@
         android:layout_below="@id/askTextBox"
         android:background="#CFF4F1"
         android:hint="Search Artist Here"
-        android:shadowColor="#CFF4F1"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#3F51B5"
-        android:textColorHighlight="#03A9F4"
-        android:textColorHint="#3F51B5" />
+        />
 
     <Button
         android:id="@+id/searchArtistButton"
@@ -37,15 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/artistName"
         android:background="#CFF4F1"
-        android:cursorVisible="false"
         android:fontFamily="sans-serif-black"
         android:text="@string/searchButtonText"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#6EE4F3"
-        android:visibility="visible"
-        app:backgroundTint="#3F51B5"
-        app:backgroundTintMode="add"
-        app:iconTint="#00BCD4" />
+        android:textColor="#CFF4F1" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -61,11 +55,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/progressBar"
-        android:layout_marginTop="-2dp"
+        android:layout_toLeftOf="@id/helpButton"
         android:background="#CFF4F1"
         android:text=""
         android:textColor="#3F51B5"
         android:textSize="25dp" />
+
+    <Button
+        android:id="@+id/helpButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressBar"
+        android:layout_alignParentRight="true"
+        android:text="@string/helpButton"
+        android:textColor="#CFF4F1"
+        />
 
     <ListView
         android:id="@+id/listViewAT"
@@ -73,7 +77,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/artistResultsText"
         android:background="#CFF4F1"
-        android:verticalScrollbarPosition="right" />
+        android:verticalScrollbarPosition="right"
+        android:layout_above="@id/albumSeeSaved"/>
 
+    <Button
+        android:id="@+id/albumSeeSaved"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/savedAlbums"
+        android:textColor="#CFF4F1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
 </RelativeLayout>

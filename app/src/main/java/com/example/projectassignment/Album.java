@@ -21,6 +21,7 @@ public class Album {
     this.idAlbum = idAlbum;
     this.albumDis = albumDis;
     }
+    
     public Album(String AlbumName, String ArtistName,  int year, String genre, int idAlbum){
         this.AlbumName = AlbumName;
         this.ArtistName = ArtistName;

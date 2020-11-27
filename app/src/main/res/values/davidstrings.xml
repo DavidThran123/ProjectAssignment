@@ -2,4 +2,7 @@
 <resources>
     <string name="searchButtonText">SEARCH</string>
     <string name="titleDavidThran">Audio Database API - David Thran</string>
+    <string name="savedAlbums">My Songs</string>
+    <string name="helpButton">Help</string>
+
 </resources>
