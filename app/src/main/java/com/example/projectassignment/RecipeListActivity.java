@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,13 +44,33 @@ public class RecipeListActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         String recipeStr = intent.getStringExtra("recipe");
-        Log.e("AA",recipeStr);
         String ingredientsStr = intent.getStringExtra("ingredients");
 
         RecipeQuery query = new RecipeQuery();
         query.execute("http://www.recipepuppy.com/api/?i="+ ingredientsStr +"&q="+ recipeStr +"&p=3&format=xml");
 
+        boolean isTablet = findViewById(R.id.frameLayout) != null;
 
+        listView.setOnItemClickListener((list,view,position,id)->
+        {
+            if(isTablet)
+            {
+
+                RecipeDetailsFragment detailsFragment = new RecipeDetailsFragment();
+                //setDetailsToPass
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout,detailsFragment)
+                        .commit();
+
+            }
+            else
+            {
+                Intent nextActivity = new Intent(RecipeListActivity.this,RecipeDetailsActivity.class);
+                //DataToPass
+                startActivity(nextActivity);
+            }
+        });
 
     }
 
