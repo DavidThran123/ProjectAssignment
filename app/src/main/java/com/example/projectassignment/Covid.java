@@ -6,22 +6,27 @@ public class Covid {
     private String country;
     private String province;
     private int caseNumber;
-    private String dateNumber;
+    private String startDate;
+    private String endDate;
     private long id;
+    private String countryCode;
     private ArrayList<String> countryInDB;
 
-    public Covid(long id,String country,String province,int caseNumber,String dateNumber){
+    public Covid(long id,String countryCode,String country,String province,int caseNumber,String startDate){
         this.id = id;
+        this.countryCode = countryCode;
         this.country = country;
         this.province = province;
         this.caseNumber = caseNumber;
-        this.dateNumber = dateNumber;
+        this.startDate = startDate;
+
     }
-    public Covid(String country,String province,int caseNumber,String dateNumber){
+    public Covid(String countryCode,String country,String province,int caseNumber,String startDate){
+        this.countryCode = countryCode;
         this.country = country;
         this.province = province;
         this.caseNumber = caseNumber;
-        this.dateNumber = dateNumber;
+        this.startDate = startDate;
     }
 
     public String getCountry(){
@@ -40,8 +45,10 @@ public class Covid {
         return caseNumber;
     }
 
-    public String getDateNumber(){
-        return dateNumber;
+    public String getStartDate(){
+        return startDate;
     }
+
+    public String getCountryCode(){return countryCode;}
 
 }

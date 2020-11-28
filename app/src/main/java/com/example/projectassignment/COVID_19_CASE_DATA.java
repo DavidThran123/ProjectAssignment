@@ -45,9 +45,9 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {
     public CovidListAdapter covidListAdapter = new CovidListAdapter();
 
     public static final String COUNTRY_NAME = "CountryName";
+    public static final String COUNTRY_CODE = "CountryCode";
     public static final String PROVINCE_NAME = "ProvinceName";
     public static final String START_DATE = "StartDate";
-    public static final String END_DATE = "EndDate";
     public static final String COVID_CASES = "CovidCases";
 
     SharedPreferences sp;
@@ -101,7 +101,8 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {
         public String countryName;
         public String provinceName;
         public int idList;
-        public String numberDate;
+        public String countryCode;
+        public String startDate;
         public int numberOfCase;
         boolean result;
         Context context = getApplicationContext();
@@ -132,10 +133,11 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {
                     for(int i=0;i<jsonArray.length();i++){
                         JSONObject JO = (JSONObject)jsonArray.get(i);
                         countryName = JO.getString("Country");
+                        countryCode = JO.getString("CountryCode");
                         provinceName = JO.getString("Province");
                         numberOfCase = JO.getInt("Cases");
-                        numberDate = JO.getString("Date");
-                        covidArrayList.add(new Covid(countryName,provinceName,numberOfCase,numberDate));
+                        startDate = JO.getString("Date");
+                        covidArrayList.add(new Covid(countryCode,countryName,provinceName,numberOfCase,startDate));
                     }
                     text = "Search result found";
                     result = true;

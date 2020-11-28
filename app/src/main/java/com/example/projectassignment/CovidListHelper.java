@@ -10,11 +10,11 @@ public class CovidListHelper extends SQLiteOpenHelper {
     protected final static String DATABASE_NAME = "CovidDB";
     public final static String TABLE_NAME1 = "Covid";
     public final static String T1Column1 = "id";
-    public final static String T1Column2 = "CountryName";
-    public final static String T1Column3 = "ProvinceName";
-    public final static String T1Column4 = "StartDate";
-    public final static String T1Column5 = "EndDate";
-    public final static int T1Column6 = 0;
+    public final static String T1Column2 = "CountryCode";
+    public final static String T1Column3 = "CountryName";
+    public final static String T1Column4 = "ProvinceName";
+    public final static String T1Column5 = "StartDate";
+    public final static String T1Column6 = "CovidCases";//covid cases
 
     CovidListHelper(Context context){
         super(context, DATABASE_NAME, null, VERSION_NUM);
@@ -29,7 +29,7 @@ public class CovidListHelper extends SQLiteOpenHelper {
                 T1Column3+" TEXT, " +
                 T1Column4+" TEXT, " +
                 T1Column5+" TEXT, " +
-                T1Column6+" INTEGER)";
+                T1Column6+" TEXT)";
     }
 
     @Override
