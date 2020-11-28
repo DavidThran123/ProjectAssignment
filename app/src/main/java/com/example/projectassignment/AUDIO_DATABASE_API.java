@@ -103,7 +103,15 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
         helpButton.setOnClickListener(clk -> {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("How to use application AUDIO_DATABASE_API")
-                    .setMessage("Fuck you")
+                    .setMessage("1>Type artist name\n" +
+                            "2>Click on album to view songs\n" +
+                            "3>Click on song to search\n" +
+                            "4>Click Save while in album to save\n" +
+                            "5>Click on My Songs to see saved\n" +
+                            "6>Click Delete button inside Album \n" +
+                            "to delete it from saved albums\n" +
+                            "\n" +
+                            "Application created by David Thran")
                     .setPositiveButton("OK", (click, arg) ->{
                     })
                     .create().show();

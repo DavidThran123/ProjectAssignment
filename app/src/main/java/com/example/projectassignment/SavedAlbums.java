@@ -57,11 +57,12 @@ public class SavedAlbums extends AppCompatActivity {
                         dataToPassDavid.putString(DESCRIPTION, SAList.get(position).getAlbumDis());
                         dataToPassDavid.putStringArrayList(SONGS, SAList.get(position).getSongsInAlbum());
                         dataToPassDavid.putInt(ALID, SAList.get(position).getIdAlbum());
+
                         //Starts activity to open fragment and populate new view
                         Intent nextActivityFragDave = new Intent(SavedAlbums.this, AlbumFragmentEmpty.class);
                         nextActivityFragDave.putExtras(dataToPassDavid);
-                        startActivity(nextActivityFragDave);
-
+                        startActivityForResult(nextActivityFragDave, 10);
+                        onActivityResult(500, 500, null);
 
                     })
                     .setNegativeButton("No", (click, arg) -> { })
@@ -69,6 +70,13 @@ public class SavedAlbums extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == resultCode) {
+            finish();
+        }
+    }
     private void loadAlbumsFromDatabase()
     {
         AlbumListHelper dbAlbum = new AlbumListHelper(this);

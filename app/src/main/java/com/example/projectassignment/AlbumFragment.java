@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -93,14 +94,14 @@ public class AlbumFragment extends Fragment {
 
 
 
-            Button saveAlbum = (Button) albumOpened.findViewById(R.id.albumSaveButton);
-            saveAlbum.setText(buttonText);
-            saveAlbum.setOnClickListener(clk -> {
-
+            Button doAlbum = (Button) albumOpened.findViewById(R.id.albumSaveButton);
+            doAlbum.setText(buttonText);
+            doAlbum.setOnClickListener(clk -> {
+            if(doAlbum.getText().equals("SAVE")) {
                 AlbumListHelper dbChat = new AlbumListHelper(this.getContext());
                 dbAlSave = dbChat.getReadableDatabase();
                 Cursor cursor = dbAlSave.rawQuery("SELECT * FROM Albums WHERE AlbumID = ?", new String[]{String.valueOf(albumID)});
-                if(cursor.getCount() == 0){
+                if (cursor.getCount() == 0) {
                     ContentValues newAlbumRowValues = new ContentValues();
                     newAlbumRowValues.put(AlbumListHelper.T1Col2, albumID);
                     newAlbumRowValues.put(AlbumListHelper.T1Col3, ArtistName);
@@ -110,21 +111,34 @@ public class AlbumFragment extends Fragment {
                     newAlbumRowValues.put(AlbumListHelper.T1Col7, AlbumName);
                     long newIdAlbum = dbAlSave.insert(AlbumListHelper.TABLE_NAME1, null, newAlbumRowValues);
                     long newIdSong;
-                    for(int i = 0; i < songData.size(); i++) {
+                    for (int i = 0; i < songData.size(); i++) {
                         ContentValues newSongRowValues = new ContentValues();
                         newSongRowValues.put(AlbumListHelper.T2Col2, albumID);
                         newSongRowValues.put(AlbumListHelper.T2Col3, songData.get(i));
                         newIdSong = dbAlSave.insert(AlbumListHelper.TABLE_NAME2, null, newSongRowValues);
-                        Log.i("Working", "onCreateView: "+newIdSong+" IDAlbum = "+newIdAlbum );
+                        Log.i("Working", "onCreateView: IDSONG " + newIdSong + " IDAlbum = " + newIdAlbum);
                     }
                     Snackbar snackbar = Snackbar
                             .make(clk, "Saved album " + AlbumName, Snackbar.LENGTH_SHORT);
                     snackbar.show();
-                }else{
+                } else {
                     Snackbar snackbar = Snackbar
                             .make(clk, "Album " + AlbumName + " already is saved", Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }
+            }else if(doAlbum.getText().equals("DELETE")){
+                AlbumListHelper dbChat = new AlbumListHelper(this.getContext());
+                dbAlSave = dbChat.getReadableDatabase();
+                boolean t2 = dbAlSave.delete(AlbumListHelper.TABLE_NAME2, AlbumListHelper.T2Col2 + "=" + albumID, null) > 0;
+                boolean t1 = dbAlSave.delete(AlbumListHelper.TABLE_NAME1, AlbumListHelper.T1Col2 + "=" + albumID, null) > 0;
+
+                if (t2 == false && t1 == false){
+                    getActivity().setResult(500);
+                    getActivity().finish();
+                }else{
+
+                }
+            }
 
             });
 
