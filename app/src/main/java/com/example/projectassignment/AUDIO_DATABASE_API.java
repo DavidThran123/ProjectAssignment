@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,11 +52,11 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
     //Initialize both Arraylist for songs and albums
     public ArrayList<Album> albumsArrayList = new ArrayList<>();
     public ArrayList<String> songsArrayList = new ArrayList<>();
-    Button helpButton;
+
     public int boat; //Variable saves position of item clicked for later use
 
     //init all units inide layout
-    private Button search;
+    private Button search, helpButton, savedAlbumsButtom;
     private EditText artistSearch;
     private ProgressBar loadingBar;
     public ListView albumsListView;
@@ -64,6 +65,7 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
     //Sets final names for the bundle to pass to fragment
     public Bundle dataToPassDavid;
     public static final String ALBUM_NAME = "ALNAME";
+    public static final String ALID = "ALID";
     public static final String ARTIST_NAME = "ABNAME";
     public static final String YEAR = "YEAR";
     public static final String GENRE = "GENRE";
@@ -106,6 +108,13 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
                     })
                     .create().show();
         });
+
+        savedAlbumsButtom = findViewById(R.id.albumSeeSaved);
+        savedAlbumsButtom.setOnClickListener(v ->{
+            Intent savedAlbumsAct = new Intent(AUDIO_DATABASE_API.this, SavedAlbums.class);
+            startActivity(savedAlbumsAct);
+        });
+
 
         search = findViewById(R.id.searchArtistButton);
         search.setOnClickListener(v -> {
@@ -205,6 +214,7 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
             dataToPassDavid.putString(SOD, "SAVE");
             dataToPassDavid.putString(DESCRIPTION, albumsArrayList.get(boat).getAlbumDis());
             dataToPassDavid.putStringArrayList(SONGS, songsArrayList);
+            dataToPassDavid.putInt(ALID, albumsArrayList.get(boat).getIdAlbum());
             albumsArrayList.get(boat).setSongsInAlbum(songsArrayList);
             //Starts activity to open fragment and populate new view
             Intent nextActivityFragDave = new Intent(AUDIO_DATABASE_API.this, AlbumFragmentEmpty.class);
@@ -318,7 +328,7 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
 
         @Override //database id of item at row i
         public long getItemId(int i) {
-            return albumsArrayList.get(i).getId();
+            return albumsArrayList.get(i).getIdAl();
         }
 
 
