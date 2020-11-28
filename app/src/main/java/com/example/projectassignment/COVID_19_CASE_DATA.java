@@ -3,6 +3,7 @@ package com.example.projectassignment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +43,15 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {
     public Bundle dataToPassFred;
     public ArrayList<Covid> covidArrayList = new ArrayList<>();
     public CovidListAdapter covidListAdapter = new CovidListAdapter();
+
+    public static final String COUNTRY_NAME = "CountryName";
+    public static final String PROVINCE_NAME = "ProvinceName";
+    public static final String START_DATE = "StartDate";
+    public static final String END_DATE = "EndDate";
+    public static final String COVID_CASES = "CovidCases";
+
+    SharedPreferences sp;
+    SharedPreferences.Editor e;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
