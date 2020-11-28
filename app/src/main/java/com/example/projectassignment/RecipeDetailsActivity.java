@@ -12,8 +12,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_details);
 
         //TODO: Remember to match this with the RecipeListActivity.java
+        Bundle dataToPass = getIntent().getExtras();
         RecipeDetailsFragment detailsFragment = new RecipeDetailsFragment();
-        //setDetailsToPass
+        detailsFragment.setArguments(dataToPass);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frameLayout,detailsFragment)

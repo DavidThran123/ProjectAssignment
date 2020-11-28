@@ -53,11 +53,17 @@ public class RecipeListActivity extends AppCompatActivity
 
         listView.setOnItemClickListener((list,view,position,id)->
         {
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString("recipe",recipes.get(position).getTitle());
+            dataToPass.putString("website",recipes.get(position).getWebsite());
+            dataToPass.putString("ingredients",recipes.get(position).getIngredients());
+
             if(isTablet)
             {
 
+
                 RecipeDetailsFragment detailsFragment = new RecipeDetailsFragment();
-                //setDetailsToPass
+                detailsFragment.setArguments(dataToPass);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frameLayout,detailsFragment)
@@ -67,7 +73,7 @@ public class RecipeListActivity extends AppCompatActivity
             else
             {
                 Intent nextActivity = new Intent(RecipeListActivity.this,RecipeDetailsActivity.class);
-                //DataToPass
+                nextActivity.putExtras(dataToPass);
                 startActivity(nextActivity);
             }
         });

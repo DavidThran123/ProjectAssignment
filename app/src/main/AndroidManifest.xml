@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectAssignment"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RecipeDetailsActivity"></activity>
+        <activity android:name=".RecipeSavedActivity"></activity>
+        <activity android:name=".RecipeDetailsActivity" />
         <activity android:name=".RecipeListActivity" />
         <activity android:name=".RecipeSearchActivity" />
         <activity android:name=".MainActivity">

@@ -2,6 +2,7 @@ package com.example.projectassignment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,25 +12,57 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class RecipeDetailsFragment extends Fragment {
 
     private AppCompatActivity parentActivity;
+    Bundle bundleFromActivity;
 
+    SQLiteDatabase db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
 
-       // bundleFromActivity = getArguments();
+        View newView = inflater.inflate(R.layout.fragment_recipe_details, container, false);
+        bundleFromActivity = getArguments();
+        String recipe = bundleFromActivity.getString("recipe");
+        String website = bundleFromActivity.getString("website");
+        String ingredients = bundleFromActivity.getString("ingredients");
 
-        Uri uri = Uri.parse("http://www.google.com");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+
+
+        TextView recipeText = newView.findViewById(R.id.recipeTitle);
+        recipeText.setText("Recipe:" + recipe);
+
+        TextView ingredientsText = newView.findViewById(R.id.ingredients);
+        ingredientsText.setText("Ingredients:" + ingredients);
+
+        Button websiteButton = newView.findViewById(R.id.website);
+        websiteButton.setText(website);
+        websiteButton.setOnClickListener(
+                c->
+                {
+                    dispatchWebsiteIntent(website);
+                }
+        );
+
+
+        Button favouriteBtn = newView.findViewById(R.id.favourite);
+        favouriteBtn.setOnClickListener(
+                c->
+                {
+                    saveRecipe();
+                }
+        );
+
+
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipe_details, container, false);
+        return newView;
     }
 
     @Override
@@ -39,4 +72,17 @@ public class RecipeDetailsFragment extends Fragment {
         //context will either be FragmentExample for a tablet, or EmptyActivity for phone
         parentActivity = (AppCompatActivity)context;
     }
+
+    private void saveRecipe()
+    {
+
+    }
+
+    private void dispatchWebsiteIntent(String websiteName)
+    {
+        Uri uri = Uri.parse(websiteName);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+
 }
