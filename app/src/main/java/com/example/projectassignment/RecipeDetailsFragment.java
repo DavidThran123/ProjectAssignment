@@ -3,6 +3,7 @@ package com.example.projectassignment;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -58,8 +59,17 @@ public class RecipeDetailsFragment extends Fragment {
         favouriteBtn.setOnClickListener(
                 c->
                 {
-                    Toast.makeText(this.getContext(), "Recipe Saved!", Toast.LENGTH_SHORT).show();
-                    saveRecipe();
+                    Cursor cursor = db.rawQuery("SELECT * FROM " + MyRecipeOpener.TABLE_NAME +  " WHERE " + MyRecipeOpener.COL_RECIPE + "  = ?", new String[]{recipe});
+                    if (cursor.getCount() == 0)
+                    {
+                        Toast.makeText(this.getContext(), "Recipe Saved!", Toast.LENGTH_SHORT).show();
+                        saveRecipe();
+                    }
+                    else
+                    {
+                        Toast.makeText(this.getContext(), "Recipe is already saved.", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
         );
 
