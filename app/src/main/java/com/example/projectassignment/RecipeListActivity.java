@@ -81,7 +81,7 @@ public class RecipeListActivity extends AppCompatActivity
     }
 
 
-    private class MyListAdapter extends BaseAdapter
+    public class MyListAdapter extends BaseAdapter
     {
         @Override
         public int getCount()
@@ -125,53 +125,7 @@ public class RecipeListActivity extends AppCompatActivity
         }
     }
 
-    private class Recipe
-    {
-        //Title
-        private String title;
-        //Website
-        private String website;
-        //Ingredients
-        private String ingredients;
 
-        Recipe(String title, String website, String ingredients)
-        {
-            setTitle(title);
-            setWebsite(website);
-            setIngredients(ingredients);
-        }
-
-        void setTitle(String title)
-        {
-            this.title = title;
-        }
-
-        void setWebsite(String website)
-        {
-            this.website = website;
-        }
-
-        void setIngredients(String ingredients)
-        {
-            this.ingredients = ingredients;
-        }
-
-        String getTitle()
-        {
-            return title;
-        }
-
-        String getWebsite()
-        {
-            return website;
-        }
-
-        String getIngredients()
-        {
-            return ingredients;
-        }
-
-    }
 
     //It wants recipe, then ingredients, then format
     class RecipeQuery extends AsyncTask<String, Integer,String>

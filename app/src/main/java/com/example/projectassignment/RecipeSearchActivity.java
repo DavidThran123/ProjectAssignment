@@ -42,11 +42,18 @@ public class RecipeSearchActivity extends AppCompatActivity
                     saveString(savedIngredientsKey,ingredientsText.getText().toString());
                     dispatchRecipeListActivity();
                 });
+        Button favouriteBtn = findViewById(R.id.favourite);
+        favouriteBtn.setOnClickListener
+                (v ->
+                {
+                    dispatchRecipeSavedActivity();
+                });
+
 
     }
 
 
-    void dispatchRecipeListActivity()
+    private void dispatchRecipeListActivity()
     {
         Intent goToRecipeList = new Intent(RecipeSearchActivity.this,RecipeListActivity.class);
 
@@ -65,5 +72,11 @@ public class RecipeSearchActivity extends AppCompatActivity
         editor.commit();
     }
 
+
+    private void dispatchRecipeSavedActivity()
+    {
+        Intent goToSavedActivity= new Intent(RecipeSearchActivity.this,RecipeSavedActivity.class);
+        startActivity(goToSavedActivity);
+    }
 
 }

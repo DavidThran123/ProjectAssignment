@@ -1,5 +1,6 @@
 package com.example.projectassignment;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RecipeDetailsFragment extends Fragment {
 
@@ -33,13 +35,14 @@ public class RecipeDetailsFragment extends Fragment {
         String website = bundleFromActivity.getString("website");
         String ingredients = bundleFromActivity.getString("ingredients");
 
-
+        MyRecipeOpener dbHelper = new MyRecipeOpener(this.getContext());
+        db = dbHelper.getReadableDatabase();
 
         TextView recipeText = newView.findViewById(R.id.recipeTitle);
-        recipeText.setText("Recipe:" + recipe);
+        recipeText.setText("Recipe:" + recipe + "\n");
 
         TextView ingredientsText = newView.findViewById(R.id.ingredients);
-        ingredientsText.setText("Ingredients:" + ingredients);
+        ingredientsText.setText("Ingredients:"+"\n" + ingredients);
 
         Button websiteButton = newView.findViewById(R.id.website);
         websiteButton.setText(website);
@@ -55,6 +58,7 @@ public class RecipeDetailsFragment extends Fragment {
         favouriteBtn.setOnClickListener(
                 c->
                 {
+                    Toast.makeText(this.getContext(), "Recipe Saved!", Toast.LENGTH_SHORT).show();
                     saveRecipe();
                 }
         );
@@ -75,6 +79,17 @@ public class RecipeDetailsFragment extends Fragment {
 
     private void saveRecipe()
     {
+        //get the data
+        String recipe = bundleFromActivity.getString("recipe");
+        String website = bundleFromActivity.getString("website");
+        String ingredients = bundleFromActivity.getString("ingredients");
+
+        ContentValues newRowValues = new ContentValues();
+        newRowValues.put(MyRecipeOpener.COL_RECIPE,recipe);
+        newRowValues.put(MyRecipeOpener.COL_WEBSITE,website);
+        newRowValues.put(MyRecipeOpener.COL_INGREDIENTS,ingredients);
+
+        long newId = db.insert(MyRecipeOpener.TABLE_NAME,null,newRowValues);
 
     }
 
