@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 
 public class SavedCovid extends AppCompatActivity {
@@ -33,7 +35,6 @@ public class SavedCovid extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_savedcovid);
 
-        loadCovidDataFromDatabase();
         cntryName = (TextView)findViewById(R.id.CovidSavedTitle);
         cntryNames = (ListView)findViewById(R.id.SavedCovidListView);
         cntryNames.setAdapter(savedAdapter);
@@ -41,42 +42,32 @@ public class SavedCovid extends AppCompatActivity {
 
         cntryNames.setOnItemClickListener((parent,view,position,id)->{
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("Would you like to enter this country?")
-                    .setMessage("Country: "+scList.get(position).getCountry())
-                    .setPositiveButton("Yes",(click,arg)->{
-                        dataToPassFred = new Bundle();
-                        dataToPassFred.putString(COUNTRY_NAME,scList.get(position).getCountry());
-                        dataToPassFred.putString(PROVINCE_NAME,scList.get(position).getProvince());
-                        dataToPassFred.putString(START_DATE,scList.get(position).getStartDate());
-
-                        dataToPassFred.putInt(COVID_CASES,scList.get(position).getCaseNumber());
-
-                        Intent nextActivityToFragEmpty = new Intent(SavedCovid.this,CovidFragmentEmpty.class);
-                        nextActivityToFragEmpty.putExtras(dataToPassFred);
-                        startActivityForResult(nextActivityToFragEmpty,10);
-                        onActivityResult(500,500,null);
+            alertDialogBuilder.setTitle("Saved data")
+                    .setMessage("Country: "+scList.get(position).getCountry()+"\n"+"Country code: "+scList.get(position).getCountryCode()+"\n"+
+                            "Province: "+scList.get(position).getProvince()+"\n"+"Start Date: "+"\n"+
+                            "Number of cases: "+scList.get(position).getCaseNumber())
+                    .setNeutralButton("Okay",(click,arg)->{})
+                    .setNegativeButton("Delete",(click,arg)->{
+                        Snackbar.make(cntryNames,"Data deleted",Snackbar.LENGTH_SHORT).show();
+                        scList.remove(position);
+                        savedData.delete(CovidListHelper.TABLE_NAME1,CovidListHelper.T1Column1+"=?",new String[]{Long.toString(id)});
+                        savedAdapter.notifyDataSetChanged();
                     })
-                    .setNegativeButton("No",(click,arg)->{})
+                    .setView(getLayoutInflater().inflate(R.layout.activity_alert,null))
                     .create().show();
         });
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == resultCode) {
-            finish();
-        }
+        loadCovidDataFromDatabase();
     }
 
     private void loadCovidDataFromDatabase(){
         CovidListHelper dbCovid = new CovidListHelper(this);
-        savedData = dbCovid.getWritableDatabase();
+        savedData = dbCovid.getReadableDatabase();
 
-        String[] columns1 = {dbCovid.T1Column2,dbCovid.T1Column3,dbCovid.T1Column4,dbCovid.T1Column5,dbCovid.T1Column6};
+        String[] columns1 = {dbCovid.T1Column1,dbCovid.T1Column2,dbCovid.T1Column3,dbCovid.T1Column4,dbCovid.T1Column6 ,dbCovid.T1Column5};
 
         Cursor results1 = savedData.query(false, dbCovid.TABLE_NAME1,columns1,null,null,null,null,null,null);
 
+        int idColumnIndex = results1.getColumnIndex(CovidListHelper.T1Column1);
         int countryCodeColumnIndex = results1.getColumnIndex(dbCovid.T1Column2);
         int countryNameColumnIndex = results1.getColumnIndex(dbCovid.T1Column3);
         int provinceNameColumnIndex = results1.getColumnIndex(dbCovid.T1Column4);
@@ -84,19 +75,16 @@ public class SavedCovid extends AppCompatActivity {
         int covidCasesColumnIndex = results1.getColumnIndex(dbCovid.T1Column6);
 
         while(results1.moveToNext()){
+            long covidID = results1.getLong(idColumnIndex);
+            String countryCode = results1.getString(countryCodeColumnIndex);
             String countryName = results1.getString(countryNameColumnIndex);
             String provinceName = results1.getString(provinceNameColumnIndex);
+            String covidCases = results1.getString(covidCasesColumnIndex);
             String startDate = results1.getString(startDateColumnIndex);
-            int covidCases = results1.getInt(covidCasesColumnIndex);
-            String countryCode = results1.getString(countryCodeColumnIndex);
-            Cursor results2 = savedData.rawQuery("SELECT * FROM provinceName where covidID = ?", new String[]{String.valueOf(countryCode)});
-            ArrayList<String> savedCountries = new ArrayList<>();
-            while(results2.moveToNext()){
-                int i = results2.getColumnIndex(dbCovid.T1Column3);
-                savedCountries.add(results2.getString(i));
-            }
-            scList.add(new Covid(countryCode,countryName,provinceName,covidCases,startDate));
+
+            scList.add(new Covid(covidID,countryCode,countryName,provinceName,covidCases,startDate));
         }
+        savedAdapter.notifyDataSetChanged();
     }
 
     private class CovidSavedListHelper extends BaseAdapter {
@@ -105,24 +93,27 @@ public class SavedCovid extends AppCompatActivity {
             return  scList.size();
         }
 
-        @Override // what string goes at row i
-        public Object getItem(int i) {
-            return scList.get(i);
+        @Override // what string goes at row position
+        public Object getItem(int position) {
+            return scList.get(position);
         }
 
-        @Override //database id of item at row i
-        public long getItemId(int i) {
-            return scList.get(i).getId();
+        @Override //database id of item at row position
+        public long getItemId(int position) {
+            return scList.get(position).getId();
         }
 
 
         @Override //controls which widgets are on the row
-        public View getView(int i, View old, ViewGroup parent){
+        public View getView(int position, View old, ViewGroup parent){
             LayoutInflater inflater = getLayoutInflater();
+
             View newView = inflater.inflate(R.layout.activity_covid, parent, false);
+
             TextView textview = newView.findViewById(R.id.covidTitle);
-            Covid thisCovid = (Covid) getItem(i);
+            Covid thisCovid = (Covid) getItem(position);
             textview.setText(thisCovid.getCountry());
+
             return newView;
         }
     }

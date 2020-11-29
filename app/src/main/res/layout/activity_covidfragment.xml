@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-
-        />
+        android:text="COVID-19 Data"/>
 
     <TextView
         android:id="@+id/covidCountryFragment"
@@ -45,16 +44,10 @@
         android:textSize="20dp"/>
 
 
-
-    <ListView
-        android:id="@+id/covidListViewFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp" />
-
     <Button
         android:id="@+id/covidSaveButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="SAVE"/>
 
 </LinearLayout>

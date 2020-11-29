@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="searchCountryButtonText">COVID-19 CASE DATA - Fred Park</string>
+
+    <string name="covidListTitle">COVID-19 CASES</string>
+</resources>

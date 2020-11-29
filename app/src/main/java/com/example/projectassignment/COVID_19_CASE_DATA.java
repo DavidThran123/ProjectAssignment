@@ -42,6 +42,7 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
     TextView caseResult;
     ListView covidListView;
     Button saveButton;
+    EditText dateSearch;
 
     public int covidCase;
     public Bundle dataToPassFred;
@@ -54,7 +55,7 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
     public static final String START_DATE = "StartDate";
     public static final String COVID_CASES = "CovidCases";
 
-    SharedPreferences sp;
+    SharedPreferences sp = null;
     SharedPreferences.Editor e;
 
     @Override
@@ -62,28 +63,33 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_covid_case_data);
 
-        covidListView = findViewById(R.id.caseListView);
-        covidListView.setAdapter(covidListAdapter);
+        //covidListView = findViewById(R.id.caseListView);
+        //covidListView.setAdapter(covidListAdapter);
 
         CovidFragment covidFragment =new CovidFragment();
 
         caseSearch = findViewById(R.id.caseSearchCountry);//edit text
+        dateSearch = findViewById(R.id.calendarEditText);
 
-        sp = this.getPreferences(Context.MODE_PRIVATE);
-        if((sp.getString("input","")!=null)&&(sp.getString("input","")!=null)){
-            caseSearch.setText(sp.getString("input",""));
-            caseDate.setText(sp.getString("input",""));
-        }
+        sp = getSharedPreferences("countrySave",Context.MODE_PRIVATE);
+
+        String country = sp.getString(COUNTRY_NAME,"");
+        String date = sp.getString(START_DATE,"");
+
+        caseSearch.setText(country);
+        dateSearch.setText(date);
 
         caseTitle = findViewById(R.id.caseTitleJPark);
 
+        e = sp.edit();
+
         searchButton = findViewById(R.id.caseSearchCountryButton);//search button
         searchButton.setOnClickListener(v -> {
-            covidListView.removeAllViewsInLayout();
-            covidArrayList.clear();
-            CovidQuery cq = new CovidQuery();
-            cq.execute("https://api.covid19api.com/country/"+caseSearch.getText().toString()+"/status/confirmed/live?from="+caseDate.getText().toString()+"T00:00:00Z&to=2020-10-15T00:00:00Z");
-            caseSearch.setText("");
+            e.putString(COUNTRY_NAME,caseSearch.getText().toString());
+            e.commit();
+            e.putString(START_DATE,dateSearch.getText().toString());
+            e.commit();
+            loadCovidList();
         });
 
         caseDate = findViewById(R.id.calendarEditText);
@@ -91,6 +97,9 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
         caseBar = findViewById(R.id.caseProgressBar);//progress bar
 
         saveButton = findViewById(R.id.savedCountryButton);//view saved countries
+        saveButton.setOnClickListener(v -> {
+            loadSavedCovid();
+        });
 
 
     }
@@ -111,7 +120,6 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
             return covidArrayList.get(i).getId();
         }
 
-
         @Override //controls which widgets are on the row
         public View getView(int i, View old, ViewGroup parent){
                 LayoutInflater inflater = getLayoutInflater();
@@ -123,96 +131,19 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
         }
     }
 
-    private class CovidQuery extends AsyncTask<String, Integer, String> {
-        public String countryName;
-        public String provinceName;
-        public int idList;
-        public String countryCode;
-        public String startDate;
-        public int numberOfCase;
-        boolean result;
-        Context context = getApplicationContext();
-        CharSequence text = "";
-        int duration = Toast.LENGTH_LONG;
+    private void loadCovidList(){
+        Intent goToCovidList = new Intent(COVID_19_CASE_DATA.this,CovidList.class);
 
-        @Override
-        protected String doInBackground(String... args) {
-            try {
-                URL url = new URL(args[0]);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream response = urlConnection.getInputStream();
+        EditText countryText = findViewById(R.id.caseSearchCountry);
+        EditText dateText =  findViewById(R.id.calendarEditText);
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
-                StringBuilder sb = new StringBuilder();
-                String line = "";
-
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-
-                String albumSearch = sb.toString();
-                JSONObject object = new JSONObject(albumSearch);
-
-                setProgress(0);
-                if(!object.isNull("country")){
-                    JSONArray jsonArray = object.getJSONArray("country");
-                    for(int i=0;i<jsonArray.length();i++){
-                        JSONObject JO = (JSONObject)jsonArray.get(i);
-                        countryName = JO.getString("Country");
-                        countryCode = JO.getString("CountryCode");
-                        provinceName = JO.getString("Province");
-                        numberOfCase = JO.getInt("Cases");
-                        startDate = JO.getString("Date");
-                        covidArrayList.add(new Covid(countryCode,countryName,provinceName,numberOfCase,startDate));
-                    }
-                    text = "Search result found";
-                    result = true;
-                }else{
-                    text = "Search result not found";
-                    result = false;
-                }
-            }catch (FileNotFoundException e){
-                e.printStackTrace();
-            }catch (JSONException e){
-                e.printStackTrace();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-            return "Done";
-        }
-
-        public void onProgressUpdate(Integer... value) {
-            caseBar.setVisibility(View.VISIBLE);
-            caseBar.setProgress(value[0]);
-        }
-
-        public void onPostExecute(String fromDoInBackground) {
-            covidListAdapter.notifyDataSetChanged();
-            if(result){
-                caseResult.setText(countryName);
-                Toast.makeText(context,text,duration).show();
-            }else{
-                caseResult.setText("");
-                Toast.makeText(context,text,duration).show();
-            }
-            Log.i("HTTP",fromDoInBackground);
-        }
+        goToCovidList.putExtra("country",countryText.getText().toString());
+        goToCovidList.putExtra("dates",dateText.getText().toString());
+        startActivity(goToCovidList);
     }
 
-    private class CovidSearch extends AsyncTask<String,String,String>{
-        @Override
-        protected String doInBackground(String... args) {
-            return "done";
-        }
-
-        @Override
-        protected void onProgressUpdate(String... values) {
-            super.onProgressUpdate(values);
-        }
-
-        public void onPostExecute(String fromDoInBackground) {
-            dataToPassFred = new Bundle();
-        }
+    private void loadSavedCovid(){
+        Intent goToSavedCovid = new Intent(COVID_19_CASE_DATA.this,SavedCovid.class);
+        startActivity(goToSavedCovid);
     }
-
 }

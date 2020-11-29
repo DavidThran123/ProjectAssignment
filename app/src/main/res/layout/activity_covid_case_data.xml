@@ -19,7 +19,7 @@
         android:id="@+id/caseSearchCountry"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:hint="Search country"
+        android:hint="Search country (in all capital letters)"
         android:layout_below="@id/caseTitleJPark"
         android:singleLine="true"
         android:textAllCaps="true"
@@ -29,7 +29,7 @@
         android:id="@+id/calendarEditText"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:hint="Search date"
+        android:hint="Write in YYYY-MM-DD format"
         android:layout_below="@id/caseSearchCountry"
         android:singleLine="true"
         android:textAllCaps="true"
@@ -52,25 +52,12 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_below="@id/caseSearchCountryButton"/>
 
-    <TextView
-        android:id="@+id/caseCountryResult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_below="@id/caseProgressBar"/>
-
-    <ListView
-        android:id="@+id/caseListView"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_below="@id/caseCountryResult"/>
-
     <Button
         android:id="@+id/savedCountryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:hint="Saved countries"
-        android:layout_alignParentBottom="true"/>
+        android:layout_below="@id/caseProgressBar"/>
 
 </RelativeLayout>

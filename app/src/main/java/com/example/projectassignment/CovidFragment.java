@@ -47,6 +47,7 @@ public class CovidFragment extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View covidFileOpened = inflater.inflate(R.layout.activity_covidfragment,container,false);
         dataFromActivityFred = getArguments();
         fragCountryName = dataFromActivityFred.getString(COVID_19_CASE_DATA.COUNTRY_NAME);
         fragCountryCode = dataFromActivityFred.getString(COVID_19_CASE_DATA.COUNTRY_CODE);
@@ -54,7 +55,6 @@ public class CovidFragment extends Fragment{
         fragStartDate = dataFromActivityFred.getString(COVID_19_CASE_DATA.START_DATE);
         fragNumberOfCases = dataFromActivityFred.getInt(COVID_19_CASE_DATA.COVID_CASES);
 
-        View covidFileOpened = inflater.inflate(R.layout.activity_covidfragment,container,false);
         TextView title = (TextView) covidFileOpened.findViewById(R.id.covidFragmentTitle);
         title.setText(fragCountryName);
         TextView country = (TextView)covidFileOpened.findViewById(R.id.covidCountryFragment);
@@ -68,21 +68,6 @@ public class CovidFragment extends Fragment{
         TextView cases = (TextView)covidFileOpened.findViewById(R.id.covidCasesFragment);
         cases.setText("Cases: "+fragNumberOfCases);
 
-        FragCovidListAdapter fcla = new FragCovidListAdapter();
-        ListView fragCovidListView = (ListView) covidFileOpened.findViewById(R.id.covidListViewFragment);
-        fragCovidListView.setAdapter(fcla);
-        fcla.notifyDataSetChanged();
-
-        fragCovidListView.setOnItemClickListener((parent,view,position,id)-> {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
-            alertDialogBuilder.setTitle("Search "+fragCovidData.get(position)+" by "+fragCountryName+"?")
-                    .setPositiveButton("Yes",(click,arg)->{
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.covid19api.com/country/"+fragCountryName+"/status/confirmed/live?from="+fragStartDate+"&to=2020-10-15T00:00:00Z")));//have to search through
-                    })
-                    .setNegativeButton("No",(click,arg) -> {})
-                    .create().show();
-        });
-
         Button saveCovidData = (Button)covidFileOpened.findViewById(R.id.covidSaveButton);
         saveCovidData.setText(fragButtonText);
         saveCovidData.setOnClickListener(click -> {
@@ -91,20 +76,18 @@ public class CovidFragment extends Fragment{
                 covidDataSave = alh.getReadableDatabase();
                 Cursor cursor = covidDataSave.rawQuery("SELECT * FROM CountryName WHERE CovidID = ?", new String[]{String.valueOf(fragCountryCode)});
                 if(cursor.getCount()==0){
-                    ContentValues newCovidRowValues = new ContentValues();
-                    newCovidRowValues.put(CovidListHelper.T1Column2,fragCountryCode);
-                    newCovidRowValues.put(CovidListHelper.T1Column3,fragCountryName);
-                    newCovidRowValues.put(CovidListHelper.T1Column4,fragProvinceName);
-                    newCovidRowValues.put(CovidListHelper.T1Column5,fragStartDate);
-                    newCovidRowValues.put(CovidListHelper.T1Column6,fragNumberOfCases);
-                    long newIdCovid = covidDataSave.insert(CovidListHelper.TABLE_NAME1,null,newCovidRowValues);
-                    for(int i = 0; i<fragCovidData.size();i++){//question
 
-                    }
-                    Snackbar snackbar1 =Snackbar.make(click,"Saved country: "+fragCountryName,Snackbar.LENGTH_LONG);
+                    ContentValues newRowValues = new ContentValues();
+                    newRowValues.put(CovidListHelper.T1Column2,fragCountryCode);
+                    newRowValues.put(CovidListHelper.T1Column3,fragCountryName);
+                    newRowValues.put(CovidListHelper.T1Column4,fragProvinceName);
+                    newRowValues.put(CovidListHelper.T1Column5,fragStartDate);
+                    newRowValues.put(CovidListHelper.T1Column6,fragNumberOfCases);
+                    long newIdCovid = covidDataSave.insert(CovidListHelper.TABLE_NAME1,null,newRowValues);
+                    Snackbar snackbar1 =Snackbar.make(click,"Saved data",Snackbar.LENGTH_LONG);
                     snackbar1.show();
                 }else{
-                    Snackbar snackbar2 = Snackbar.make(click,"Country"+fragCountryName+" is already saved",Snackbar.LENGTH_LONG);
+                    Snackbar snackbar2 = Snackbar.make(click,"Data is already saved",Snackbar.LENGTH_LONG);
                     snackbar2.show();
                 }
             }else if(saveCovidData.getText().equals("DELETE")){
@@ -126,34 +109,4 @@ public class CovidFragment extends Fragment{
         super.onAttach(context);
         parentActivityFred = (AppCompatActivity)context;
     }
-
-    private class FragCovidListAdapter extends BaseAdapter{
-        @Override // number of items in the list
-        public int getCount() {
-            return  fragCovidData.size();
-        }
-
-        @Override // what string goes at row i
-        public Object getItem(int i) {
-            return fragCovidData.get(i);
-        }
-
-        @Override //database id of item at row i
-        public long getItemId(int i) {
-            return i;
-        }
-
-
-        @Override //controls which widgets are on the row
-        public View getView(int i, View old, ViewGroup parent){
-            LayoutInflater inflater = getLayoutInflater();
-            View newView = inflater.inflate(R.layout.activity_covid, parent, false);
-            TextView textview = newView.findViewById(R.id.covidTitle);
-
-            String thisFragCovid = (String) getItem(i);
-            textview.setText(thisFragCovid);
-            return newView;
-        }
-    }
-
 }

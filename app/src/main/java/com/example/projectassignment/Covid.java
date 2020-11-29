@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Covid {
     private String country;
     private String province;
-    private int caseNumber;
+    private String caseNumber;
     private String startDate;
     private long id;
     private String countryCode;
     private ArrayList<String> countryInDB;
 
-    public Covid(long id,String countryCode,String country,String province,int caseNumber,String startDate){
+    public Covid(long id,String countryCode,String country,String province,String caseNumber,String startDate){
         this.id = id;
         this.countryCode = countryCode;
         this.country = country;
@@ -20,7 +20,7 @@ public class Covid {
         this.startDate = startDate;
 
     }
-    public Covid(String countryCode,String country,String province,int caseNumber,String startDate){
+    public Covid(String countryCode,String country,String province,String caseNumber,String startDate){
         this.countryCode = countryCode;
         this.country = country;
         this.province = province;
@@ -40,7 +40,7 @@ public class Covid {
         return province;
     }
 
-    public int getCaseNumber(){
+    public String getCaseNumber(){
         return caseNumber;
     }
 
