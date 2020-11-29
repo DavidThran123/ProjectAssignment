@@ -29,6 +29,13 @@
         android:text="Search"
         android:visibility="visible"/>
 
+    <Button
+        android:id="@+id/savedCountryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Saved countries"/>
+
     <ProgressBar
         android:id="@+id/caseProgressBar"
         android:layout_height="wrap_content"
@@ -46,12 +53,5 @@
         android:id="@+id/caseListView"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
-
 
 </LinearLayout>
