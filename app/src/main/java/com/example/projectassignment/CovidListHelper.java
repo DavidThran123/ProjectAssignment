@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class CovidListHelper extends SQLiteOpenHelper {
+public class CovidListHelper extends SQLiteOpenHelper {//why 2 tables?
     protected final static int VERSION_NUM = 2;
     protected final static String DATABASE_NAME = "CovidDB";
     public final static String TABLE_NAME1 = "Covid";

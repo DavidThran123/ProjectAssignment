@@ -32,7 +32,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class COVID_19_CASE_DATA extends AppCompatActivity {
+public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about differenece between API and COVID
     TextView caseTitle;
     EditText caseSearch;
     Button searchButton;
