@@ -1,16 +1,23 @@
 package com.example.projectassignment;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -31,6 +38,57 @@ public class RecipeSavedActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.recipeList);
         listView.setAdapter(listAdapter = new SavedRecipesAdapter());
+
+        listView.setOnItemClickListener(
+                (list,view,position,id)->
+                {
+                    String title = recipes.get(position).getTitle();
+                    String website = recipes.get(position).getWebsite();
+                    String ingredients = recipes.get(position).getIngredients();
+
+                    AlertDialog.Builder alertDialogBuilder;
+                    alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setTitle("Saved Recipe")
+                            .setMessage( "Title: " + title + "\n\n" +
+                                            "Ingredients:" + ingredients + "\n\n" +
+                                                "Website: " + website + "\n")
+                            .setPositiveButton( "[Go To Website]",(click, arg) ->
+                                    {
+                                        dispatchWebsiteIntent(website);
+                                    }
+                            )
+                            .setNeutralButton("Okay",(click,arg)->
+                            {
+                                //Do nothing
+                            })
+                            .setNegativeButton( "Delete",(click, arg) ->
+                                    {
+                                        Snackbar.make(listView,  "Recipe Deleted" , Snackbar.LENGTH_SHORT).show();
+                                        recipes.remove(position);
+                                        db.delete(MyRecipeOpener.TABLE_NAME, MyRecipeOpener.COL_ID + "=?", new String[] {Long.toString(id)} );
+                                        listAdapter.notifyDataSetChanged();
+                                    }
+                            )
+                            .setView(getLayoutInflater().inflate(R.layout.recipe_row_alert_layout,null))
+                            .create().show();
+                }
+        );
+        Button helpBtn = findViewById(R.id.help);
+        helpBtn.setOnClickListener(v->
+        {
+            AlertDialog.Builder alertDialogBuilder;
+            alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Instructions:")
+                    .setMessage( "Click on a recipe in the list to view the details. " +
+                            " You can also go to the recipe's website by clicking 'Go to website' or "
+                    +"delete a recipe by selecting 'delete'.")
+                    .setNeutralButton("Okay",(click,arg)->
+                    {
+                        //Do nothing
+                    })
+                    .setView(getLayoutInflater().inflate(R.layout.recipe_row_alert_layout,null))
+                    .create().show();
+        });
 
         loadMessagesFromDatabase();
 
@@ -98,6 +156,14 @@ public class RecipeSavedActivity extends AppCompatActivity {
         listAdapter.notifyDataSetChanged();
 
     }
+
+    private void dispatchWebsiteIntent(String websiteName)
+    {
+        Uri uri = Uri.parse(websiteName);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+
 
 
 

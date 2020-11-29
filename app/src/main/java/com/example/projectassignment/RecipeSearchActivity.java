@@ -1,5 +1,6 @@
 package com.example.projectassignment;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class RecipeSearchActivity extends AppCompatActivity
 {
@@ -48,7 +50,22 @@ public class RecipeSearchActivity extends AppCompatActivity
                 {
                     dispatchRecipeSavedActivity();
                 });
-
+        Button helpBtn = findViewById(R.id.help);
+        helpBtn.setOnClickListener(v->
+                {
+                    AlertDialog.Builder alertDialogBuilder;
+                    alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setTitle("Instructions:")
+                            .setMessage( "To use this interface enter a recipe name in the first search bar " +
+                                     "and add your ingredients (separated by commas) in the second search bar. " +
+                                    " When you have all the information filled, then press the search button!")
+                            .setNeutralButton("Okay",(click,arg)->
+                            {
+                                //Do nothing
+                            })
+                            .setView(getLayoutInflater().inflate(R.layout.recipe_row_alert_layout,null))
+                            .create().show();
+                });
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.projectassignment;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -50,6 +52,23 @@ public class RecipeListActivity extends AppCompatActivity
         query.execute("http://www.recipepuppy.com/api/?i="+ ingredientsStr +"&q="+ recipeStr +"&p=3&format=xml");
 
         boolean isTablet = findViewById(R.id.frameLayout) != null;
+
+        Button helpBtn = findViewById(R.id.help);
+        helpBtn.setOnClickListener(v->
+        {
+            AlertDialog.Builder alertDialogBuilder;
+            alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Instructions:")
+                    .setMessage( "Click on a recipe in the list to view the details."
+                    + " You can save a recipe by pressing 'favourite' and you can " +
+                            "go to the recipe's website by clicking on the URL.")
+                    .setNeutralButton("Okay",(click,arg)->
+                    {
+                        //Do nothing
+                    })
+                    .setView(getLayoutInflater().inflate(R.layout.recipe_row_alert_layout,null))
+                    .create().show();
+        });
 
         listView.setOnItemClickListener((list,view,position,id)->
         {
@@ -112,14 +131,6 @@ public class RecipeListActivity extends AppCompatActivity
 
             TextView titleTextView = newView.findViewById(R.id.titleText);
             titleTextView.setText( ((Recipe)getItem(position)).getTitle()) ;
-
-            //Don't need this information here
-            /*
-            TextView websiteTextView = newView.findViewById(R.id.websiteText);
-            websiteTextView.setText( "Website: " + ((Recipe)getItem(position)).getWebsite());
-            TextView ingredientsTextView = newView.findViewById(R.id.ingredientsText);
-            ingredientsTextView.setText( "Ingredients: " + ((Recipe)getItem(position)).getIngredients());
-            */
 
             return newView;
         }
