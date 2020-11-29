@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -11,6 +11,7 @@
         android:id="@+id/caseTitleJPark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:text="@string/caseTextView"
         android:textSize="27dp"/>
 
@@ -19,6 +20,19 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="Search country"
+        android:layout_below="@id/caseTitleJPark"
+        android:singleLine="true"
+        android:textAllCaps="true"
+        />
+
+    <EditText
+        android:id="@+id/calendarEditText"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Search date"
+        android:layout_below="@id/caseSearchCountry"
+        android:singleLine="true"
+        android:textAllCaps="true"
         />
 
     <Button
@@ -27,31 +41,36 @@
         android:layout_height="wrap_content"
         android:cursorVisible="false"
         android:text="Search"
-        android:visibility="visible"/>
-
-    <Button
-        android:id="@+id/savedCountryButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:hint="Saved countries"/>
+        android:visibility="visible"
+        android:layout_below="@id/calendarEditText"/>
 
     <ProgressBar
         android:id="@+id/caseProgressBar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:soundEffectsEnabled="false"
-        style="?android:attr/progressBarStyleHorizontal"/>
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_below="@id/caseSearchCountryButton"/>
 
     <TextView
         android:id="@+id/caseCountryResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""/>
+        android:text=""
+        android:layout_below="@id/caseProgressBar"/>
 
     <ListView
         android:id="@+id/caseListView"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
+        android:layout_width="match_parent"
+        android:layout_below="@id/caseCountryResult"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/savedCountryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Saved countries"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

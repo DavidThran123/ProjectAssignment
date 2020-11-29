@@ -7,7 +7,6 @@ public class Covid {
     private String province;
     private int caseNumber;
     private String startDate;
-    private String endDate;
     private long id;
     private String countryCode;
     private ArrayList<String> countryInDB;

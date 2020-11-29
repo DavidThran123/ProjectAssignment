@@ -51,7 +51,7 @@ public class SavedCovid extends AppCompatActivity {
 
                         dataToPassFred.putInt(COVID_CASES,scList.get(position).getCaseNumber());
 
-                        Intent nextActivityToFragEmpty =new Intent(SavedCovid.this,CovidFragmentEmpty.class);
+                        Intent nextActivityToFragEmpty = new Intent(SavedCovid.this,CovidFragmentEmpty.class);
                         nextActivityToFragEmpty.putExtras(dataToPassFred);
                         startActivityForResult(nextActivityToFragEmpty,10);
                         onActivityResult(500,500,null);
@@ -59,8 +59,8 @@ public class SavedCovid extends AppCompatActivity {
                     .setNegativeButton("No",(click,arg)->{})
                     .create().show();
         });
-
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -68,6 +68,7 @@ public class SavedCovid extends AppCompatActivity {
             finish();
         }
     }
+
     private void loadCovidDataFromDatabase(){
         CovidListHelper dbCovid = new CovidListHelper(this);
         savedData = dbCovid.getWritableDatabase();

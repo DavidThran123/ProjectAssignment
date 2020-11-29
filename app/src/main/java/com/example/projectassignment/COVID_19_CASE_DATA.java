@@ -35,10 +35,14 @@ import java.util.ArrayList;
 public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about differenece between API and COVID
     TextView caseTitle;
     EditText caseSearch;
+    EditText caseDate;
     Button searchButton;
+
     ProgressBar caseBar;
     TextView caseResult;
     ListView covidListView;
+    Button saveButton;
+
     public int covidCase;
     public Bundle dataToPassFred;
     public ArrayList<Covid> covidArrayList = new ArrayList<>();
@@ -61,10 +65,32 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
         covidListView = findViewById(R.id.caseListView);
         covidListView.setAdapter(covidListAdapter);
 
+        CovidFragment covidFragment =new CovidFragment();
+
+        caseSearch = findViewById(R.id.caseSearchCountry);//edit text
+
+        sp = this.getPreferences(Context.MODE_PRIVATE);
+        if((sp.getString("input","")!=null)&&(sp.getString("input","")!=null)){
+            caseSearch.setText(sp.getString("input",""));
+            caseDate.setText(sp.getString("input",""));
+        }
+
         caseTitle = findViewById(R.id.caseTitleJPark);
-        caseSearch = findViewById(R.id.caseSearchCountry);
-        searchButton = findViewById(R.id.caseSearchCountryButton);
-        caseBar = findViewById(R.id.caseProgressBar);
+
+        searchButton = findViewById(R.id.caseSearchCountryButton);//search button
+        searchButton.setOnClickListener(v -> {
+            covidListView.removeAllViewsInLayout();
+            covidArrayList.clear();
+            CovidQuery cq = new CovidQuery();
+            cq.execute("https://api.covid19api.com/country/"+caseSearch.getText().toString()+"/status/confirmed/live?from="+caseDate.getText().toString()+"T00:00:00Z&to=2020-10-15T00:00:00Z");
+            caseSearch.setText("");
+        });
+
+        caseDate = findViewById(R.id.calendarEditText);
+
+        caseBar = findViewById(R.id.caseProgressBar);//progress bar
+
+        saveButton = findViewById(R.id.savedCountryButton);//view saved countries
 
 
     }
