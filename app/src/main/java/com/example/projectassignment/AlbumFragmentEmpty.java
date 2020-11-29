@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+//Used to start the fragment activity and pass the bundle of information
+//sent
 public class AlbumFragmentEmpty extends AppCompatActivity {
 
     @Override

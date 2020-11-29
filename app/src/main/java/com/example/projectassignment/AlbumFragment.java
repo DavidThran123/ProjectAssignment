@@ -28,8 +28,9 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-
+//This fragment is used for viewing both the delete and save Album views
 public class AlbumFragment extends Fragment {
+    //Creating all class variables
     private Bundle dataFromActivityDavid;
     private AppCompatActivity parentActivityDavid;
     private String AlbumName;
@@ -42,19 +43,14 @@ public class AlbumFragment extends Fragment {
     public SQLiteDatabase dbAlSave;
     private ArrayList<String> songData;
 
-
-    public final static String T1Col2 = "AlbumID";
-    public final static String T1Col3 = "ArtistName";
-    public final static String T1Col4 = "Year";
-    public final static String T1Col5 = "Genre";
-    public final static String T1Col6 = "Description";
-    public final static String T1Col7 = "AlbumName";
-    public final static String T2Col2 = "AlbumID";
-    public final static String T2Col3 = "SongName";
+    //This will populate the whole fragment view with collected date form the Database API
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //Grab data from sent Bundle from parent class
         dataFromActivityDavid = getArguments();
+
+        //Initialize all local variables with bundle data sent
         AlbumName = dataFromActivityDavid.getString(AUDIO_DATABASE_API.ALBUM_NAME);
         ArtistName = dataFromActivityDavid.getString(AUDIO_DATABASE_API.ARTIST_NAME);
         year = dataFromActivityDavid.getInt(AUDIO_DATABASE_API.YEAR);
@@ -76,12 +72,18 @@ public class AlbumFragment extends Fragment {
         gen.setText("Genre: " + genre);
         TextView des = (TextView) albumOpened.findViewById(R.id.albumDescriptionFragment);
         des.setText(dis);
+
+        //Inistializing the adapter and the listview
         SongListAdapter SD = new SongListAdapter();
         ListView lv = (ListView) albumOpened.findViewById(R.id.listViewFragmentSong);
         lv.setAdapter(SD);
         SD.notifyDataSetChanged();
 
 
+        //Listview listener for song items inside listview
+        //When clicked an alert dialog will show asking if user
+        //wants the song to be searched onto google, then launching the google
+        //search intent
         lv.setOnItemClickListener((parent, view, position, id) -> {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
             alertDialogBuilder.setTitle("Search "+songData.get(position)+" by "+ArtistName+"?")
@@ -92,58 +94,75 @@ public class AlbumFragment extends Fragment {
                     .create().show();
                 });
 
-
-
+        //Initialize the button and set the text to the text sent
             Button doAlbum = (Button) albumOpened.findViewById(R.id.albumSaveButton);
             doAlbum.setText(buttonText);
-            doAlbum.setOnClickListener(clk -> {
+
+
+
+                //if the sent string for the button equals "SAVE" save the album
             if(doAlbum.getText().equals("SAVE")) {
-                AlbumListHelper dbChat = new AlbumListHelper(this.getContext());
-                dbAlSave = dbChat.getReadableDatabase();
-                Cursor cursor = dbAlSave.rawQuery("SELECT * FROM Albums WHERE AlbumID = ?", new String[]{String.valueOf(albumID)});
-                if (cursor.getCount() == 0) {
-                    ContentValues newAlbumRowValues = new ContentValues();
-                    newAlbumRowValues.put(AlbumListHelper.T1Col2, albumID);
-                    newAlbumRowValues.put(AlbumListHelper.T1Col3, ArtistName);
-                    newAlbumRowValues.put(AlbumListHelper.T1Col4, year);
-                    newAlbumRowValues.put(AlbumListHelper.T1Col5, genre);
-                    newAlbumRowValues.put(AlbumListHelper.T1Col6, dis);
-                    newAlbumRowValues.put(AlbumListHelper.T1Col7, AlbumName);
-                    long newIdAlbum = dbAlSave.insert(AlbumListHelper.TABLE_NAME1, null, newAlbumRowValues);
-                    long newIdSong;
-                    for (int i = 0; i < songData.size(); i++) {
-                        ContentValues newSongRowValues = new ContentValues();
-                        newSongRowValues.put(AlbumListHelper.T2Col2, albumID);
-                        newSongRowValues.put(AlbumListHelper.T2Col3, songData.get(i));
-                        newIdSong = dbAlSave.insert(AlbumListHelper.TABLE_NAME2, null, newSongRowValues);
-                        Log.i("Working", "onCreateView: IDSONG " + newIdSong + " IDAlbum = " + newIdAlbum);
-                    }
-                    Snackbar snackbar = Snackbar
-                            .make(clk, "Saved album " + AlbumName, Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                } else {
-                    Snackbar snackbar = Snackbar
-                            .make(clk, "Album " + AlbumName + " already is saved", Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                }
+                //Click listener for button
+                doAlbum.setOnClickListener(clk -> {
+                            AlbumListHelper dbChat = new AlbumListHelper(this.getContext());
+                            dbAlSave = dbChat.getReadableDatabase();
+
+                            //Checking to see if the album that user wants to save is already saved into database
+                            Cursor cursor = dbAlSave.rawQuery("SELECT * FROM Albums WHERE AlbumID = ?", new String[]{String.valueOf(albumID)});
+                            if (cursor.getCount() == 0) {
+                                //Adding all data into album table in DB
+                                ContentValues newAlbumRowValues = new ContentValues();
+                                newAlbumRowValues.put(AlbumListHelper.T1Col2, albumID);
+                                newAlbumRowValues.put(AlbumListHelper.T1Col3, ArtistName);
+                                newAlbumRowValues.put(AlbumListHelper.T1Col4, year);
+                                newAlbumRowValues.put(AlbumListHelper.T1Col5, genre);
+                                newAlbumRowValues.put(AlbumListHelper.T1Col6, dis);
+                                newAlbumRowValues.put(AlbumListHelper.T1Col7, AlbumName);
+                                long newIdAlbum = dbAlSave.insert(AlbumListHelper.TABLE_NAME1, null, newAlbumRowValues);
+                                long newIdSong;
+
+                                //Loop through the songs ArrayList<String> storing all song names into the song table
+                                for (int i = 0; i < songData.size(); i++) {
+                                    ContentValues newSongRowValues = new ContentValues();
+                                    newSongRowValues.put(AlbumListHelper.T2Col2, albumID);
+                                    newSongRowValues.put(AlbumListHelper.T2Col3, songData.get(i));
+                                    newIdSong = dbAlSave.insert(AlbumListHelper.TABLE_NAME2, null, newSongRowValues);
+                                    Log.i("Working", "onCreateView: IDSONG " + newIdSong + " IDAlbum = " + newIdAlbum);
+                                }
+                                //Shown if Album is saved
+                                Snackbar snackbar = Snackbar
+                                        .make(clk, "Saved album " + AlbumName, Snackbar.LENGTH_SHORT);
+                                snackbar.show();
+                            } else {
+                                //Shown if album already exists and cannot be saved
+                                Snackbar snackbar = Snackbar
+                                        .make(clk, "Album " + AlbumName + " already is saved", Snackbar.LENGTH_SHORT);
+                                snackbar.show();
+                            }
+                        });
+                //Checks to see if the button text sent is equal to DELETE
+                //if so then starts delete functionality
             }else if(doAlbum.getText().equals("DELETE")){
+                //Click listener for button
+                doAlbum.setOnClickListener(clkd -> {
                 AlbumListHelper dbChat = new AlbumListHelper(this.getContext());
                 dbAlSave = dbChat.getReadableDatabase();
+                //First deletes all songs with ALbumid of the album then deletes the album with the selected
+                //album id deleting the Album and all the songs inside
                 boolean t2 = dbAlSave.delete(AlbumListHelper.TABLE_NAME2, AlbumListHelper.T2Col2 + "=" + albumID, null) > 0;
                 boolean t1 = dbAlSave.delete(AlbumListHelper.TABLE_NAME1, AlbumListHelper.T1Col2 + "=" + albumID, null) > 0;
 
+                //Checks to see if delete was successful and sets result code and finishes the activity
+                //And makes toast to let user know delete was successful
                 if (t2 == false && t1 == false){
                     getActivity().setResult(500);
+                    Toast.makeText(clkd.getContext(), "Deleted album "+AlbumName, Toast.LENGTH_SHORT).show();
                     getActivity().finish();
                 }else{
 
                 }
-            }
-
             });
-
-
-
+            }
 
             return albumOpened;
 
@@ -158,7 +177,7 @@ public class AlbumFragment extends Fragment {
 
 
 
-
+//Adapter for the song ListView, filled with the songs inside the ArrayList<String>
     public class SongListAdapter extends BaseAdapter {
 
 

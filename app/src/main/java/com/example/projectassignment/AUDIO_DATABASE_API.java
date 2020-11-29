@@ -27,6 +27,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,7 +57,7 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
 
     public int boat; //Variable saves position of item clicked for later use
 
-    //init all units inide layout
+    //init all units inside layout
     private Button search, helpButton, savedAlbumsButtom;
     private EditText artistSearch;
     private ProgressBar loadingBar;
@@ -73,6 +75,7 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
     public static final String SOD = "SOD";
     public static final String SONGS = "SONGS";
 
+    //Initialize the shared preference variables
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
@@ -84,23 +87,29 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
         //to use for tablets
         AlbumFragment albumFragment = new AlbumFragment();
 
+        //Initialize the elements that user sees
         loadingBar = findViewById(R.id.progressBar);
         artistSearch = findViewById(R.id.artistName);
         tv = findViewById(R.id.artistResultsText);
+        albumsListView = (ListView)findViewById(R.id.listViewAT);
 
+        //Set the adapter for the album ListView
+        albumsListView.setAdapter( musicAdapter );
+
+        //Initialize the shared preference variable
         sp = this.getPreferences(Context.MODE_PRIVATE);
-        //Initialize shared preference variable
+
+        //Save the search bar if application is paused
         if (sp.getString("input", "")!=null) {
             artistSearch.setText(sp.getString("input", ""));
         }
 
 
-        albumsListView = (ListView)findViewById(R.id.listViewAT);
-        albumsListView.setAdapter( musicAdapter );
-
         //Initialize and set onClick listener for help button
         helpButton = findViewById(R.id.helpButton);
         helpButton.setOnClickListener(clk -> {
+
+            //Make an alert dialog with help information when user clicks help button
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("How to use application AUDIO_DATABASE_API")
                     .setMessage("1>Type artist name\n" +
@@ -117,39 +126,54 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
                     .create().show();
         });
 
-        savedAlbumsButtom = findViewById(R.id.albumSeeSaved);
-        savedAlbumsButtom.setOnClickListener(v ->{
-            Intent savedAlbumsAct = new Intent(AUDIO_DATABASE_API.this, SavedAlbums.class);
-            startActivity(savedAlbumsAct);
-        });
-
-
+        //Initialize the search button and add click listener
         search = findViewById(R.id.searchArtistButton);
         search.setOnClickListener(v -> {
+            //Clear the list view before populating it
             albumsListView.removeAllViewsInLayout();
             albumsArrayList.clear();
+
+            //Initialize the query varaible
             AlbumQuery music = new AlbumQuery();
+            //Execute uml with artists name
             music.execute("https://www.theaudiodb.com/api/v1/json/1/searchalbum.php?s="+artistSearch.getText().toString().replaceAll(" ", "%20"));
+            //Reset the edit text after search
             artistSearch.setText("");
         });
 
+        //Click listener for the Album listview
         albumsListView.setOnItemClickListener((parent, view, position, id) -> {
+            //Alert dialog asking if the user wants to go inside album
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Would you like to enter this Album?")
                     .setMessage("Album: " +albumsArrayList.get(position).getAlbumName())
                     .setPositiveButton("Yes", (click, arg) ->{
-                        int ids = albumsArrayList.get(position).getIdAlbum();
-                        String urlSecond = "https://theaudiodb.com/api/v1/json/1/track.php?m="+ids;
+                        //Get Album Id and make a string with the url and idAlbum that was collected
+                        String urlSecond = "https://theaudiodb.com/api/v1/json/1/track.php?m="+albumsArrayList.get(position).getIdAlbum();
+                        //Initialize the song search class
                         SongSearch ss = new SongSearch();
+                        //Save the position of selected album for use later
                         boat = position;
+                        //execute the search function
                         ss.execute(urlSecond);
                     })
                     .setNegativeButton("No", (click, arg) -> { })
                     .create().show();
         });
 
+        //Initialize the saved albums button and apply a click listener
+        savedAlbumsButtom = findViewById(R.id.albumSeeSaved);
+        savedAlbumsButtom.setOnClickListener(v ->{
+            //Start saved albums activity
+            Intent savedAlbumsAct = new Intent(AUDIO_DATABASE_API.this, SavedAlbums.class);
+            startActivity(savedAlbumsAct);
+
+        });
+
     }
 
+
+    //On pause save the edit text contents with shared preference
     protected void onPause() {
         super.onPause();
         editor = sp.edit();
@@ -158,17 +182,14 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
 
     }
 
+
+    //This class is used to search for all songs inside selected album
     private class SongSearch extends AsyncTask<String, String, String>{
-
-
-        @Override
-        protected void onPreExecute() {
-
-        }
 
         @Override
         protected String doInBackground(String... args) {
             try{
+                //Initialize the URL
                 URL url = new URL(args[0]);
 
                 //open the connection
@@ -185,9 +206,10 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
                     sb.append(line + "\n");
                 }
                 String albumSearch = sb.toString(); //result is the whole string
-                JSONObject object = new JSONObject(albumSearch);
+
+                JSONObject object = new JSONObject(albumSearch);//Make JSONObject for results
                 if(!object.isNull("track")) {
-                    JSONArray jsonArray = object.getJSONArray("track");
+                    JSONArray jsonArray = object.getJSONArray("track");//Make JSON object into a JSON array
                     for (int i = 0; i < jsonArray.length(); i++) {
                         //Grab each object inside array and save all song names to a songs Arraylist of Strings
                         JSONObject JO = (JSONObject) jsonArray.get(i);
@@ -205,40 +227,42 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
             return "done";
         }
 
-        @Override
-        protected void onProgressUpdate(String... values) {
-            super.onProgressUpdate(values);
 
-        }
-
+        //This method is used to fill a bundle of information and launch the see Album fragment
+        //Uses boat(The position of the listview object clicked) that was saved in OnCreate
         public void onPostExecute(String fromDoInBackground) {
             //This is where the bundle will grab all needed information to pass along to the fragment once
             //do in background grabs all songs and saves them
             dataToPassDavid = new Bundle();
+
+            //Pass all objects variables
             dataToPassDavid.putString(ALBUM_NAME, albumsArrayList.get(boat).getAlbumName());
             dataToPassDavid.putString(ARTIST_NAME, albumsArrayList.get(boat).getArtistName());
             dataToPassDavid.putInt(YEAR, albumsArrayList.get(boat).getYear());
             dataToPassDavid.putString(GENRE, albumsArrayList.get(boat).getGenre());
-            dataToPassDavid.putString(SOD, "SAVE");
             dataToPassDavid.putString(DESCRIPTION, albumsArrayList.get(boat).getAlbumDis());
             dataToPassDavid.putStringArrayList(SONGS, songsArrayList);
             dataToPassDavid.putInt(ALID, albumsArrayList.get(boat).getIdAlbum());
             albumsArrayList.get(boat).setSongsInAlbum(songsArrayList);
+
+            //This is setting the buttons text to save in fragment view
+            dataToPassDavid.putString(SOD, "SAVE");
+
             //Starts activity to open fragment and populate new view
             Intent nextActivityFragDave = new Intent(AUDIO_DATABASE_API.this, AlbumFragmentEmpty.class);
             nextActivityFragDave.putExtras(dataToPassDavid);
             startActivity(nextActivityFragDave);
+
+            //clear the songsArrayList for next search
             songsArrayList.clear();
         }
     }
 
 
-
-
-
-
-    //Made to
+    //Made to find all the albums made from the searched artist
     private class AlbumQuery extends AsyncTask<String, Integer, String> {
+        //Making all local variables to store the values
+        //until Albums object needs to be made
         public String AlbName;
         public String ArtName;
         public int idAl;
@@ -246,6 +270,8 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
         public String genre;
         boolean result;
         String dis = "";
+
+        //Variables for toast message
         Context context = getApplicationContext();
         CharSequence text = "";
         int duration = Toast.LENGTH_SHORT;
@@ -253,10 +279,12 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
         @Override
         protected String doInBackground(String... args) {
             try {
+                //Initialize Connection
                 URL url = new URL(args[0]);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream response = urlConnection.getInputStream();
 
+                //Make buffered reader to grab the information
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
                 StringBuilder sb = new StringBuilder();
                 String line = "";
@@ -265,31 +293,49 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
                     sb.append(line + "\n");
                 }
 
+                //Store the results into a string variable
                 String albumSearch = sb.toString();
+
+                //Make a JSONObject to store the results
                 JSONObject object = new JSONObject(albumSearch);
 
+                //Set progress to 0
                 setProgress(0);
 
+                //Checks to see if the object has any search results
                 if(!object.isNull("album")) {
+                    //Make JSONObject into an array
                     JSONArray jsonArray = object.getJSONArray("album");
+                    //Loop through JSONArray
                     for (int i = 0; i < jsonArray.length(); i++) {
+                        //Make a temp Object for every Object found in JSONArray
                         JSONObject JO = (JSONObject) jsonArray.get(i);
+
+                        //Initialize the local variables by grabbing the JSONObjects contents
                         AlbName = JO.getString("strAlbum");
                         ArtName = JO.getString("strArtist");
                         idAl = JO.getInt("idAlbum");
                         year = JO.getInt("intYearReleased");
                         genre = JO.getString("strGenre");
+
+                        //If this JSONObject has description grap it if not dont grab it
+                        //Make an album object with the results
                         if(JO.has("strDescriptionEN")) {
                             dis = JO.getString("strDescriptionEN");
                             albumsArrayList.add(new Album(AlbName, ArtName, year, genre, idAl, dis));
                         }else {
                             albumsArrayList.add(new Album(AlbName, ArtName, year, genre, idAl));
                         }
+
+                        //Sets progress to the percentage of the array that has been gone through
                         setProgress((int) ((i + 1) / jsonArray.length() * 100));
                     }
+                    //Sets the text of the toast for found results and boolean for found results
+                    //To true
                     text = "Search results found";
                     result = true;
                 }else{
+                    //Sets text of toast message to for no results and to results boolean to false
                     text = "No search results";
                     result = false;
                 }
@@ -303,13 +349,20 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
             return "Done";
         }
 
+        //Updates the progress bar
         public void onProgressUpdate(Integer... value) {
             loadingBar.setVisibility(View.VISIBLE);
             loadingBar.setProgress(value[0]);
         }
 
+        //Updates listView with found results and shows a toast button
         public void onPostExecute(String fromDoInBackground) {
+            //Populate listview with results
             musicAdapter.notifyDataSetChanged();
+
+            //If result found make toast and display artists name above
+            //the listview of the albums, if not found dont show artist name
+            //and set toast anyways
             if(result) {
                 tv.setText(ArtName + "'s Albums: ");
                 Toast.makeText(context, text, duration).show();
@@ -321,6 +374,8 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
         }
     }
 
+    //This is an adapter to inflate the ListView with another row, it is used for
+    //adding the searched albums as seperate entities among the listview
    private class MusicListAdapter extends BaseAdapter {
 
 
@@ -336,7 +391,7 @@ public class AUDIO_DATABASE_API extends AppCompatActivity {
 
         @Override //database id of item at row i
         public long getItemId(int i) {
-            return albumsArrayList.get(i).getIdAl();
+            return i;
         }
 
 
