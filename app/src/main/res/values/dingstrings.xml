@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dingTitle">Ticket Master Event Search</string>
+    <string name="ButtonTitle">Search</string>
+    <string name="SavedResults">See Saved Events</string>
+
+</resources>

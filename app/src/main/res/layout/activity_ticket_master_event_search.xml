@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TicketMasterEventSearch">
+
+
+    <TextView
+        android:id="@+id/dingTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/dingTitle"
+        android:textSize="27dp"
+        android:layout_marginBottom="50dp"/>
+
+    <EditText
+        android:id="@+id/searchCity"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dingTitle"
+        android:hint="City Name"
+        android:layout_alignParentLeft="true"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        />
+    <EditText
+        android:id="@+id/searchRadius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dingTitle"
+        android:layout_alignParentRight="true"
+        android:hint="Search Radius"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        />
+
+    <Button
+        android:id="@+id/searchButtonDing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchRadius"
+        android:text="@string/ButtonTitle"
+        android:layout_marginTop="25dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <ListView
+        android:id="@+id/listViewResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchButtonDing"
+        android:verticalScrollbarPosition="right"
+        android:layout_above="@id/progBar"/>
+
+    <ProgressBar
+        android:id="@+id/progBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/SavedSearch"
+        android:soundEffectsEnabled="false" />
+
+    <Button
+        android:id="@+id/SavedSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/SavedResults"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+</RelativeLayout>

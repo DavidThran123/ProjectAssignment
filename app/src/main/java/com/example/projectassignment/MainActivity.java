@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+/*
         Button david = findViewById(R.id.davidsButton);
         david.setOnClickListener(v -> {
             Intent goToAudio = new Intent(MainActivity.this, .class);
@@ -25,18 +25,22 @@ public class MainActivity extends AppCompatActivity {
             startActivity(goToCovidCase);
 
         });
+        */
+
         Button nintendo = findViewById(R.id.nintendosButton);
         nintendo.setOnClickListener(v -> {
-            Intent goToTicketMaster = new Intent(MainActivity.this, .class);
+            Intent goToTicketMaster = new Intent(MainActivity.this, TicketMasterEventSearch.class);
             startActivity(goToTicketMaster);
 
         });
+        /*
         Button matt = findViewById(R.id.mattsButton);
         matt.setOnClickListener(v -> {
             Intent goToRecipe = new Intent(MainActivity.this, .class);
             startActivity(goToRecipe);
 
         });
+        */
 
     }
 }
