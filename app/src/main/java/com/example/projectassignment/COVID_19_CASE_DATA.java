@@ -94,7 +94,7 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
 
         caseDate = findViewById(R.id.calendarEditText);
 
-        caseBar = findViewById(R.id.caseProgressBar);//progress bar
+        //caseBar = findViewById(R.id.caseProgressBar);//progress bar
 
         saveButton = findViewById(R.id.savedCountryButton);//view saved countries
         saveButton.setOnClickListener(v -> {
