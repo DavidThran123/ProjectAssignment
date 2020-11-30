@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
  */
         Button juhoon = findViewById(R.id.juhoonsButton);
-        juhoon.setOnClickListener(v -> {
+        juhoon.setOnClickListener((click) -> {
             Intent goToCovidCase = new Intent(MainActivity.this, COVID_19_CASE_DATA.class);
             startActivity(goToCovidCase);
         });

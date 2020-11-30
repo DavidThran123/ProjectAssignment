@@ -11,43 +11,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-        android:text="COVID-19 Data"/>
+        android:text="@string/covidFragTitle"/>
 
     <TextView
         android:id="@+id/covidCountryFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:text="@string/country"/>
 
     <TextView
         android:id="@+id/covidCountryCodeDateFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:text="@string/countryCode"/>
 
     <TextView
         android:id="@+id/covidProvinceFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:text="@string/province"/>
 
     <TextView
         android:id="@+id/covidStartDateFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:text="@string/startDate"/>
 
     <TextView
         android:id="@+id/covidCasesFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:text="@string/numberOfCases"/>
 
 
     <Button
         android:id="@+id/covidSaveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SAVE"/>
+        android:text="@string/save"/>
 
 </LinearLayout>

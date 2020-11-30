@@ -76,8 +76,6 @@ public class CovidList extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
-
-
     }
 
     private class CovidListAdapter extends BaseAdapter {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="searchCountryButtonText">코로나-19 정보 - 박 주훈</string>
+    <string name="covidListTitle">코로나-19 전황</string>
+    <string name="searchCountry">나라 찻기</string>
+    <string name="writeStartDate">날짜 시작 (YYYY-MM-DD으로 적어주세요)</string>
+    <string name="search">검색</string>
+    <string name="savedCountries">저장된 나라</string>
+    <string name="country">나라: </string>
+    <string name="countryCode">나라 코드: </string>
+    <string name="province">시/주: </string>
+    <string name="startDate">시작 날짜: </string>
+    <string name="numberOfCases">감염수: </string>
+    <string name="save">저장하기</string>
+    <string name="covidFragTitle">코로나-19 데이타COVID-19 Data</string>
+    <string name="countriesSaved">저장된 나라</string>
+</resources>

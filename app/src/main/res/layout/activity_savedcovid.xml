@@ -10,7 +10,7 @@
         android:id="@+id/CovidSavedTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Countries Saved"
+        android:text="@string/countriesSaved"
         android:textSize="30dp"
          />
 
