@@ -1,5 +1,7 @@
 package com.example.projectassignment;
 
+import android.graphics.Bitmap;
+
 import java.util.Date;
 
 public class Event {
@@ -58,7 +60,18 @@ public class Event {
 
     String url;
     Image image;
-Event(String EventName, String dateOfEvent, int min, int max, String info, String url, Image image){
+
+    Bitmap imageData;
+
+    public void setImageData(Bitmap imageData) {
+        this.imageData = imageData;
+    }
+
+    public Bitmap getImageData() {
+        return imageData;
+    }
+
+    Event(String EventName, String dateOfEvent, int min, int max, String info, String url, Image image){
     this.EventName = EventName;
     this.dateOfEvent = dateOfEvent;
     this.min = min;

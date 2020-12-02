@@ -3,7 +3,6 @@ package com.example.projectassignment;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +26,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class TicketMasterEventSearch extends AppCompatActivity {
 
@@ -94,7 +91,7 @@ public class TicketMasterEventSearch extends AppCompatActivity {
                         eventData.putInt("MAX", max);
                         eventData.putString("URL", url);
                         eventData.putString("IMAGEURL", imageURL);
-                        Intent viewEventDetails = new Intent(TicketMasterEventSearch.this, emptyFragmentEvent.class);
+                        Intent viewEventDetails = new Intent(TicketMasterEventSearch.this, DetailActivity.class);
 
                         viewEventDetails.putExtras(eventData);
 

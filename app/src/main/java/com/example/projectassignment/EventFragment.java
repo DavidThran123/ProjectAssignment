@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 public class EventFragment extends Fragment {
     private AppCompatActivity parentActivityDing;
 
@@ -28,7 +29,6 @@ public class EventFragment extends Fragment {
 
         String imageURL = catchEventBundle.getString(TicketMasterEventSearch.IMAGEURL);
 
-
         View eventOpened = inflater.inflate(R.layout.activity_event_fragment, container, false);
         TextView eventTitle = eventOpened.findViewById(R.id.EventTitle);
         eventTitle.setText(eventName);
@@ -37,20 +37,13 @@ public class EventFragment extends Fragment {
         date.setText(startDate);
 
         TextView minPrice = eventOpened.findViewById(R.id.MinPrice);
-        minPrice.setText(min);
+        minPrice.setText(String.valueOf(min));
 
         TextView maxPrice = eventOpened.findViewById(R.id.MaxPrice);
-        maxPrice.setText(max);
+        maxPrice.setText(String.valueOf(max));
 
         TextView url = eventOpened.findViewById(R.id.URL);
         url.setText(ticketURL);
-
-
-
-
-
-
-
         return eventOpened;
 
     }
