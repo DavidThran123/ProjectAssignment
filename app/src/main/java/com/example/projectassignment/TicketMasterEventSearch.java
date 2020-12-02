@@ -1,8 +1,10 @@
 package com.example.projectassignment;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,6 +28,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TicketMasterEventSearch extends AppCompatActivity {
 
@@ -38,6 +41,14 @@ public class TicketMasterEventSearch extends AppCompatActivity {
     EventAdapter adapter = new EventAdapter();
     ProgressBar pbar;
     boolean finishedBackgroundtask;
+
+    //Bundle constants
+    public static final String EVENTNAME = "EVENTNAME";
+    public static final String DATE = "DATE";
+    public static final String MIN = "MIN";
+    public static final String MAX = "MAX";
+    public static final String URL = "URL";
+    public static final String IMAGEURL = "IMAGEURL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +71,39 @@ public class TicketMasterEventSearch extends AppCompatActivity {
             aQ.execute(url);
         });
 
+        events.setOnItemClickListener((parent, view, position, id) -> {
+            //Alert dialog asking if the user wants to go inside album
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Check out event?")
+                    .setPositiveButton("Yes", (click, arg) ->{
 
+                        Bundle eventData = new Bundle();
+
+                        String EventName = eventAR.get(position).getEventName();
+                        String dateOfEvent = eventAR.get(position).getDateOfEvent();
+                        int min = eventAR.get(position).getMin();
+                                int max = eventAR.get(position).getMax();
+                        String url = eventAR.get(position).getUrl();
+                        Image image = eventAR.get(position).getImage();
+                        String imageURL = image.getURL();
+
+
+                        eventData.putString("EVENTNAME", EventName);
+                        eventData.putString("DATE", dateOfEvent);
+                        eventData.putInt("MIN", min);
+                        eventData.putInt("MAX", max);
+                        eventData.putString("URL", url);
+                        eventData.putString("IMAGEURL", imageURL);
+                        Intent viewEventDetails = new Intent(TicketMasterEventSearch.this, emptyFragmentEvent.class);
+
+                        viewEventDetails.putExtras(eventData);
+
+                        startActivity(viewEventDetails);
+
+                    })
+                    .setNegativeButton("No", (click, arg) -> { })
+                    .create().show();
+        });
 
     }
 
@@ -95,16 +138,30 @@ public class TicketMasterEventSearch extends AppCompatActivity {
                 setProgress(0);
                 JSONObject first = object.getJSONObject("_embedded");
                 //Checks to see if the object has any search results
-                if(true) {
+                if(first!=null) {
                         JSONArray jsonArray = first.getJSONArray("events");
                         //Loop through JSONArray
                         for (int i = 0; i < jsonArray.length(); i++) {
                             //Make a temp Object for every Object found in JSONArray
                             JSONObject singleJO = (JSONObject) jsonArray.get(i);
                             String nameOfEvent = singleJO.getString("name");
+                            String urlTicket = singleJO.getString("url");
 
+                            JSONObject dateJO = (JSONObject) singleJO.getJSONObject("dates");
+                            JSONObject startJO = (JSONObject) dateJO.getJSONObject("start");
+                            String dateStart = (String) startJO.getString("localDate");
 
-                            eventAR.add(new Event(nameOfEvent));
+                            JSONArray priceJO = (JSONArray) singleJO.getJSONArray("priceRanges");
+                            JSONObject price = (JSONObject)priceJO.get(0);
+                            int minPrice = price.getInt("min");
+                            int maxPrice = price.getInt("max");
+                            String info = singleJO.getString("info");
+
+                            JSONArray images = singleJO.getJSONArray("images");
+                            JSONObject image = (JSONObject)images.get(0);
+                            String imageUrl = image.getString("url");
+
+                            eventAR.add(new Event(nameOfEvent, dateStart, minPrice, maxPrice, info, urlTicket, new Image(imageUrl)));
                             setProgress((int) ((i + 1) / jsonArray.length() * 100));
                     }
                     }

@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectAssignment">
-        <activity android:name=".TicketMasterEventSearch"></activity>
+        <activity android:name=".EventFragment"></activity>
+        <activity android:name=".emptyFragmentEvent" />
+        <activity android:name=".TicketMasterEventSearch" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
