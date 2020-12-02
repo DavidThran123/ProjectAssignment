@@ -55,10 +55,9 @@ public class RecipeSearchActivity extends AppCompatActivity
                 {
                     AlertDialog.Builder alertDialogBuilder;
                     alertDialogBuilder = new AlertDialog.Builder(this);
-                    alertDialogBuilder.setTitle("Instructions:")
-                            .setMessage( "To use this interface enter a recipe name in the first search bar " +
-                                     "and add your ingredients (separated by commas) in the second search bar. " +
-                                    " When you have all the information filled, then press the search button!")
+                    //getResources().getString(R.string.[string])
+                    alertDialogBuilder.setTitle(getResources().getString(R.string.sayInstructions))
+                            .setMessage(  getResources().getString(R.string.sayInstructionsRecipeSearch))
                             .setNeutralButton("Okay",(click,arg)->
                             {
                                 //Do nothing

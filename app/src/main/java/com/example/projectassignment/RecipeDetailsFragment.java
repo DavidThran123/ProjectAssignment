@@ -40,10 +40,10 @@ public class RecipeDetailsFragment extends Fragment {
         db = dbHelper.getReadableDatabase();
 
         TextView recipeText = newView.findViewById(R.id.recipeTitle);
-        recipeText.setText("Recipe:" + recipe + "\n");
+        recipeText.setText(getResources().getString(R.string.sayRecipe) + recipe + "\n");
 
         TextView ingredientsText = newView.findViewById(R.id.ingredients);
-        ingredientsText.setText("Ingredients:"+"\n" + ingredients);
+        ingredientsText.setText(getResources().getString(R.string.sayIngredients)+"\n" + ingredients);
 
         Button websiteButton = newView.findViewById(R.id.website);
         websiteButton.setText(website);
@@ -62,12 +62,12 @@ public class RecipeDetailsFragment extends Fragment {
                     Cursor cursor = db.rawQuery("SELECT * FROM " + MyRecipeOpener.TABLE_NAME +  " WHERE " + MyRecipeOpener.COL_RECIPE + "  = ?", new String[]{recipe});
                     if (cursor.getCount() == 0)
                     {
-                        Toast.makeText(this.getContext(), "Recipe Saved!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this.getContext(),  getResources().getString(R.string.sayRecipeSaved), Toast.LENGTH_SHORT).show();
                         saveRecipe();
                     }
                     else
                     {
-                        Toast.makeText(this.getContext(), "Recipe is already saved.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this.getContext(), getResources().getString(R.string.sayRecipeAlreadySaved) , Toast.LENGTH_SHORT).show();
                     }
 
                 }

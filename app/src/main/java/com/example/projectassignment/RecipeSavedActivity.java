@@ -48,22 +48,22 @@ public class RecipeSavedActivity extends AppCompatActivity {
 
                     AlertDialog.Builder alertDialogBuilder;
                     alertDialogBuilder = new AlertDialog.Builder(this);
-                    alertDialogBuilder.setTitle("Saved Recipe")
-                            .setMessage( "Title: " + title + "\n\n" +
-                                            "Ingredients:" + ingredients + "\n\n" +
-                                                "Website: " + website + "\n")
-                            .setPositiveButton( "[Go To Website]",(click, arg) ->
+                    alertDialogBuilder.setTitle( getResources().getString(R.string.saySavedRecipe))
+                            .setMessage( getResources().getString(R.string.sayTitle) + title + "\n\n" +
+                                    getResources().getString(R.string.sayIngredients) + ingredients + "\n\n" +
+                                                 getResources().getString(R.string.sayWebsite) + website + "\n")
+                            .setPositiveButton(getResources().getString(R.string.sayGoToWebsite),(click, arg) ->
                                     {
                                         dispatchWebsiteIntent(website);
                                     }
                             )
-                            .setNeutralButton("Okay",(click,arg)->
+                            .setNeutralButton(getResources().getString(R.string.sayOkay),(click,arg)->
                             {
                                 //Do nothing
                             })
-                            .setNegativeButton( "Delete",(click, arg) ->
+                            .setNegativeButton( getResources().getString(R.string.sayDelete),(click, arg) ->
                                     {
-                                        Snackbar.make(listView,  "Recipe Deleted" , Snackbar.LENGTH_SHORT).show();
+                                        Snackbar.make(listView,   getResources().getString(R.string.sayRecipeDeleted) , Snackbar.LENGTH_SHORT).show();
                                         recipes.remove(position);
                                         db.delete(MyRecipeOpener.TABLE_NAME, MyRecipeOpener.COL_ID + "=?", new String[] {Long.toString(id)} );
                                         listAdapter.notifyDataSetChanged();
@@ -78,11 +78,9 @@ public class RecipeSavedActivity extends AppCompatActivity {
         {
             AlertDialog.Builder alertDialogBuilder;
             alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("Instructions:")
-                    .setMessage( "Click on a recipe in the list to view the details. " +
-                            " You can also go to the recipe's website by clicking 'Go to website' or "
-                    +"delete a recipe by selecting 'delete'.")
-                    .setNeutralButton("Okay",(click,arg)->
+            alertDialogBuilder.setTitle(getResources().getString(R.string.sayInstructions))
+                    .setMessage( getResources().getString(R.string.sayInstructionsRecipeSaved))
+                    .setNeutralButton(getResources().getString(R.string.sayOkay),(click,arg)->
                     {
                         //Do nothing
                     })

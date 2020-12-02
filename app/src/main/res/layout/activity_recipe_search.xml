@@ -21,19 +21,19 @@
         android:id="@+id/recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Recipe"
+        android:hint="@string/sayEnterRecipe"
         />
     <EditText
         android:id="@+id/ingredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Preferred Ingredients"
+        android:hint="@string/sayEnterPreferredIngredients"
         />
     <Button
         android:id="@+id/recipeSearchBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search"
+        android:text="@string/saySearch"
     />
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,14 +43,14 @@
             android:id="@+id/favourite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Favourites"
+            android:text="@string/sayFavorites"
             android:layout_weight="1"
             />
         <Button
             android:id="@+id/help"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Help"
+            android:text="@string/sayHelp"
             android:layout_weight="3"
             />
     </LinearLayout>

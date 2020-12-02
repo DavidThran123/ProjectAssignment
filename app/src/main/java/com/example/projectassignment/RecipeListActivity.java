@@ -58,11 +58,11 @@ public class RecipeListActivity extends AppCompatActivity
         {
             AlertDialog.Builder alertDialogBuilder;
             alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("Instructions:")
-                    .setMessage( "Click on a recipe in the list to view the details."
-                    + " You can save a recipe by pressing 'favourite' and you can " +
-                            "go to the recipe's website by clicking on the URL.")
-                    .setNeutralButton("Okay",(click,arg)->
+
+
+            alertDialogBuilder.setTitle( getResources().getString(R.string.sayInstructions) )
+                    .setMessage(  getResources().getString(R.string.sayInstructionsRecipeList))
+                    .setNeutralButton(getResources().getString(R.string.sayOkay),(click,arg)->
                     {
                         //Do nothing
                     })
