@@ -14,6 +14,37 @@
         android:textAlignment="center"
         android:gravity="center_horizontal" />
 
+    <TextView
+        android:id="@+id/StartDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_below="@+id/EventTitle"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/MinPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_below="@+id/StartDate"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/MaxPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_below="@+id/StartDate"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/URL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_below="@+id/MaxPrice"
+        android:gravity="center_horizontal" />
 
 
 

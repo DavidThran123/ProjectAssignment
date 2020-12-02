@@ -33,6 +33,22 @@ public class EventFragment extends Fragment {
         TextView eventTitle = eventOpened.findViewById(R.id.EventTitle);
         eventTitle.setText(eventName);
 
+        TextView date = eventOpened.findViewById(R.id.StartDate);
+        date.setText(startDate);
+
+        TextView minPrice = eventOpened.findViewById(R.id.MinPrice);
+        minPrice.setText(min);
+
+        TextView maxPrice = eventOpened.findViewById(R.id.MaxPrice);
+        maxPrice.setText(max);
+
+        TextView url = eventOpened.findViewById(R.id.URL);
+        url.setText(ticketURL);
+
+
+
+
+
 
 
         return eventOpened;
