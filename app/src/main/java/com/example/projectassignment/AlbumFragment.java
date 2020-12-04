@@ -189,6 +189,7 @@ public class AlbumFragment extends Fragment {
             LayoutInflater inflater = getLayoutInflater();
             View newView = inflater.inflate(R.layout.songrow, parent, false);
             Button button = newView.findViewById(R.id.songTitle);
+            button.setAllCaps(false);
             String thisSong = (String) getItem(i);
             button.setText(thisSong);
 
