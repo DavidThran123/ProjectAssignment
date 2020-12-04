@@ -35,6 +35,19 @@ public class SavedEvents extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_events);
+
+        loadEventsFromDatabse();
+
+        EventNames = (TextView) findViewById(R.id.AlbumsSavedTitle);
+        EventNamesLV = (ListView) findViewById(R.id.listedSavedAlbums);
+
+        EventNamesLV.setOnItemClickListener(list,view,position,id) -> {
+
+
+
+
+
+        }
     }
 
 
