@@ -54,7 +54,6 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_below="@+id/URL"
-        android:imageAlignment="center"
         android:src="@android:drawable/alert_dark_frame" />
 
 
