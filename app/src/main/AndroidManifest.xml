@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectAssignment">
-        <activity android:name=".TicketMasterDatabaseHelper"></activity>
+        <activity android:name=".TicketMasterDatabase"></activity>
+        <activity android:name=".TicketMasterDatabaseHelper" />
         <activity android:name=".EventFragment" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".TicketMasterEventSearch" />
