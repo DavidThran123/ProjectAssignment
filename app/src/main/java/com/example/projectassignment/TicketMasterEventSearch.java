@@ -69,7 +69,7 @@ public class TicketMasterEventSearch extends AppCompatActivity {
         });
 
         events.setOnItemClickListener((parent, view, position, id) -> {
-            //Alert dialog asking if the user wants to go inside album
+            //Alert dialog asking if the user wants to go inside events
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Check out event?")
                     .setPositiveButton("Yes", (click, arg) ->{
