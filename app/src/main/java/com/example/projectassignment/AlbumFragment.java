@@ -80,20 +80,6 @@ public class AlbumFragment extends Fragment {
         SD.notifyDataSetChanged();
 
 
-        //Listview listener for song items inside listview
-        //When clicked an alert dialog will show asking if user
-        //wants the song to be searched onto google, then launching the google
-        //search intent
-        lv.setOnItemClickListener((parent, view, position, id) -> {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
-            alertDialogBuilder.setTitle("Search "+songData.get(position)+" by "+ArtistName+"?")
-                    .setPositiveButton("Yes", (click, arg) ->{
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com/search?q="+ArtistName+" "+songData.get(position))));
-                    })
-                    .setNegativeButton("No", (click, arg) -> { })
-                    .create().show();
-                });
-
         //Initialize the button and set the text to the text sent
             Button doAlbum = (Button) albumOpened.findViewById(R.id.albumSaveButton);
             doAlbum.setText(buttonText);
@@ -201,10 +187,22 @@ public class AlbumFragment extends Fragment {
         public View getView(int i, View old, ViewGroup parent)
         {
             LayoutInflater inflater = getLayoutInflater();
-            View newView = inflater.inflate(R.layout.albumlayout, parent, false);
-            TextView textview = newView.findViewById(R.id.albumTitle);
+            View newView = inflater.inflate(R.layout.songrow, parent, false);
+            Button button = newView.findViewById(R.id.songTitle);
             String thisSong = (String) getItem(i);
-            textview.setText(thisSong);
+            button.setText(thisSong);
+
+            button.setOnClickListener(clk -> {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                alertDialogBuilder.setTitle("Search "+songData.get(i)+" by "+ArtistName+"?")
+                        .setPositiveButton("Yes", (click, arg) ->{
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com/search?q="+ArtistName+" "+songData.get(i))));
+                        })
+                        .setNegativeButton("No", (click, arg) -> { })
+                        .create().show();
+            });
+
+
             return newView;
 
         }
