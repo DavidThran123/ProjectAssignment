@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import java.util.Date;
 
 public class Event {
+
+
     public Image getImage() {
         return image;
     }
