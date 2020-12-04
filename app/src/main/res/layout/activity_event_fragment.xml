@@ -10,13 +10,6 @@
 
 
     <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="@string/profile"
-        android:id="@+id/profile"
-        android:textSize= "20dp"/>
-
-    <TextView
         android:id="@+id/EventTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
