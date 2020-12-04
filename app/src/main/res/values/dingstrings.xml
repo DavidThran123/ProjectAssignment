@@ -3,5 +3,12 @@
     <string name="dingTitle">Ticket Master Event Search</string>
     <string name="ButtonTitle">Search</string>
     <string name="SavedResults">See Saved Events</string>
+    <string name="eventName">Events Name</string>
+    <string name="minPrice">Minimum Price </string>
+    <string name="maxPrice">Maximum Price </string>
+    <string name="link">Link</string>
+
+
+
 
 </resources>

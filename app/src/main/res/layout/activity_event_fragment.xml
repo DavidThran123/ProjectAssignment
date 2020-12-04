@@ -8,12 +8,21 @@
     android:background="#CFF4F1"
     tools:context=".EventFragment">
 
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/profile"
+        android:id="@+id/profile"
+        android:textSize= "20dp"/>
+
     <TextView
         android:id="@+id/EventTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:gravity="center_horizontal" />
+
 
     <TextView
         android:id="@+id/StartDate"
@@ -49,10 +58,13 @@
 
     <ImageView
         android:id="@+id/imageURL"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_below="@+id/URL"
+        android:imageAlignment="center"
         android:src="@android:drawable/alert_dark_frame" />
+
+
 
 
 </RelativeLayout>
