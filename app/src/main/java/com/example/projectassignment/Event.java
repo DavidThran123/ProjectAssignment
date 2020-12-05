@@ -73,7 +73,7 @@ public class Event {
         return imageData;
     }
 
-    Event(String EventName, String dateOfEvent, int min, int max, String info, String url, Image image){
+    Event(String EventName, String dateOfEvent, int min, int max, String url, Image image){
     this.EventName = EventName;
     this.dateOfEvent = dateOfEvent;
     this.min = min;

@@ -3,16 +3,24 @@ package com.example.projectassignment;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class EventFragment extends Fragment {
+    private static final String TAG = "LOG";
+
     private AppCompatActivity parentActivityDing;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,8 +37,14 @@ public class EventFragment extends Fragment {
 
         String imageURL = catchEventBundle.getString(TicketMasterEventSearch.IMAGEURL);
 
+
+
+
         View eventOpened = inflater.inflate(R.layout.activity_event_fragment, container, false);
         TextView eventTitle = eventOpened.findViewById(R.id.EventTitle);
+
+
+
         eventTitle.setText(eventName);
 
         TextView date = eventOpened.findViewById(R.id.StartDate);
@@ -44,6 +58,10 @@ public class EventFragment extends Fragment {
 
         TextView url = eventOpened.findViewById(R.id.URL);
         url.setText(ticketURL);
+
+
+
+
         return eventOpened;
 
     }

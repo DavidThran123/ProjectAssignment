@@ -10,7 +10,7 @@ import android.util.Log;
 
 public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
 
-    protected final static int VERSION_NUM =2;
+    protected final static int VERSION_NUM = 3;
     protected final static String DATABASE_NAME = "TicketEventDataBase";
 
     public final static String TABLE_NAME = "Events";
@@ -33,10 +33,10 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
         //String for creating the Albums table
         String createTable;
         createTable = "CREATE TABLE " +TABLE_NAME+"(" + col1+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                col2+" INTEGER , " +
+                col2+" TEXT , " +
                 col3+" TEXT, " +
                 col4+" INTEGER, " +
-                col5+" TEXT, " +
+                col5+" INTEGER, " +
                 col6+" TEXT, " +
                 col7+" TEXT)";
 
@@ -62,11 +62,6 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void deleteAll()
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from "+ TABLE_NAME);
-        db.close();
-    }
+
 
 }

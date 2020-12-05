@@ -3,7 +3,10 @@ package com.example.projectassignment;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,13 +35,14 @@ public class TicketMasterEventSearch extends AppCompatActivity {
 
     private static final String API_KEY = "RINP3tjoIuw2xX9fusWR4iOAVdOtZzvj";
     EditText city, radius;
-    Button searchButton;
+    Button searchButton , loadEventButton;
     ListView events;
     String cityString, radiusString;
     ArrayList<Event> eventAR = new ArrayList<>();
     EventAdapter adapter = new EventAdapter();
     ProgressBar pbar;
     boolean finishedBackgroundtask;
+    public SQLiteDatabase dbSQL;
 
     //Bundle constants
     public static final String EVENTNAME = "EVENTNAME";
@@ -53,6 +58,7 @@ public class TicketMasterEventSearch extends AppCompatActivity {
         setContentView(R.layout.activity_ticket_master_event_search);
         city = findViewById(R.id.searchCity);
         radius = findViewById(R.id.searchRadius);
+        loadEventButton = findViewById(R.id.SavedSearch);
         searchButton = findViewById(R.id.searchButtonDing);
         events = findViewById(R.id.listViewResults);
         events.setAdapter(adapter);
@@ -64,49 +70,21 @@ public class TicketMasterEventSearch extends AppCompatActivity {
             eventAR.clear();
             events.removeAllViewsInLayout();
             String url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey="+API_KEY+"&city="+cityString+"&radius="+radiusString;
-            AlbumQuery aQ = new AlbumQuery();
+            EventQuery aQ = new EventQuery();
             aQ.execute(url);
         });
 
-        events.setOnItemClickListener((parent, view, position, id) -> {
-            //Alert dialog asking if the user wants to go inside events
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("Check out event?")
-                    .setPositiveButton("Yes", (click, arg) ->{
-
-                        Bundle eventData = new Bundle();
-
-                        String EventName = eventAR.get(position).getEventName();
-                        String dateOfEvent = eventAR.get(position).getDateOfEvent();
-                        int min = eventAR.get(position).getMin();
-                                int max = eventAR.get(position).getMax();
-                        String url = eventAR.get(position).getUrl();
-                        Image image = eventAR.get(position).getImage();
-                        String imageURL = image.getURL();
-
-
-                        eventData.putString("EVENTNAME", EventName);
-                        eventData.putString("DATE", dateOfEvent);
-                        eventData.putInt("MIN", min);
-                        eventData.putInt("MAX", max);
-                        eventData.putString("URL", url);
-                        eventData.putString("IMAGEURL", imageURL);
-                        Intent viewEventDetails = new Intent(TicketMasterEventSearch.this, DetailActivity.class);
-
-                        viewEventDetails.putExtras(eventData);
-
-                        startActivity(viewEventDetails);
-
-                    })
-                    .setNegativeButton("No", (click, arg) -> { })
-                    .create().show();
+        loadEventButton.setOnClickListener(clk ->{
+            Intent savedEvents = new Intent(TicketMasterEventSearch.this, SavedEvents.class);
+            startActivity(savedEvents);
         });
+
 
     }
 
 
 
-    private class AlbumQuery extends AsyncTask<String, Integer, String> {
+    private class EventQuery extends AsyncTask<String, Integer, String> {
 
         @Override
         protected String doInBackground(String... args) {
@@ -152,13 +130,13 @@ public class TicketMasterEventSearch extends AppCompatActivity {
                             JSONObject price = (JSONObject)priceJO.get(0);
                             int minPrice = price.getInt("min");
                             int maxPrice = price.getInt("max");
-                            String info = singleJO.getString("info");
+                            //String info = singleJO.getString("info");
 
                             JSONArray images = singleJO.getJSONArray("images");
                             JSONObject image = (JSONObject)images.get(0);
                             String imageUrl = image.getString("url");
 
-                            eventAR.add(new Event(nameOfEvent, dateStart, minPrice, maxPrice, info, urlTicket, new Image(imageUrl)));
+                            eventAR.add(new Event(nameOfEvent, dateStart, minPrice, maxPrice, urlTicket, new Image(imageUrl)));
                             setProgress((int) ((i + 1) / jsonArray.length() * 100));
                     }
                     }
@@ -174,13 +152,16 @@ public class TicketMasterEventSearch extends AppCompatActivity {
 
         //Updates the progress bar
         public void onProgressUpdate(Integer... value) {
-
+            pbar.setVisibility(View.VISIBLE);
+            pbar.setProgress(value[0]);
         }
 
         //Updates listView with found results and shows a toast button
         public void onPostExecute(String fromDoInBackground) {
+            pbar.setVisibility(View.INVISIBLE);
             //Populate listview with results
             adapter.notifyDataSetChanged();
+
         }
     }
 
@@ -213,11 +194,55 @@ public class TicketMasterEventSearch extends AppCompatActivity {
         {
             LayoutInflater inflater = getLayoutInflater();
             View newRow = inflater.inflate(R.layout.dingeventlayout, parent, false);
-            TextView textview = newRow.findViewById(R.id.singleEvent);
+            TextView textEvent = newRow.findViewById(R.id.singleEvent);
+            TextView textDate = newRow.findViewById(R.id.date);
+            Button save = newRow.findViewById(R.id.save);
+            Button view = newRow.findViewById(R.id.view);
             Event thisEvent = (Event) getItem(i);
-            textview.setText(thisEvent.getEventName());
-            return newRow;
+            textEvent.setText(thisEvent.getEventName());
+            textDate.setText(thisEvent.getDateOfEvent());
 
+            view.setOnClickListener(clk -> {
+                            Bundle eventData = new Bundle();
+
+                            String EventName = thisEvent.getEventName();
+                            String dateOfEvent = thisEvent.getDateOfEvent();
+                            int min = thisEvent.getMin();
+                            int max = thisEvent.getMax();
+                            String url = thisEvent.getUrl();
+                            Image image = thisEvent.getImage();
+                            String imageURL = thisEvent.getImage().getURL();
+
+
+                            eventData.putString("EVENTNAME", EventName);
+                            eventData.putString("DATE", dateOfEvent);
+                            eventData.putInt("MIN", min);
+                            eventData.putInt("MAX", max);
+                            eventData.putString("URL", url);
+                            eventData.putString("IMAGEURL", imageURL);
+                            Intent viewEventDetails = new Intent(TicketMasterEventSearch.this, DetailActivity.class);
+
+                            viewEventDetails.putExtras(eventData);
+
+                            startActivity(viewEventDetails);
+
+            });
+
+            save.setOnClickListener(clk -> {
+                            TicketMasterDatabaseHelper db = new TicketMasterDatabaseHelper(getApplicationContext());
+                            dbSQL = db.getReadableDatabase();
+                            ContentValues newRowValues = new ContentValues();
+                            newRowValues.put(TicketMasterDatabaseHelper.col2, thisEvent.getEventName());
+                            newRowValues.put(TicketMasterDatabaseHelper.col3, thisEvent.getDateOfEvent());
+                            newRowValues.put(TicketMasterDatabaseHelper.col4, thisEvent.getMin());
+                            newRowValues.put(TicketMasterDatabaseHelper.col5, thisEvent.getMax());
+                            newRowValues.put(TicketMasterDatabaseHelper.col6, thisEvent.getUrl());
+                            newRowValues.put(TicketMasterDatabaseHelper.col7, thisEvent.getImage().getURL());
+                            long newIDofEvent = dbSQL.insert(TicketMasterDatabaseHelper.TABLE_NAME, null, newRowValues);
+                            Toast.makeText(clk.getContext(), "Event id = "+newIDofEvent, Toast.LENGTH_SHORT).show();
+                        });
+
+            return newRow;
         }
     }
 

@@ -11,6 +11,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="30dp"
+        android:textSize="18dp"
+        android:textColorHighlight="@color/black"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:text=""
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="10dp"
+        android:textColorHighlight="@color/black"/>
+    <Button
+        android:id="@+id/view"
+        android:text="View"
+        android:textAllCaps="false"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="10dp"
+        android:textColorHighlight="@color/black"/>
+
+    <Button
+        android:id="@+id/save"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="10dp"
         android:textColorHighlight="@color/black"/>
 </LinearLayout>
