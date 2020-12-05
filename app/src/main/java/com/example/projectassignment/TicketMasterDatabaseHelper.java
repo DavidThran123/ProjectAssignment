@@ -10,7 +10,7 @@ import android.util.Log;
 
 public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
 
-    protected final static int VERSION_NUM = 3;
+    protected final static int VERSION_NUM = 4;
     protected final static String DATABASE_NAME = "TicketEventDataBase";
 
     public final static String TABLE_NAME = "Events";

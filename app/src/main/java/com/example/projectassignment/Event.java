@@ -5,6 +5,15 @@ import android.graphics.Bitmap;
 import java.util.Date;
 
 public class Event {
+    public void setEventID(int eventID) {
+        EventID = eventID;
+    }
+
+    public int getEventID() {
+        return EventID;
+    }
+
+    public int EventID;
 
 
     public Image getImage() {
@@ -83,6 +92,16 @@ public class Event {
     this.image = image;
 }
 
+    Event(String EventName, String dateOfEvent, int min, int max, String url, Image image, int id){
+        this.EventName = EventName;
+        this.dateOfEvent = dateOfEvent;
+        this.min = min;
+        this.max = max;
+        this.info = info;
+        this.url = url;
+        this.image = image;
+        this.EventID = id;
+    }
     public String getEventName() {
         return EventName;
     }

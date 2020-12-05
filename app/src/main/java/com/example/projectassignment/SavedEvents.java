@@ -18,6 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -33,25 +36,23 @@ public class SavedEvents extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_events);
-
+        loadEventsFromDatabase();
         EventNames = (TextView) findViewById(R.id.EventsSavedTitle);
         EventNamesLV = (ListView) findViewById(R.id.EventsSavedListView);
         EventNamesLV.setAdapter(eventsAdapter);
-
+        eventsAdapter.notifyDataSetChanged();
     }
 
 
-    private void loadAlbumsFromDatabase()
+    private void loadEventsFromDatabase()
     {
         TicketMasterDatabaseHelper db = new TicketMasterDatabaseHelper(this);
         saveAssist = db.getWritableDatabase();
 
-
-        String [] columns = {db.col2, db.col3, db.col4, db.col5, db.col6, db.col7};
-
+        String [] columns = {db.col1,db.col2, db.col3, db.col4, db.col5, db.col6, db.col7};
 
         Cursor returnedEvents = saveAssist.query(false, db.TABLE_NAME, columns, null, null, null, null, null, null);
-
+        int idColumn = returnedEvents.getColumnIndex(db.col1);
         int titleColumn = returnedEvents.getColumnIndex(db.col2);
         int dateColumn = returnedEvents.getColumnIndex(db.col3);
         int minColumn = returnedEvents.getColumnIndex(db.col4);
@@ -61,12 +62,16 @@ public class SavedEvents extends AppCompatActivity {
 
         while(returnedEvents.moveToNext())
         {
-
-            SAList.add(new Album(AlbumName,ArtistName,year,genre,idAlbum,albumDis,savedSongs));
+            int id = returnedEvents.getInt(idColumn);
+            String nameOfEvent = returnedEvents.getString(titleColumn);
+            String urlTicket = returnedEvents.getString(ticketColumn);
+            String dateStart = returnedEvents.getString(dateColumn);
+            int minPrice = returnedEvents.getInt(minColumn);
+            int maxPrice = returnedEvents.getInt(maxColumn);
+            String imageUrl = returnedEvents.getString(imageColumn);
+            savedEventList.add(new Event(nameOfEvent, dateStart, minPrice, maxPrice, urlTicket, new Image(imageUrl), id));
         }
     }
-
-
 
 
     private class EventAdapter extends BaseAdapter {
@@ -84,7 +89,7 @@ public class SavedEvents extends AppCompatActivity {
 
         @Override //database id of item at row i
         public long getItemId(int i) {
-            return i;
+            return savedEventList.get(i).EventID;
         }
 
 
@@ -96,7 +101,7 @@ public class SavedEvents extends AppCompatActivity {
             TextView textEvent = newRow.findViewById(R.id.singleEvent);
             TextView textDate = newRow.findViewById(R.id.date);
             Button delete = newRow.findViewById(R.id.save);
-            delete.setText("Delete")
+            delete.setText("Delete");
             Button view = newRow.findViewById(R.id.view);
             Event thisEvent = (Event) getItem(i);
             textEvent.setText(thisEvent.getEventName());
@@ -129,7 +134,13 @@ public class SavedEvents extends AppCompatActivity {
             });
 
             delete.setOnClickListener(clk -> {
+                TicketMasterDatabaseHelper db = new TicketMasterDatabaseHelper(getApplicationContext());
+                saveAssist = db.getReadableDatabase();
 
+                boolean isDeleted = saveAssist.delete(TicketMasterDatabaseHelper.TABLE_NAME, TicketMasterDatabaseHelper.col1 + "=" + thisEvent.getEventID(), null) == 0;
+                if(isDeleted){
+                    finish();
+                }
             });
 
             return newRow;

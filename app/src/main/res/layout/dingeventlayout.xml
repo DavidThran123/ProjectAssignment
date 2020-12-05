@@ -39,6 +39,6 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="10dp"
+        android:textSize="7dp"
         android:textColorHighlight="@color/black"/>
 </LinearLayout>
