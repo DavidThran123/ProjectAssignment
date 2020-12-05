@@ -44,7 +44,6 @@ public class EventFragment extends Fragment {
         TextView eventTitle = eventOpened.findViewById(R.id.EventTitle);
 
 
-
         eventTitle.setText(eventName);
 
         TextView date = eventOpened.findViewById(R.id.StartDate);
@@ -58,8 +57,6 @@ public class EventFragment extends Fragment {
 
         TextView url = eventOpened.findViewById(R.id.URL);
         url.setText(ticketURL);
-
-
 
 
         return eventOpened;
