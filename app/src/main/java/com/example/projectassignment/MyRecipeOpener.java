@@ -6,6 +6,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MyRecipeOpener extends SQLiteOpenHelper
 {
+    /**
+     * Sqlite Database query parameters
+     * @param DATABASE_NAME The name of database schema for recipes
+     * @param TABLE_NAME The recipe table name query parameter
+     * @param COL_RECIPE The recipe title query parameter
+     * @param COL_INGREDIENTS The ingredients list query parameter
+     * @param COL_WEBSITE The website query parameter
+     * @param COL_ID the row id of the database record
+     *
+     */
     protected final static String DATABASE_NAME = "RecipeDB";
     protected final static int VERSION_NUM = 1;
     public final static String TABLE_NAME = "RECIPES";
@@ -19,6 +29,11 @@ public class MyRecipeOpener extends SQLiteOpenHelper
         super(ctx, DATABASE_NAME,null, VERSION_NUM);
     }
 
+    /**
+     * Creates a table inside of the database for Recipes
+     *
+     * @param db The SQLite Database object to create a table in.
+     */
     @Override
     public void onCreate(SQLiteDatabase db)
     {
@@ -28,6 +43,15 @@ public class MyRecipeOpener extends SQLiteOpenHelper
                 + COL_INGREDIENTS  + " text);");
     }
 
+
+    /**
+     * If the current database version is greater than the previous
+     * version of the database, then a new table must be created.
+     *
+     * @param db The SQLite Database object to create a table in.
+     * @param oldVersion The previous version of the database
+     * @param newVersion The current version of the database
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {

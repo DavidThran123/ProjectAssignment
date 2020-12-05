@@ -25,6 +25,18 @@ public class RecipeDetailsFragment extends Fragment {
 
     SQLiteDatabase db;
 
+
+    /**
+     * This fragment will create a new view that will be inflated.
+     * The view will display recipe information.
+     * It will also display an option to 'favorite' a recipe
+     * by saving it to the database.
+     *
+     * @param inflater The object that allows us to inflate a view in the layout
+     * @param container The Viewgroup container
+     * @param savedInstanceState The bundle associated with this fragment
+     * @return A new view created for this fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -87,6 +99,10 @@ public class RecipeDetailsFragment extends Fragment {
         parentActivity = (AppCompatActivity)context;
     }
 
+
+    /**
+     * Inserts a new recipe record into the SQLite database
+     */
     private void saveRecipe()
     {
         //get the data
@@ -103,6 +119,12 @@ public class RecipeDetailsFragment extends Fragment {
 
     }
 
+
+    /**
+     * Opens a website intent which has instructions for a recipe.
+     *
+     * @param websiteName The website to be opened.
+     */
     private void dispatchWebsiteIntent(String websiteName)
     {
         Uri uri = Uri.parse(websiteName);

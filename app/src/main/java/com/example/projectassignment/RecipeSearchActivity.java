@@ -16,6 +16,14 @@ public class RecipeSearchActivity extends AppCompatActivity
     private SharedPreferences prefs = null;
     private final String savedRecipeKey = "savedRecipe";
     private final String savedIngredientsKey = "savedIngredients";
+
+    /**
+     * This method is automatically invoked at the beginning
+     * of this activity. It is the initialization method for buttons
+     * textview, listeners, and other elements.
+     *
+     * @param savedInstanceState The bundle associated with this activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -69,6 +77,10 @@ public class RecipeSearchActivity extends AppCompatActivity
     }
 
 
+    /**
+     * Opens an activity that will show you a list of recipes according to
+     * recipe title and the ingredients.
+     */
     private void dispatchRecipeListActivity()
     {
         Intent goToRecipeList = new Intent(RecipeSearchActivity.this,RecipeListActivity.class);
@@ -81,6 +93,14 @@ public class RecipeSearchActivity extends AppCompatActivity
         startActivity(goToRecipeList);
     }
 
+
+    /**
+     * Saves a string to disk, which will be loaded the next time the user
+     * opens the recipe search.
+     *
+     * @param key The first part of the map 'pair'. It is the identifier for a particular string.
+     * @param stringToSave The string to be saved to local disk.
+     */
     private void saveString(String key, String stringToSave)
     {
         SharedPreferences.Editor editor = prefs.edit();
@@ -89,6 +109,9 @@ public class RecipeSearchActivity extends AppCompatActivity
     }
 
 
+    /**
+     * Opens an activity that will show the user their saved/favorite recipes.
+     */
     private void dispatchRecipeSavedActivity()
     {
         Intent goToSavedActivity= new Intent(RecipeSearchActivity.this,RecipeSavedActivity.class);

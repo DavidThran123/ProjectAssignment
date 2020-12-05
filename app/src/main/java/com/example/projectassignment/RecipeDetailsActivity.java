@@ -6,6 +6,13 @@ import android.os.Bundle;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
 
+    /**
+     * This method is automatically invoked at the beginning
+     * of this activity. It is the initialization method for buttons
+     * textview, listeners, and other elements.
+     *
+     * @param savedInstanceState The bundle associated with this activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

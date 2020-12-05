@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="sayRecipes">Recipes</string>
-    <string name="sayRecipe">Recipe</string>
+    <string name="sayRecipe">Recipe:</string>
     <string name="sayHelp">Help</string>
     <string name="saySavedRecipes">Saved Recipes</string>
     <string name="recipeWelcome">Welcome to the Recipe Search Page</string>

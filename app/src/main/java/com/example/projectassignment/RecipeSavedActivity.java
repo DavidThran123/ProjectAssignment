@@ -27,7 +27,13 @@ public class RecipeSavedActivity extends AppCompatActivity {
     private ArrayList<Recipe> recipes = new ArrayList<>();
     SQLiteDatabase db;
 
-
+    /**
+     * This method is automatically invoked at the beginning
+     * of this activity. It is the initialization method for buttons
+     * textview, listeners, and other elements.
+     *
+     * @param savedInstanceState The bundle associated with this activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,24 +94,42 @@ public class RecipeSavedActivity extends AppCompatActivity {
                     .create().show();
         });
 
-        loadMessagesFromDatabase();
+        loadRecipesFromDatabase();
 
     }
 
     public class SavedRecipesAdapter extends BaseAdapter
     {
+
+        /**
+         * Gets the size of the 'recipes' arraylist
+         *
+         * @return The amount of recipes in the list
+         */
         @Override
         public int getCount()
         {
             return recipes.size();
         }
 
+        /**
+         * Retrieves a recipe from the list.
+         *
+         * @param position The position of the recipe that we want from the list.
+         * @return A recipe from the list.
+         */
         @Override
         public Object getItem(int position)
         {
             return recipes.get(position);
         }
 
+        /**
+         * Returns the database id of a recipe
+         *
+         * @param position The position of the recipe
+         * @return The database id of the particular recipe object in the list
+         */
         @Override
         public long getItemId(int position)
         {
@@ -126,7 +150,10 @@ public class RecipeSavedActivity extends AppCompatActivity {
         }
     }
 
-    private void loadMessagesFromDatabase()
+    /**
+     * Load recipes into the list that are stored in the recipe database.
+     */
+    private void loadRecipesFromDatabase()
     {
         MyRecipeOpener dbHelper = new MyRecipeOpener(this);
         db = dbHelper.getReadableDatabase();
@@ -155,6 +182,11 @@ public class RecipeSavedActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Opens a website intent which has instructions for a recipe.
+     *
+     * @param websiteName The website to be opened.
+     */
     private void dispatchWebsiteIntent(String websiteName)
     {
         Uri uri = Uri.parse(websiteName);

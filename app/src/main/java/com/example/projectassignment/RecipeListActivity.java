@@ -32,6 +32,13 @@ public class RecipeListActivity extends AppCompatActivity
     private MyListAdapter listAdapter;
     private ArrayList<Recipe> recipes = new ArrayList<>();
 
+    /**
+     * This method is automatically invoked at the beginning
+     * of this activity. It is the initialization method for buttons
+     * textview, listeners, and other elements.
+     *
+     * @param savedInstanceState The bundle associated with this activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -49,7 +56,8 @@ public class RecipeListActivity extends AppCompatActivity
         String ingredientsStr = intent.getStringExtra("ingredients");
 
         RecipeQuery query = new RecipeQuery();
-        query.execute("http://www.recipepuppy.com/api/?i="+ ingredientsStr +"&q="+ recipeStr +"&p=3&format=xml");
+
+        query.execute(ingredientsStr,recipeStr);
 
         boolean isTablet = findViewById(R.id.frameLayout) != null;
 
@@ -102,24 +110,41 @@ public class RecipeListActivity extends AppCompatActivity
 
     public class MyListAdapter extends BaseAdapter
     {
+        /**
+         * Gets the size of the 'recipes' arraylist
+         *
+         * @return The amount of recipes in the list
+         */
         @Override
         public int getCount()
         {
             return recipes.size();
         }
 
+        /**
+         * Retrieves a recipe from the list.
+         *
+         * @param position The position of the recipe that we want from the list.
+         * @return A recipe from the list.
+         */
         @Override
         public Object getItem(int position)
         {
             return recipes.get(position);
         }
 
+        /**
+         * Returns the database id of a recipe
+         *
+         * @param position The position of the recipe
+         * @return The database id of the particular recipe object in the list
+         */
         @Override
         public long getItemId(int position)
         {
-            //TODO: set this to database id after
-            /*return ((MessageText)getItem(position)).getId()*/ ;
-            return position;
+            //set this to database id after
+            return ((Recipe)getItem(position)).getId();
+            //return position;
         }
 
         @Override
@@ -145,12 +170,20 @@ public class RecipeListActivity extends AppCompatActivity
         String website = "";
         String ingredients = "";
         private ArrayList<Recipe> tempRecipes = new ArrayList<>();
+
+        /**
+         * Connects to an online database and loads the recipe information to an array list.
+         * The website has arguments for recipe title and ingredients required.
+         *
+         * @param args The URL that allows us to connect to the online recipe database
+         * @return
+         */
         @Override
         protected String doInBackground(String... args)
         {
             try
             {
-                URL url = new URL(args[0]);
+                URL url = new URL("http://www.recipepuppy.com/api/?i="+ args[0] +"&q="+ args[1] +"&p=3&format=xml");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream response = urlConnection.getInputStream();
                 XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
@@ -208,6 +241,12 @@ public class RecipeListActivity extends AppCompatActivity
 
             return "Done";
         }
+
+        /**
+         * Updates the progress bar.
+         *
+         * @param values Represents how complete the background task is.
+         */
         @Override
         protected void onProgressUpdate(Integer ... values)
         {
@@ -215,6 +254,12 @@ public class RecipeListActivity extends AppCompatActivity
             progressBar.setProgress(values[0]);
         }
 
+        /**
+         * When the background task is done, then we will update the recipe list.
+         * We will also stop showing the progress bar.
+         *
+         * @param fromDoInBackground gets the returned value from the doInBackground()
+         */
         @Override
         public void onPostExecute(String fromDoInBackground)
         {
