@@ -11,9 +11,9 @@ import android.util.Log;
 public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
 
     /**
-     *
+     * creating constants variables for database info, name, rows, etc...
      */
-    // creating constants variables for database info, name, rows, etc...
+
     protected final static int VERSION_NUM = 4;
     protected final static String DATABASE_NAME = "TicketEventDataBase";
 
@@ -27,7 +27,7 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
     public final static String col7 = "ImageURL";
 
     /**
-     *
+     *  method to execute the database
      * @param context
      */
 
@@ -36,10 +36,10 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     *  method for creating table
      * @param db
      */
-    //creating table
+
     @Override
     public void onCreate(SQLiteDatabase db){
         //String for creating the Albums table
@@ -59,12 +59,12 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * method to update the db to newer version
      * @param db
      * @param oldVersion
      * @param newVersion
      */
-    //update the db to newer version
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.i("ChatDatabaseHelper", "Calling onUpgrade, oldVersion=" + oldVersion + " newVersion=" + newVersion);
@@ -74,12 +74,11 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     *    method revert db to older version
      * @param db
      * @param oldVersion
      * @param newVersion
      */
-    //revert db to older version
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
