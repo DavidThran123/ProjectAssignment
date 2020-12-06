@@ -71,6 +71,6 @@
         android:layout_weight="1"
         android:hint="Help"
         android:text="@string/help"
-        android:layout_below="@id/caseSearchCountryButton"/>
+        android:layout_below="@id/savedCountryButton"/>
 
 </RelativeLayout>

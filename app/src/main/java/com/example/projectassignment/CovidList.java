@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
@@ -35,6 +37,7 @@ import static java.lang.String.valueOf;
 public class CovidList extends AppCompatActivity {
     ProgressBar progressBar;
     ListView covidList;
+    Button helpButton;
 
     private CovidListAdapter listAdapter  = new CovidListAdapter();
     private ArrayList<Covid> covidArrayList = new ArrayList<>();
@@ -47,6 +50,8 @@ public class CovidList extends AppCompatActivity {
 
         covidList = findViewById(R.id.covidListView);
         covidList.setAdapter(listAdapter);
+
+        helpButton = findViewById(R.id.helpListButton);
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -82,6 +87,17 @@ public class CovidList extends AppCompatActivity {
                 nextActivity.putExtras(dataToPassFred);
                 startActivity(nextActivity);
             }
+        });
+
+        helpButton.setOnClickListener(v -> {
+            AlertDialog.Builder alertDialogBuilder;
+            alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Instructions:")
+                    .setMessage("Click on country in the list to view details of each province"+"\n"+
+                            "Save a province by pressing 'SAVE'")
+                    .setNeutralButton("Back",(click,arg)->{})
+                    .setView(getLayoutInflater().inflate(R.layout.activity_alert,null))
+                    .create().show();
         });
     }
 
