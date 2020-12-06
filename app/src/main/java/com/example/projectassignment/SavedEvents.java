@@ -139,6 +139,7 @@ public class SavedEvents extends AppCompatActivity {
 
                 boolean isDeleted = saveAssist.delete(TicketMasterDatabaseHelper.TABLE_NAME, TicketMasterDatabaseHelper.col1 + "=" + thisEvent.getEventID(), null) == 0;
                 if(isDeleted){
+                    Toast.makeText(clk.getContext(), "Event Deleted!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             });

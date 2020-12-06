@@ -67,7 +67,9 @@ public class TicketMasterEventSearch extends AppCompatActivity {
         searchButton = findViewById(R.id.searchButtonDing);
         events = findViewById(R.id.listViewResults);
         events.setAdapter(adapter);
+
         pbar = findViewById(R.id.progBar);
+        pbar.setVisibility(View.VISIBLE);
 
         searchButton.setOnClickListener( clk ->{
             cityString = city.getText().toString();
@@ -189,8 +191,6 @@ public class TicketMasterEventSearch extends AppCompatActivity {
 
         }
     }
-
-
 
 
     //This is an adapter to inflate the ListView with another row, it is used for
