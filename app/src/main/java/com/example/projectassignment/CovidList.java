@@ -229,7 +229,7 @@ public class CovidList extends AppCompatActivity {
         }
 
         /**
-         *
+         * updates the progress of the data from the internet
          * @param value
          */
         public void onProgressUpdate(Integer... value) {
@@ -237,6 +237,10 @@ public class CovidList extends AppCompatActivity {
             progressBar.setProgress(value[0]);
         }
 
+        /**
+         * updates the listview with found results
+         * @param fromDoInBackground
+         */
         public void onPostExecute(String fromDoInBackground) {
             listAdapter.notifyDataSetChanged();
             progressBar.setVisibility(View.INVISIBLE);

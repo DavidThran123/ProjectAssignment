@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Initiates the fragment activity and pass the bundle of information to this class.
+ */
 public class CovidDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

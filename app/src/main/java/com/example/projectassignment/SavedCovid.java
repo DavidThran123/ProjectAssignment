@@ -19,11 +19,9 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 
 public class SavedCovid extends AppCompatActivity {
-    public static final String COUNTRY_NAME = "CountryName";
-    public static final String PROVINCE_NAME = "ProvinceName";
-    public static final String START_DATE = "StartDate";
-    public static final String COVID_CASES = "CovidCases";
-    Bundle dataToPassFred;
+    /**
+     * Initialize all elements,ArrayList,CovidSavedListHelper, and SQLiteDatabase
+     */
     TextView cntryName;
     ListView cntryNames;
     public SQLiteDatabase savedData;
@@ -87,23 +85,46 @@ public class SavedCovid extends AppCompatActivity {
         savedAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * inflates saved covid listviews with province from database.
+     */
     private class CovidSavedListHelper extends BaseAdapter {
-        @Override // number of items in the list
+        /**
+         * number of items in the list
+         * @return A reference to the int containing the list size stored in this {@code SavedCovid}.
+         */
+        @Override
         public int getCount() {
             return  scList.size();
         }
 
-        @Override // what string goes at row position
+        /**
+         * returns the object location at row number i
+         * @param position The position of row
+         * @return A reference to the Object containing the object location in row.
+         */
+        @Override
         public Object getItem(int position) {
             return scList.get(position);
         }
 
-        @Override //database id of item at row position
+        /**
+         * returns the database id of item at row number i
+         * @param position The position of row
+         * @return A reference to the database id containing the id location in row.
+         */
+        @Override
         public long getItemId(int position) {
             return scList.get(position).getId();
         }
 
-
+        /**
+         * returns the view to show which widget is in the row
+         * @param position The position of row
+         * @param old
+         * @param parent
+         * @return A reference to the widget and its element.
+         */
         @Override //controls which widgets are on the row
         public View getView(int position, View old, ViewGroup parent){
             LayoutInflater inflater = getLayoutInflater();

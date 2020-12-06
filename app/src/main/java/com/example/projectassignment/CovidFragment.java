@@ -21,7 +21,13 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
+/**
+ * Class used to view saved covid contents
+ */
 public class CovidFragment extends Fragment{
+    /**
+     * Initialize all varibles
+     */
     private Bundle dataFromActivityFred;
     private AppCompatActivity parentActivityFred;
     private String fragCountryName;
@@ -32,10 +38,22 @@ public class CovidFragment extends Fragment{
     private String fragNumberOfCases;
     public SQLiteDatabase covidDataSave;
 
+    /**
+     * Populates the fragment view with collected data.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        /**
+         * Inflates the layout for this fragment, and is used to get data
+         */
         View covidFileOpened = inflater.inflate(R.layout.activity_covidfragment,container,false);
+        /**
+         * Bundle toreceive data sent from {@code CovidList}
+         */
         dataFromActivityFred = getArguments();
+        /**
+         * Initialize all local variables with data from the bundle
+         */
         fragCountryName = dataFromActivityFred.getString("country");
         fragCountryCode = dataFromActivityFred.getString("countryCode");
         fragProvinceName = dataFromActivityFred.getString("province");
@@ -56,12 +74,16 @@ public class CovidFragment extends Fragment{
         cases.setText("Cases: "+fragNumberOfCases);
 
 
-
+        /**
+         * Initialize save button
+         */
         Button saveCovidData = (Button)covidFileOpened.findViewById(R.id.covidSaveButton);
-
+        /**
+         * Create click listener for the button to put data in saved database.
+         */
         saveCovidData.setOnClickListener(click -> {
-                CovidListHelper alh = new CovidListHelper(this.getContext());
-                covidDataSave = alh.getReadableDatabase();
+                CovidListHelper clh = new CovidListHelper(this.getContext());
+                covidDataSave = clh.getReadableDatabase();
                     ContentValues newRowValues = new ContentValues();
                     newRowValues.put(CovidListHelper.T1Column2,fragCountryCode);
                     newRowValues.put(CovidListHelper.T1Column3,fragCountryName);
@@ -71,12 +93,14 @@ public class CovidFragment extends Fragment{
                     covidDataSave.insert(CovidListHelper.TABLE_NAME1,null,newRowValues);
                     Snackbar snackbar1 =Snackbar.make(click,"Saved data",Snackbar.LENGTH_LONG);
                     snackbar1.show();
-
-
         });
         return covidFileOpened;
     }
 
+    /**
+     *
+     * @param context Variable that will depend on phone or tablet emulator.
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
