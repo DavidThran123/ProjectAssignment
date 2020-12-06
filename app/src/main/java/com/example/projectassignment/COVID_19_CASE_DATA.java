@@ -32,32 +32,26 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about differenece between API and COVID
+public class COVID_19_CASE_DATA extends AppCompatActivity {
+    /**
+     *
+     */
     TextView caseTitle;
     EditText caseSearch;
     EditText caseDate;
     Button searchButton;
 
-    ProgressBar caseBar;
-    TextView caseResult;
-    ListView covidListView;
     Button saveButton;
     EditText dateSearch;
     EditText endDateSearch;
     Button helpButton;
 
-    public int covidCase;
-    public Bundle dataToPassFred;
-    public ArrayList<Covid> covidArrayList = new ArrayList<>();
-    //public CovidListAdapter covidListAdapter = new CovidListAdapter();
-
     public static final String COUNTRY_NAME = "CountryName";
-    public static final String COUNTRY_CODE = "CountryCode";
-    public static final String PROVINCE_NAME = "ProvinceName";
     public static final String START_DATE = "StartDate";
-    public static final String COVID_CASES = "CovidCases";
     public static final String END_DATE = "EndDate";
-
+    /**
+     * SharedPreference provides an interface for saving data to a file in emulator
+     */
     SharedPreferences sp = null;
     SharedPreferences.Editor e;
 
@@ -65,9 +59,6 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_covid_case_data);
-
-        //covidListView = findViewById(R.id.caseListView);
-        //covidListView.setAdapter(covidListAdapter);
 
         CovidFragment covidFragment =new CovidFragment();
 
@@ -89,6 +80,9 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
 
         e = sp.edit();
 
+        /**
+         * helpButton sets the message to display when clicked. This shows instructions on how to utilize the COVID_19_CASE_DATA page.
+         */
         helpButton =findViewById(R.id.helpCountryButton);
         helpButton.setOnClickListener(v -> {
             androidx.appcompat.app.AlertDialog.Builder alertDialogBuilder;
@@ -102,6 +96,9 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
                     .create().show();
         });
 
+        /**
+         * saves data and commits it
+         */
         searchButton = findViewById(R.id.caseSearchCountryButton);//search button
         searchButton.setOnClickListener(v -> {
             e.putString(COUNTRY_NAME,caseSearch.getText().toString());
@@ -125,7 +122,11 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
 
     }
 
-
+    /**
+     * saves the input from users on each edit text on activity_covid_case_data
+     * loads the data to the CovidList.java with string code
+     * also switches to the next page (CovidList)
+     */
     private void loadCovidList(){
         Intent goToCovidList = new Intent(COVID_19_CASE_DATA.this,CovidList.class);
 
@@ -140,6 +141,10 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
         startActivity(goToCovidList);
     }
 
+    /**
+     * loads the data to SavedCovid.java
+     * also switches to the next page (SavedCovid)
+     */
     private void loadSavedCovid(){
         Intent goToSavedCovid = new Intent(COVID_19_CASE_DATA.this,SavedCovid.class);
         startActivity(goToSavedCovid);
