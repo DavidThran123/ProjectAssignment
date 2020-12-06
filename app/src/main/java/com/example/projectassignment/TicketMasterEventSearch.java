@@ -70,8 +70,9 @@ public class TicketMasterEventSearch extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     /**
-     * method to load the ticket master  and
-     * @param savedInstanceState
+     * method to execute the ticket event master search function and load the ticket master event search layout
+     * to perform desired result
+     * @param savedInstanceState reference to bundle project that is passed to this parameter
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
