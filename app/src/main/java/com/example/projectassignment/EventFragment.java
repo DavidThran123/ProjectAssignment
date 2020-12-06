@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 
 public class EventFragment extends Fragment {
+
     private static final String TAG = "LOG";
 
     private AppCompatActivity parentActivityDing;
@@ -36,9 +37,6 @@ public class EventFragment extends Fragment {
         String ticketURL = catchEventBundle.getString(TicketMasterEventSearch.URL);
 
         String imageURL = catchEventBundle.getString(TicketMasterEventSearch.IMAGEURL);
-
-
-
 
         View eventOpened = inflater.inflate(R.layout.activity_event_fragment, container, false);
         TextView eventTitle = eventOpened.findViewById(R.id.EventTitle);
