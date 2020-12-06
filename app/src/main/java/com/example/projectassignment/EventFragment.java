@@ -55,6 +55,7 @@ public class EventFragment extends Fragment {
 
         TextView url = eventOpened.findViewById(R.id.URL);
         url.setText(ticketURL);
+        url.setMovementMethod(LinkMovementMethod.getInstance());
 
         return eventOpened;
     }
