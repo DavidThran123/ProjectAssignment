@@ -12,10 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectAssignment"
         android:usesCleartextTraffic="true">
+      
+        <activity android:name=".SavedAlbums"></activity>
+        <activity android:name=".AlbumFragmentEmpty" />
+        <activity android:name=".AUDIO_DATABASE_API" />
         <activity android:name=".RecipeSavedActivity"></activity>
         <activity android:name=".RecipeDetailsActivity" />
         <activity android:name=".RecipeListActivity" />
         <activity android:name=".RecipeSearchActivity" />
+      
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
