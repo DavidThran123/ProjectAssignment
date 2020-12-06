@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal">
-
+province, cases
     <TextView
         android:id="@+id/covidTitle"
         android:text=""
@@ -13,4 +13,5 @@
         android:layout_weight="1"
         android:textSize="30dp"
         android:textColorHighlight="@color/black"/>
+
 </LinearLayout>

@@ -47,7 +47,7 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
     public int covidCase;
     public Bundle dataToPassFred;
     public ArrayList<Covid> covidArrayList = new ArrayList<>();
-    public CovidListAdapter covidListAdapter = new CovidListAdapter();
+    //public CovidListAdapter covidListAdapter = new CovidListAdapter();
 
     public static final String COUNTRY_NAME = "CountryName";
     public static final String COUNTRY_CODE = "CountryCode";
@@ -104,32 +104,6 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
 
     }
 
-    private class CovidListAdapter extends BaseAdapter{
-        @Override // number of items in the list
-        public int getCount() {
-            return  covidArrayList.size();
-        }
-
-        @Override // what string goes at row i
-        public Object getItem(int i) {
-            return covidArrayList.get(i);
-        }
-
-        @Override //database id of item at row i
-        public long getItemId(int i) {
-            return covidArrayList.get(i).getId();
-        }
-
-        @Override //controls which widgets are on the row
-        public View getView(int i, View old, ViewGroup parent){
-                LayoutInflater inflater = getLayoutInflater();
-                View newView = inflater.inflate(R.layout.activity_covid, parent, false);
-                TextView textview = newView.findViewById(R.id.covidTitle);
-                Covid thisCovid = (Covid) getItem(i);
-                textview.setText(thisCovid.getCountry());
-                return newView;
-        }
-    }
 
     private void loadCovidList(){
         Intent goToCovidList = new Intent(COVID_19_CASE_DATA.this,CovidList.class);

@@ -28,19 +28,9 @@ public class CovidFragment extends Fragment{
     private String fragProvinceName;
     private String fragStartDate;
     private String fragCountryCode;
-    private int fragNumberOfCases;
-
-    private Integer covidID;
-    private String fragButtonText;
-    private ArrayList<String> fragCovidData;
+    private String buttonText;
+    private String fragNumberOfCases;
     public SQLiteDatabase covidDataSave;
-
-
-    public final static String T1Column2 = "CountryName";
-    public final static String T1Column3 = "ProvinceName";
-    public final static String T1Column4 = "StartDate";
-    public final static String T1Column5 = "EndDate";
-    public final static String T1Column6 = "CovidCases";
 
 
 
@@ -49,11 +39,11 @@ public class CovidFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View covidFileOpened = inflater.inflate(R.layout.activity_covidfragment,container,false);
         dataFromActivityFred = getArguments();
-        fragCountryName = dataFromActivityFred.getString(COVID_19_CASE_DATA.COUNTRY_NAME);
-        fragCountryCode = dataFromActivityFred.getString(COVID_19_CASE_DATA.COUNTRY_CODE);
-        fragProvinceName = dataFromActivityFred.getString(COVID_19_CASE_DATA.PROVINCE_NAME);
-        fragStartDate = dataFromActivityFred.getString(COVID_19_CASE_DATA.START_DATE);
-        fragNumberOfCases = dataFromActivityFred.getInt(COVID_19_CASE_DATA.COVID_CASES);
+        fragCountryName = dataFromActivityFred.getString("country");
+        fragCountryCode = dataFromActivityFred.getString("countryCode");
+        fragProvinceName = dataFromActivityFred.getString("province");
+        fragStartDate = dataFromActivityFred.getString("startDate");
+        fragNumberOfCases = dataFromActivityFred.getString("cases");
 
         TextView title = (TextView) covidFileOpened.findViewById(R.id.covidFragmentTitle);
         title.setText(fragCountryName);
@@ -68,38 +58,24 @@ public class CovidFragment extends Fragment{
         TextView cases = (TextView)covidFileOpened.findViewById(R.id.covidCasesFragment);
         cases.setText("Cases: "+fragNumberOfCases);
 
+
+
         Button saveCovidData = (Button)covidFileOpened.findViewById(R.id.covidSaveButton);
-        saveCovidData.setText(fragButtonText);
+
         saveCovidData.setOnClickListener(click -> {
-            if(saveCovidData.getText().equals("SAVE")){
                 CovidListHelper alh = new CovidListHelper(this.getContext());
                 covidDataSave = alh.getReadableDatabase();
-                Cursor cursor = covidDataSave.rawQuery("SELECT * FROM CountryName WHERE CovidID = ?", new String[]{String.valueOf(fragCountryCode)});
-                if(cursor.getCount()==0){
-
                     ContentValues newRowValues = new ContentValues();
                     newRowValues.put(CovidListHelper.T1Column2,fragCountryCode);
                     newRowValues.put(CovidListHelper.T1Column3,fragCountryName);
                     newRowValues.put(CovidListHelper.T1Column4,fragProvinceName);
                     newRowValues.put(CovidListHelper.T1Column5,fragStartDate);
                     newRowValues.put(CovidListHelper.T1Column6,fragNumberOfCases);
-                    long newIdCovid = covidDataSave.insert(CovidListHelper.TABLE_NAME1,null,newRowValues);
+                    covidDataSave.insert(CovidListHelper.TABLE_NAME1,null,newRowValues);
                     Snackbar snackbar1 =Snackbar.make(click,"Saved data",Snackbar.LENGTH_LONG);
                     snackbar1.show();
-                }else{
-                    Snackbar snackbar2 = Snackbar.make(click,"Data is already saved",Snackbar.LENGTH_LONG);
-                    snackbar2.show();
-                }
-            }else if(saveCovidData.getText().equals("DELETE")){
-                CovidListHelper alh = new CovidListHelper(this.getContext());
-                covidDataSave = alh.getReadableDatabase();
-                boolean t1 = covidDataSave.delete(CovidListHelper.TABLE_NAME1, CovidListHelper.T1Column2 + "=" + covidID, null) > 0;
-                if (t1 == false){
-                    getActivity().setResult(500);
-                    getActivity().finish();
-                }else{
-                }
-            }
+
+
         });
         return covidFileOpened;
     }

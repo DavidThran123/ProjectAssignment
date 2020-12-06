@@ -30,11 +30,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static java.lang.String.valueOf;
+
 public class CovidList extends AppCompatActivity {
     ProgressBar progressBar;
     ListView covidList;
 
-    private CovidListAdapter listAdapter;
+    private CovidListAdapter listAdapter  = new CovidListAdapter();
     private ArrayList<Covid> covidArrayList = new ArrayList<>();
 
 
@@ -44,7 +46,7 @@ public class CovidList extends AppCompatActivity {
         setContentView(R.layout.activity_covidlist);
 
         covidList = findViewById(R.id.covidListView);
-        covidList.setAdapter(listAdapter = new CovidListAdapter());
+        covidList.setAdapter(listAdapter);
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -54,8 +56,11 @@ public class CovidList extends AppCompatActivity {
         String startDateList = intent.getStringExtra("dates");
 
         CovidQuery query = new CovidQuery();
-        query.execute("https://api.covid19api.com/country/"+countryNameList+"/status/confirmed/live?from="+startDateList+"T00:00:00Z&to=2020-10-15T00:00:00Z");
-
+        try {
+            query.execute("https://api.covid19api.com/country/" + countryNameList + "/status/confirmed/live?from=" + startDateList + "T00:00:00Z&to=2020-12-05T00:00:00Z");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         boolean isTablet = findViewById(R.id.frameLayout) != null;
 
         covidList.setOnItemClickListener((list,view,position,id) -> {
@@ -65,13 +70,14 @@ public class CovidList extends AppCompatActivity {
             dataToPassFred.putString("countryCode",covidArrayList.get(position).getCountryCode());
             dataToPassFred.putString("startDate",covidArrayList.get(position).getStartDate());
             dataToPassFred.putString("cases",covidArrayList.get(position).getCaseNumber());
+            dataToPassFred.putString("button", "SAVE");
 
             if(isTablet){
                 CovidFragment cFragment = new CovidFragment();
                 cFragment.setArguments(dataToPassFred);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,cFragment).commit();
             }else{
-                Intent nextActivity = new Intent(CovidList.this,CovidDetail.class);
+                Intent nextActivity = new Intent(CovidList.this, CovidDetail.class);
                 nextActivity.putExtras(dataToPassFred);
                 startActivity(nextActivity);
             }
@@ -91,7 +97,7 @@ public class CovidList extends AppCompatActivity {
 
         @Override //database id of item at row i
         public long getItemId(int i) {
-            return covidArrayList.get(i).getId();
+            return i;
         }
 
         @Override //controls which widgets are on the row
@@ -100,7 +106,7 @@ public class CovidList extends AppCompatActivity {
             View newView = inflater.inflate(R.layout.activity_covid, parent, false);
             TextView textview = newView.findViewById(R.id.covidTitle);
             Covid thisCovid = (Covid) getItem(i);
-            textview.setText(thisCovid.getCountry());
+            textview.setText(thisCovid.getProvince());
             return newView;
         }
     }
@@ -120,44 +126,41 @@ public class CovidList extends AppCompatActivity {
         @Override
         protected String doInBackground(String... args) {
             try {
-                URL url = new URL(args[0]);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream response = urlConnection.getInputStream();
-                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                factory.setNamespaceAware(false);
-                XmlPullParser xpp = factory.newPullParser();
-                xpp.setInput( response  , "UTF-8");
-                int eventType = xpp.getEventType();
 
-                while (eventType != XmlPullParser.END_DOCUMENT) {
-                    if(xpp.getName().equals("Country")){
-                        countryName = xpp.nextText();
-                        publishProgress(16);
-                    }else if(xpp.getName().equals("CountryCode")){
-                        countryCode = xpp.getText();
-                        publishProgress(33);
-                    }else if(xpp.getName().equals("Province")){
-                        provinceName = xpp.getText();
-                        publishProgress(50);
-                    }else if(xpp.getName().equals("Cases")){
-                        numberOfCase = xpp.getText();
-                        publishProgress(67);
-                    }else if(xpp.getName().equals("Date")){
-                        startDate = xpp.getText();
-                        publishProgress(83);
+                    //Initialize Connection
+                    URL url = new URL(args[0]);
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    InputStream response = urlConnection.getInputStream();
+
+                    //Make buffered reader to grab the information
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = "";
+
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
                     }
-                    if(!countryName.equals("")&&!countryCode.equals("")&&!provinceName.equals("")&&!numberOfCase.equals("")&&!startDate.equals("")){
-                        covidArrayList.add(new Covid(countryCode,countryName,provinceName,numberOfCase,startDate));
-                        countryCode = "";
-                        countryName = "";
-                        provinceName = "";
-                        numberOfCase = "";
-                        startDate = "";
+
+                    //Store the results into a string variable
+                    String results = sb.toString();
+
+                JSONArray covidCases = new JSONArray(results);
+
+                if(covidCases.length()!=0){
+                    //Results
+                    for(int i =0; i<covidCases.length(); i++){
+                        JSONObject covidCase = covidCases.getJSONObject(i);
+                        countryName = covidCase.getString("Country");
+                        provinceName = covidCase.getString("Province");
+                        countryCode = covidCase.getString("CountryCode");
+                        startDate = covidCase.getString("Date");
+                        numberOfCase = String.valueOf(covidCase.getInt("Cases"));
+                        covidArrayList.add(new Covid(countryCode, countryName, provinceName, numberOfCase, startDate));
                     }
-                    eventType = xpp.next();
+
+                }else{
+                    //No results
                 }
-
-
             }catch (Exception e){
             }
             return "Done";

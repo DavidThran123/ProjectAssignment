@@ -44,7 +44,7 @@ public class SavedCovid extends AppCompatActivity {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Saved data")
                     .setMessage("Country: "+scList.get(position).getCountry()+"\n"+"Country code: "+scList.get(position).getCountryCode()+"\n"+
-                            "Province: "+scList.get(position).getProvince()+"\n"+"Start Date: "+"\n"+
+                            "Province: "+scList.get(position).getProvince()+"\n"+"Start Date: "+ scList.get(position).getStartDate()+"\n"+
                             "Number of cases: "+scList.get(position).getCaseNumber())
                     .setNeutralButton("Okay",(click,arg)->{})
                     .setNegativeButton("Delete",(click,arg)->{
@@ -61,11 +61,11 @@ public class SavedCovid extends AppCompatActivity {
 
     private void loadCovidDataFromDatabase(){
         CovidListHelper dbCovid = new CovidListHelper(this);
-        savedData = dbCovid.getReadableDatabase();
+        savedData = dbCovid.getWritableDatabase();
 
-        String[] columns1 = {dbCovid.T1Column1,dbCovid.T1Column2,dbCovid.T1Column3,dbCovid.T1Column4,dbCovid.T1Column6 ,dbCovid.T1Column5};
+        String[] columns = {dbCovid.T1Column1,dbCovid.T1Column2,dbCovid.T1Column3,dbCovid.T1Column4,dbCovid.T1Column5 ,dbCovid.T1Column6};
 
-        Cursor results1 = savedData.query(false, dbCovid.TABLE_NAME1,columns1,null,null,null,null,null,null);
+        Cursor results1 = savedData.query(false, dbCovid.TABLE_NAME1,columns,null,null,null,null,null,null);
 
         int idColumnIndex = results1.getColumnIndex(CovidListHelper.T1Column1);
         int countryCodeColumnIndex = results1.getColumnIndex(dbCovid.T1Column2);
@@ -112,7 +112,7 @@ public class SavedCovid extends AppCompatActivity {
 
             TextView textview = newView.findViewById(R.id.covidTitle);
             Covid thisCovid = (Covid) getItem(position);
-            textview.setText(thisCovid.getCountry());
+            textview.setText(thisCovid.getProvince());
 
             return newView;
         }
