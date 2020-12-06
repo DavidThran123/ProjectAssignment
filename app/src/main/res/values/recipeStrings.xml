@@ -9,6 +9,7 @@
     <string name="sayEnterRecipe">Enter Recipe</string>
     <string name="sayEnterPreferredIngredients">Enter Preferred Ingredients</string>
     <string name="saySearch">Search</string>
+    <string name="sayFavorite">Favorite</string>
     <string name="sayFavorites">Favorites</string>
     <string name="sayTitle">Title: </string>
     <string name="sayIngredients">Ingredients:</string>
