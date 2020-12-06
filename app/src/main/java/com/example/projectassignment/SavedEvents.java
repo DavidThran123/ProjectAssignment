@@ -25,10 +25,18 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SavedEvents extends AppCompatActivity {
+
+    // declare textview, listview
     TextView EventNames;
     ListView EventNamesLV;
+
+    //List of events Arraylist
     ArrayList<Event> events = new ArrayList<>();
+
+    //adapter
     EventAdapter eventsAdapter = new EventAdapter();
+
+    //List of saved events Arraylist
     private ArrayList <Event> savedEventList = new ArrayList<>();
     public SQLiteDatabase saveAssist;
 
@@ -37,10 +45,14 @@ public class SavedEvents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_events);
 
+        //load database
         loadEventsFromDatabase();
 
+        //set both views by associated ID
         EventNames = (TextView) findViewById(R.id.EventsSavedTitle);
         EventNamesLV = (ListView) findViewById(R.id.EventsSavedListView);
+
+        //set adapter
         EventNamesLV.setAdapter(eventsAdapter);
 
         eventsAdapter.notifyDataSetChanged();
@@ -82,7 +94,7 @@ public class SavedEvents extends AppCompatActivity {
     private class EventAdapter extends BaseAdapter {
 
 
-        @Override // number of items in the list
+        @Override // get number of items in the list
         public int getCount() {
             return  savedEventList.size();
         }
