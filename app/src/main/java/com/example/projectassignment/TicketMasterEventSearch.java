@@ -36,17 +36,21 @@ import java.util.ArrayList;
 public class TicketMasterEventSearch extends AppCompatActivity {
 
     //declare variables
-    private static final String API_KEY = "RINP3tjoIuw2xX9fusWR4iOAVdOtZzvj";
-    EditText city, radius;
-    Button searchButton , loadEventButton;
+    private static final String API_KEY = "RINP3tjoIuw2xX9fusWR4iOAVdOtZzvj";//Key for website
+    //Elements within the ui
+    EditText city, radius; //Both edit texts
+    Button searchButton , loadEventButton; //Both buttons
+    ListView events;//The list of events
+    ProgressBar pbar; //Progress bar
 
-    ListView events;
+    //In class variables
     String cityString, radiusString;
+    //List of events Arraylist
     ArrayList<Event> eventAR = new ArrayList<>();
+    //Adapter for listview
     EventAdapter adapter = new EventAdapter();
-    ProgressBar pbar;
-    boolean finishedBackgroundtask;
-    public SQLiteDatabase dbSQL;
+
+    public SQLiteDatabase dbSQL; //Sql/database connection
 
     //Bundle constants
     public static final String EVENTNAME = "EVENTNAME";
@@ -56,51 +60,61 @@ public class TicketMasterEventSearch extends AppCompatActivity {
     public static final String URL = "URL";
     public static final String IMAGEURL = "IMAGEURL";
 
-    SharedPreferences prefs = null;
-    private final String savedCityKey = "savedCity";
-    private final String savedRadiusKey = "savedRadius";
+    //Initialize the shared preference variables
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_master_event_search);
 
-        prefs = getSharedPreferences("citySave", Context.MODE_PRIVATE);
-
-        
+        //connecting UI objects to their sources
         city = findViewById(R.id.searchCity);
         radius = findViewById(R.id.searchRadius);
-
-        String savedCity = prefs.getString(savedCityKey,"");
-        String savedRadius = prefs.getString(savedRadiusKey,"");
-
-        city.setText(savedCity);
-        radius.setText(savedRadius);
-
         loadEventButton = findViewById(R.id.SavedSearch);
         searchButton = findViewById(R.id.searchButtonDing);
+
+        //Setting listview source and applying the adapter
         events = findViewById(R.id.listViewResults);
         events.setAdapter(adapter);
 
+        //Progress bar
         pbar = findViewById(R.id.progBar);
         pbar.setVisibility(View.VISIBLE);
 
+        //Collecting on pause data, and setting both edit texts
+        sp = this.getPreferences(Context.MODE_PRIVATE);
+        if (sp.getString("cityInput", "")!=null) {
+            city.setText(sp.getString("cityInput", ""));
+        }
+        if(sp.getString("radiusInput", "")!=null){
+            radius.setText(sp.getString("radiusInput", ""));
+        }
+
+
+        //Setting on click listener for search button
         searchButton.setOnClickListener( clk ->{
+            //Get string variables
             cityString = city.getText().toString();
             radiusString = radius.getText().toString();
             eventAR.clear();
             events.removeAllViewsInLayout();
+            //make string URL
             String url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey="+API_KEY+"&city="+cityString+"&radius="+radiusString;
+            //Make Event Do in background object/Async task
             EventQuery aQ = new EventQuery();
+            //Send the url for parsing
             aQ.execute(url);
         });
 
+        //Launch intent to new activity on click
         loadEventButton.setOnClickListener(clk ->{
             Intent savedEvents = new Intent(TicketMasterEventSearch.this, SavedEvents.class);
             startActivity(savedEvents);
         });
 
+        //Display Alert dialog with help details on click
         Button helpButton = findViewById(R.id.helpButtonDing);
         helpButton.setOnClickListener(v->
         {
@@ -125,70 +139,109 @@ public class TicketMasterEventSearch extends AppCompatActivity {
     }
 
 
+    //On pause save the edit text contents with shared preference
+    protected void onPause() {
+        super.onPause();
+        editor = sp.edit();
+        editor.putString("cityInput", city.getText().toString());
+        editor.putString("radiusInput", radius.getText().toString());
+        editor.apply();
+    }
 
+    //This class will sort through JSON details of sent url, and will handle error
     private class EventQuery extends AsyncTask<String, Integer, String> {
 
         @Override
         protected String doInBackground(String... args) {
             try {
+
+                setProgress(10);
+
                 //Initialize Connection
                 URL url = new URL(args[0]);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream response = urlConnection.getInputStream();
+
+                setProgress(20);
 
                 //Make buffered reader to grab the information
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
                 StringBuilder sb = new StringBuilder();
                 String line = "";
 
+                setProgress(30);
+
+                //Loop reading each line in HTTP page untill end
                 while ((line = reader.readLine()) != null) {
                     sb.append(line + "\n");
                 }
 
+                setProgress(40);
+
                 //Store the results into a string variable
                 String albumSearch = sb.toString();
+
+                setProgress(50);
 
                 //Make a JSONObject to store the results
                 JSONObject object = new JSONObject(albumSearch);
 
-                //Set progress to 0
-                setProgress(0);
+                setProgress(60);
+
                 JSONObject first = object.getJSONObject("_embedded");
-                //Checks to see if the object has any search results
+
+                setProgress(70);
+
+                //So checks if JSON object recieved is not null
                 if(first!=null) {
+                    //Grap events array within the object
                         JSONArray jsonArray = first.getJSONArray("events");
                         //Loop through JSONArray
                         for (int i = 0; i < jsonArray.length(); i++) {
                             //Make a temp Object for every Object found in JSONArray
                             JSONObject singleJO = (JSONObject) jsonArray.get(i);
+
                             String nameOfEvent = singleJO.getString("name");
                             String urlTicket = singleJO.getString("url");
 
+                            //get object within singleJO "dates"
                             JSONObject dateJO = (JSONObject) singleJO.getJSONObject("dates");
+                            //grab start Object from the dateJO
                             JSONObject startJO = (JSONObject) dateJO.getJSONObject("start");
+                            //finally grab the local date from startJO and put into string dateStart
                             String dateStart = (String) startJO.getString("localDate");
 
+                            //Get priceRanges array withing the singleJO
                             JSONArray priceJO = (JSONArray) singleJO.getJSONArray("priceRanges");
+                            //get object withing the priceJO array
                             JSONObject price = (JSONObject)priceJO.get(0);
+                            //Grab both min and max from the price Object
                             int minPrice = price.getInt("min");
                             int maxPrice = price.getInt("max");
-                            //String info = singleJO.getString("info");
 
+                            //Grap Json array from singleJO
                             JSONArray images = singleJO.getJSONArray("images");
+                            //Grab object at first position from images array
                             JSONObject image = (JSONObject)images.get(0);
+                            //put url of image within the imageURL from image object
                             String imageUrl = image.getString("url");
 
-                            eventAR.add(new Event(nameOfEvent, dateStart, minPrice, maxPrice, urlTicket, new Image(imageUrl)));
-                            setProgress((int) ((i + 1) / jsonArray.length() * 100));
-                    }
-                    }
 
+                            //Finally add all collected variables to new Event and add to eventAR/ArrayList<Event>
+                            eventAR.add(new Event(nameOfEvent, dateStart, minPrice, maxPrice, urlTicket, new Image(imageUrl)));
+
+                    }
+                    setProgress(80);
+
+                }
 
             } catch(JSONException e) {
                 e.printStackTrace();
             }catch (Exception e){
             e.printStackTrace();
         }
+            setProgress(90);
+
             return "Done";
         }
 
@@ -199,13 +252,18 @@ public class TicketMasterEventSearch extends AppCompatActivity {
         }
 
 
+        //Once do in backGround is "Done"
+        //set progress bar to invisible and notify set data cahnge
         public void onPostExecute(String fromDoInBackground) {
+            setProgress(100);
             pbar.setVisibility(View.INVISIBLE);
+
             //Populate listview with results
             adapter.notifyDataSetChanged();
 
         }
     }
+
     //Updates listView with found results and shows a toast button
 
     //This is an adapter to inflate the ListView with another row, it is used for

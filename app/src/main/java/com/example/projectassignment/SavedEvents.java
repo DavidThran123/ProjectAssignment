@@ -36,11 +36,15 @@ public class SavedEvents extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_events);
+
         loadEventsFromDatabase();
+
         EventNames = (TextView) findViewById(R.id.EventsSavedTitle);
         EventNamesLV = (ListView) findViewById(R.id.EventsSavedListView);
         EventNamesLV.setAdapter(eventsAdapter);
+
         eventsAdapter.notifyDataSetChanged();
+
     }
 
 
@@ -52,6 +56,7 @@ public class SavedEvents extends AppCompatActivity {
         String [] columns = {db.col1,db.col2, db.col3, db.col4, db.col5, db.col6, db.col7};
 
         Cursor returnedEvents = saveAssist.query(false, db.TABLE_NAME, columns, null, null, null, null, null, null);
+
         int idColumn = returnedEvents.getColumnIndex(db.col1);
         int titleColumn = returnedEvents.getColumnIndex(db.col2);
         int dateColumn = returnedEvents.getColumnIndex(db.col3);
