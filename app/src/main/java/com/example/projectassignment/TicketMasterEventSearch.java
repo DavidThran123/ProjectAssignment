@@ -37,7 +37,10 @@ import java.util.ArrayList;
 
 public class TicketMasterEventSearch extends AppCompatActivity {
 
-    //declare variables
+    /**
+     *declare variables
+     */
+
     private static final String API_KEY = "RINP3tjoIuw2xX9fusWR4iOAVdOtZzvj";//Key for website
     //Elements within the ui
     EditText city, radius; //Both edit texts
@@ -66,6 +69,10 @@ public class TicketMasterEventSearch extends AppCompatActivity {
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
+    /**
+     * method to load the ticket master  and
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +147,9 @@ public class TicketMasterEventSearch extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     */
 
     //On pause save the edit text contents with shared preference
     protected void onPause() {
@@ -150,6 +160,9 @@ public class TicketMasterEventSearch extends AppCompatActivity {
         editor.apply();
     }
 
+    /**
+     *
+     */
     //This class will sort through JSON details of sent url, and will handle error
     private class EventQuery extends AsyncTask<String, Integer, String> {
 
@@ -247,13 +260,20 @@ public class TicketMasterEventSearch extends AppCompatActivity {
             return "Done";
         }
 
+        /**
+         *
+         * @param value
+         */
         //Updates the progress bar
         public void onProgressUpdate(Integer... value) {
             pbar.setVisibility(View.VISIBLE);
             pbar.setProgress(value[0]);
         }
 
-
+        /**
+         *
+         * @param fromDoInBackground
+         */
         //Once do in backGround is "Done"
         //set progress bar to invisible and notify set data cahnge
         public void onPostExecute(String fromDoInBackground) {
@@ -266,6 +286,9 @@ public class TicketMasterEventSearch extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     */
 
     //This is an adapter to inflate the ListView with another row, it is used for
     //adding the searched events as seperate entities among the listview
@@ -276,17 +299,33 @@ public class TicketMasterEventSearch extends AppCompatActivity {
             return  eventAR.size();
         }
 
+        /**
+         *
+         * @param i
+         * @return
+         */
         @Override // what object goes at row i
         public Object getItem(int i) {
             return eventAR.get(i);
         }
 
+        /**
+         *
+         * @param i
+         * @return
+         */
         @Override //database id of item at row i
         public long getItemId(int i) {
             return i;
         }
 
-
+        /**
+         *
+         * @param i
+         * @param old
+         * @param parent
+         * @return
+         */
         @Override //controls which widgets are on the row
         public View getView(int i, View old, ViewGroup parent)
         {

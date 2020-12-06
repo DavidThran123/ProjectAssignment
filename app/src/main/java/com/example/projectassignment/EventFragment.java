@@ -19,11 +19,20 @@ import android.widget.Toast;
 
 public class EventFragment extends Fragment {
 
+    /**
+     *
+     */
     private static final String TAG = "LOG";
-
     private AppCompatActivity parentActivityDing;
 
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,6 +69,10 @@ public class EventFragment extends Fragment {
         return eventOpened;
     }
 
+    /**
+     *
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

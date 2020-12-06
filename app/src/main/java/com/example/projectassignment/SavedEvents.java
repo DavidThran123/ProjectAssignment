@@ -26,6 +26,9 @@ import java.util.ArrayList;
 
 public class SavedEvents extends AppCompatActivity {
 
+    /**
+     *
+     */
     // declare textview, listview
     TextView EventNames;
     ListView EventNamesLV;
@@ -40,6 +43,10 @@ public class SavedEvents extends AppCompatActivity {
     private ArrayList <Event> savedEventList = new ArrayList<>();
     public SQLiteDatabase saveAssist;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +66,9 @@ public class SavedEvents extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     */
 
     private void loadEventsFromDatabase()
     {
@@ -91,6 +101,9 @@ public class SavedEvents extends AppCompatActivity {
     }
 
 
+    /**
+     *
+     */
     private class EventAdapter extends BaseAdapter {
 
 
