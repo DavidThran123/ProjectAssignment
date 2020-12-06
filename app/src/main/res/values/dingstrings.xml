@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="dingTitle">Ticket Master Event Search</string>
-    <string name="ButtonTitle">Search</string>
+    <string name="searchCity">City Name</string>
+    <string name="searchRadius">Search Radius</string>
+    <string name="searchButton">Search</string>
+    <string name="helpButton">Help</string>
     <string name="SavedResults">See Saved Events</string>
     <string name="eventName">Events Name</string>
     <string name="minPrice">Minimum Price </string>

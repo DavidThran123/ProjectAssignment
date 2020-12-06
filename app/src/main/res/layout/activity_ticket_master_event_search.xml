@@ -13,15 +13,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:text="@string/dingTitle"
-        android:textSize="27dp"
-        android:layout_marginBottom="50dp"/>
+        android:textSize="27dp" />
 
     <EditText
         android:id="@+id/searchCity"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/dingTitle"
-        android:hint="City Name"
+        android:hint="@string/searchCity"
         android:layout_alignParentLeft="true"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -32,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dingTitle"
         android:layout_alignParentRight="true"
-        android:hint="Search Radius"
+        android:hint="@string/searchRadius"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         />
@@ -41,18 +40,30 @@
         android:id="@+id/searchButtonDing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/searchRadius"
-        android:text="@string/ButtonTitle"
+        android:text="@string/searchButton"
+        android:layout_below="@id/searchCity"
         android:layout_marginTop="25dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <Button
+        android:id="@+id/helpButtonDing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchButtonDing"
+        android:text="@string/helpButton"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        />
 
     <ListView
         android:id="@+id/listViewResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/searchButtonDing"
+        android:layout_below="@id/helpButtonDing"
         android:verticalScrollbarPosition="right"
-        android:layout_above="@id/progBar"/>
+        android:layout_above="@id/progBar">
+
+
+    </ListView>
 
     <ProgressBar
         android:id="@+id/progBar"

@@ -79,6 +79,27 @@ public class TicketMasterEventSearch extends AppCompatActivity {
             startActivity(savedEvents);
         });
 
+        Button helpButton = findViewById(R.id.helpButtonDing);
+        helpButton.setOnClickListener(v->
+        {
+            AlertDialog.Builder alertDialogBuilder;
+            alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Instructions:")
+                    .setMessage( "Enter the City Name in the first search textbox " + "\n" +
+                            "Enter the Search Radius in the second search textbox" +  "\n" +
+                            "Click Search for result" + "\n"+
+                            "After Search completed" + "\n"+
+                            "Click view button for event details"+ "\n"+
+                            "Click save button to save events"+ "\n"+
+                            "Checkout the saved events by clicking saved event button")
+                    .setNeutralButton("Okay",(click,arg)->
+                    {
+
+                    })
+                    .setView(getLayoutInflater().inflate(R.layout.ticketmaster_alert_layout,null))
+                    .create().show();
+        });
+
 
     }
 
