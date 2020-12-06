@@ -59,8 +59,6 @@ public class TicketMasterEventSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_master_event_search);
 
-
-
         city = findViewById(R.id.searchCity);
         radius = findViewById(R.id.searchRadius);
         loadEventButton = findViewById(R.id.SavedSearch);
@@ -183,7 +181,7 @@ public class TicketMasterEventSearch extends AppCompatActivity {
             pbar.setProgress(value[0]);
         }
 
-        //Updates listView with found results and shows a toast button
+
         public void onPostExecute(String fromDoInBackground) {
             pbar.setVisibility(View.INVISIBLE);
             //Populate listview with results
@@ -191,12 +189,11 @@ public class TicketMasterEventSearch extends AppCompatActivity {
 
         }
     }
-
+    //Updates listView with found results and shows a toast button
 
     //This is an adapter to inflate the ListView with another row, it is used for
     //adding the searched events as seperate entities among the listview
     private class EventAdapter extends BaseAdapter {
-
 
         @Override // number of items in the list
         public int getCount() {
