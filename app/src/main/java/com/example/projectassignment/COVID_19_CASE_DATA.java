@@ -1,6 +1,5 @@
 package com.example.projectassignment;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
@@ -44,6 +44,7 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
     Button saveButton;
     EditText dateSearch;
     EditText endDateSearch;
+    Button helpButton;
 
     public int covidCase;
     public Bundle dataToPassFred;
@@ -87,6 +88,19 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
         caseTitle = findViewById(R.id.caseTitleJPark);
 
         e = sp.edit();
+
+        helpButton =findViewById(R.id.helpCountryButton);
+        helpButton.setOnClickListener(v -> {
+            androidx.appcompat.app.AlertDialog.Builder alertDialogBuilder;
+            alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Instructions:")
+                    .setMessage("Enter country name in the first text box in "+"capital letters"+"\n"+
+                            "Enter start date in second text box in YYYY-MM-DD format"+"\n"+
+                            "Enter end date in third text box in YYYY-MM-DD format")
+                    .setNeutralButton("Back",(click,arg)->{})
+                    .setView(getLayoutInflater().inflate(R.layout.activity_alert,null))
+                    .create().show();
+        });
 
         searchButton = findViewById(R.id.caseSearchCountryButton);//search button
         searchButton.setOnClickListener(v -> {

@@ -64,4 +64,13 @@
         android:text="@string/savedCountries"
         android:layout_below="@id/caseSearchCountryButton"/>
 
+    <Button
+        android:id="@+id/helpCountryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Help"
+        android:text="@string/help"
+        android:layout_below="@id/caseSearchCountryButton"/>
+
 </RelativeLayout>
