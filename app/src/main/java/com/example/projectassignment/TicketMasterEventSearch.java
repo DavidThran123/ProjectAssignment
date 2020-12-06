@@ -264,7 +264,6 @@ public class TicketMasterEventSearch extends AppCompatActivity {
         }
     }
 
-    //Updates listView with found results and shows a toast button
 
     //This is an adapter to inflate the ListView with another row, it is used for
     //adding the searched events as seperate entities among the listview

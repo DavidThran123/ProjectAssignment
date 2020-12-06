@@ -24,7 +24,6 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
 
     TicketMasterDatabaseHelper(Context context){
         super(context, DATABASE_NAME,null,VERSION_NUM);
-
     }
 
     @Override
