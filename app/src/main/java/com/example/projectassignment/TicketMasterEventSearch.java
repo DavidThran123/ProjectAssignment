@@ -298,6 +298,7 @@ public class TicketMasterEventSearch extends AppCompatActivity {
             textEvent.setText(thisEvent.getEventName());
             textDate.setText(thisEvent.getDateOfEvent());
 
+            //set click to save data to a bundle to display view in DetailActvity
             view.setOnClickListener(clk -> {
                             Bundle eventData = new Bundle();
 
@@ -322,7 +323,7 @@ public class TicketMasterEventSearch extends AppCompatActivity {
                             startActivity(viewEventDetails);
 
             });
-
+            //set click to save the event to database
             save.setOnClickListener(clk -> {
                             TicketMasterDatabaseHelper db = new TicketMasterDatabaseHelper(getApplicationContext());
                             dbSQL = db.getReadableDatabase();
@@ -337,7 +338,7 @@ public class TicketMasterEventSearch extends AppCompatActivity {
                             Toast.makeText(clk.getContext(), "Event Saved!", Toast.LENGTH_SHORT).show();
 
                         });
-
+            //return view
             return newRow;
         }
     }
