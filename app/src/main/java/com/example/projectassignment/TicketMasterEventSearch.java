@@ -4,7 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -37,6 +39,7 @@ public class TicketMasterEventSearch extends AppCompatActivity {
     private static final String API_KEY = "RINP3tjoIuw2xX9fusWR4iOAVdOtZzvj";
     EditText city, radius;
     Button searchButton , loadEventButton;
+
     ListView events;
     String cityString, radiusString;
     ArrayList<Event> eventAR = new ArrayList<>();
@@ -53,14 +56,28 @@ public class TicketMasterEventSearch extends AppCompatActivity {
     public static final String URL = "URL";
     public static final String IMAGEURL = "IMAGEURL";
 
+    SharedPreferences prefs = null;
+    private final String savedCityKey = "savedCity";
+    private final String savedRadiusKey = "savedRadius";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_master_event_search);
 
+        prefs = getSharedPreferences("citySave", Context.MODE_PRIVATE);
+
+        
         city = findViewById(R.id.searchCity);
         radius = findViewById(R.id.searchRadius);
+
+        String savedCity = prefs.getString(savedCityKey,"");
+        String savedRadius = prefs.getString(savedRadiusKey,"");
+
+        city.setText(savedCity);
+        radius.setText(savedRadius);
+
         loadEventButton = findViewById(R.id.SavedSearch);
         searchButton = findViewById(R.id.searchButtonDing);
         events = findViewById(R.id.listViewResults);
