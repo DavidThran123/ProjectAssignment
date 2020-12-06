@@ -1,23 +1,11 @@
 <resources>
-    <string name="app_name">ProjectAssignment</string>
-    <string name="davidButton">AUDIO DATABASE API</string>
-    <string name="juhoonButton">COVID-19 CASE DATA</string>
-    <string name="nintendoButton">TICKETMASTER EVENT SEARCH</string>
-    <string name="mattButton">RECIPE SEARCH PAGE</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_joke">joke</string>
-
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_audio_database_apia">AUDIO_DATABASE_APIa</string>
-
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
+    <string name="app_name" translatable="false">ProjectAssignment</string>
+    <string name="davidButton" translatable="false">AUDIO DATABASE API</string>
+    <string name="juhoonButton" translatable="false">COVID-19 CASE DATA</string>
+    <string name="nintendoButton" translatable="false">TICKETMASTER EVENT SEARCH</string>
+    <string name="mattButton" translatable="false">RECIPE SEARCH PAGE</string>
+    <string name="title_activity_joke" translatable="false">joke</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
+    <string name="title_activity_audio_database_apia" translatable="false">AUDIO_DATABASE_APIa</string>
 </resources>
