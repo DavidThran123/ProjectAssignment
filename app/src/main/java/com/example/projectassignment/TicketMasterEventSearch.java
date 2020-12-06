@@ -105,7 +105,6 @@ public class TicketMasterEventSearch extends AppCompatActivity {
                     .create().show();
         });
 
-
     }
 
 
@@ -264,7 +263,8 @@ public class TicketMasterEventSearch extends AppCompatActivity {
                             newRowValues.put(TicketMasterDatabaseHelper.col6, thisEvent.getUrl());
                             newRowValues.put(TicketMasterDatabaseHelper.col7, thisEvent.getImage().getURL());
                             long newIDofEvent = dbSQL.insert(TicketMasterDatabaseHelper.TABLE_NAME, null, newRowValues);
-                            Toast.makeText(clk.getContext(), "Event id = "+newIDofEvent, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(clk.getContext(), "Event Saved!", Toast.LENGTH_SHORT).show();
+
                         });
 
             return newRow;
