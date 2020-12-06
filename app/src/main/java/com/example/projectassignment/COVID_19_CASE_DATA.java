@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 public class COVID_19_CASE_DATA extends AppCompatActivity {
     /**
-     *
+     *initizlizedall units inside {@layout activity_covid_case_data}.
      */
     TextView caseTitle;
     EditText caseSearch;
@@ -46,11 +46,16 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {
     EditText endDateSearch;
     Button helpButton;
 
+    /**
+     *final names for the bundle to pass to {@code CovidFragment}.
+     */
     public static final String COUNTRY_NAME = "CountryName";
     public static final String START_DATE = "StartDate";
     public static final String END_DATE = "EndDate";
+
     /**
-     * SharedPreference provides an interface for saving data to a file in emulator
+     * SharedPreference provides an interface for saving data to a file in emulator.
+     * Initialized SharedPreference variables
      */
     SharedPreferences sp = null;
     SharedPreferences.Editor e;
@@ -62,7 +67,10 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {
 
         CovidFragment covidFragment =new CovidFragment();
 
-        caseSearch = findViewById(R.id.caseSearchCountry);//edit text
+        /**
+         *initialized elements of {@layout activity_covid_case_data}.
+         */
+        caseSearch = findViewById(R.id.caseSearchCountry);
         dateSearch = findViewById(R.id.calendarEditText);
         endDateSearch = findViewById(R.id.calendarEndDateEditText);
 
@@ -81,7 +89,7 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {
         e = sp.edit();
 
         /**
-         * helpButton sets the message to display when clicked. This shows instructions on how to utilize the COVID_19_CASE_DATA page.
+         * helpButton sets the message to display when clicked. This shows instructions on how to utilize the {@code COVID_19_CASE_DATA}.
          */
         helpButton =findViewById(R.id.helpCountryButton);
         helpButton.setOnClickListener(v -> {
@@ -97,9 +105,9 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {
         });
 
         /**
-         * saves data and commits it
+         * initialized the search button, and applied a click listener, and saves edit text contents with shared preference
          */
-        searchButton = findViewById(R.id.caseSearchCountryButton);//search button
+        searchButton = findViewById(R.id.caseSearchCountryButton);
         searchButton.setOnClickListener(v -> {
             e.putString(COUNTRY_NAME,caseSearch.getText().toString());
             e.commit();
@@ -112,9 +120,10 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {
 
         caseDate = findViewById(R.id.calendarEditText);
 
-        //caseBar = findViewById(R.id.caseProgressBar);//progress bar
-
-        saveButton = findViewById(R.id.savedCountryButton);//view saved countries
+        /**
+         *initialized save button and loads {@code SavedCovid}.
+         */
+        saveButton = findViewById(R.id.savedCountryButton);
         saveButton.setOnClickListener(v -> {
             loadSavedCovid();
         });
@@ -125,7 +134,7 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {
     /**
      * saves the input from users on each edit text on activity_covid_case_data
      * loads the data to the CovidList.java with string code
-     * also switches to the next page (CovidList)
+     * also switches to the next page {@code CovidList}.
      */
     private void loadCovidList(){
         Intent goToCovidList = new Intent(COVID_19_CASE_DATA.this,CovidList.class);
@@ -143,7 +152,7 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {
 
     /**
      * loads the data to SavedCovid.java
-     * also switches to the next page (SavedCovid)
+     * also switches to the next page {@code SavedCovid}.
      */
     private void loadSavedCovid(){
         Intent goToSavedCovid = new Intent(COVID_19_CASE_DATA.this,SavedCovid.class);

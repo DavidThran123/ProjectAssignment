@@ -68,7 +68,9 @@ public class CovidList extends AppCompatActivity {
             e.printStackTrace();
         }
         boolean isTablet = findViewById(R.id.frameLayout) != null;
-
+        /**
+         * click listener for album listview and saves the data according to the string set on the data
+         */
         covidList.setOnItemClickListener((list,view,position,id) -> {
             Bundle dataToPassFred = new Bundle();
             dataToPassFred.putString("country",covidArrayList.get(position).getCountry());
@@ -88,7 +90,9 @@ public class CovidList extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
-
+        /**
+         * helpButton sets the message to display when clicked. This shows instructions on how to utilize the {@code CovidList}.
+         */
         helpButton.setOnClickListener(v -> {
             AlertDialog.Builder alertDialogBuilder;
             alertDialogBuilder = new AlertDialog.Builder(this);
@@ -101,23 +105,47 @@ public class CovidList extends AppCompatActivity {
         });
     }
 
+    /**
+     * adapter toinflate the listview with another row, adds the searched province as separate entities among the list view
+     */
     private class CovidListAdapter extends BaseAdapter {
-        @Override // number of items in the list
+        /**
+         * returns the number of items on the list
+         * @return A reference to the int containing the list size stored in this {@code CovidList}.
+         */
+        @Override
         public int getCount() {
             return  covidArrayList.size();
         }
 
-        @Override // what string goes at row i
+        /**
+         * returns the object location at row number i
+         * @param i The position of row
+         * @return A reference to the Object containing the object location in row.
+         */
+        @Override
         public Object getItem(int i) {
             return covidArrayList.get(i);
         }
 
-        @Override //database id of item at row i
+        /**
+         * returns the database id of item at row number i
+         * @param i The position of row
+         * @return A reference to the database id containing the id location in row.
+         */
+        @Override
         public long getItemId(int i) {
             return i;
         }
 
-        @Override //controls which widgets are on the row
+        /**
+         * returns the view to show which widget is in the row
+         * @param i The position of row
+         * @param old
+         * @param parent
+         * @return A reference to the widget and its element.
+         */
+        @Override
         public View getView(int i, View old, ViewGroup parent){
             LayoutInflater inflater = getLayoutInflater();
             View newView = inflater.inflate(R.layout.activity_covid, parent, false);
@@ -128,7 +156,13 @@ public class CovidList extends AppCompatActivity {
         }
     }
 
+    /**
+     * class used to search for all provinces inside searched country
+     */
     private class CovidQuery extends AsyncTask<String, Integer, String> {
+        /**
+         * initializes variables for {@code CovidQuery}.
+         */
         public String countryName;
         public String provinceName;
         public int idList;
@@ -144,12 +178,21 @@ public class CovidList extends AppCompatActivity {
         protected String doInBackground(String... args) {
             try {
 
-                    //Initialize Connection
+                /**
+                 * Initialize Connection
+                 */
                     URL url = new URL(args[0]);
+                /**
+                 * Initializes HttpURLConnection and opens the connection
+                 */
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                /**
+                 * Waits for data input from the internet
+                 */
                     InputStream response = urlConnection.getInputStream();
-
-                    //Make buffered reader to grab the information
+                /**
+                 * buffer reads and initializes the JSON array inside object track
+                 */
                     BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
                     StringBuilder sb = new StringBuilder();
                     String line = "";
@@ -160,7 +203,9 @@ public class CovidList extends AppCompatActivity {
 
                     //Store the results into a string variable
                     String results = sb.toString();
-
+                /**
+                 * JSON object made for String results
+                 */
                 JSONArray covidCases = new JSONArray(results);
 
                 if(covidCases.length()!=0){
@@ -183,6 +228,10 @@ public class CovidList extends AppCompatActivity {
             return "Done";
         }
 
+        /**
+         *
+         * @param value
+         */
         public void onProgressUpdate(Integer... value) {
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setProgress(value[0]);
