@@ -32,9 +32,6 @@ public class CovidFragment extends Fragment{
     private String fragNumberOfCases;
     public SQLiteDatabase covidDataSave;
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View covidFileOpened = inflater.inflate(R.layout.activity_covidfragment,container,false);
