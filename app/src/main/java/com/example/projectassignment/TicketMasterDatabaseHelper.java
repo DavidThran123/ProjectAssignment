@@ -14,7 +14,6 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
     protected final static String DATABASE_NAME = "TicketEventDataBase";
 
     public final static String TABLE_NAME = "Events";
-
     public final static String col1 = "ID";
     public final static String col2 = "Title";
     public final static String col3 = "Date";

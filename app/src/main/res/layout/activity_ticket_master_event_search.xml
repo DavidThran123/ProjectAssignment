@@ -10,16 +10,29 @@
     <TextView
         android:id="@+id/dingTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
         android:text="@string/dingTitle"
-        android:textSize="27dp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/authorTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/authorTitle"
+        android:layout_below="@id/dingTitle"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/searchCity"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dingTitle"
+        android:layout_below="@id/authorTitle"
         android:hint="@string/searchCity"
         android:layout_alignParentLeft="true"
         android:singleLine="true"
@@ -29,7 +42,7 @@
         android:id="@+id/searchRadius"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dingTitle"
+        android:layout_below="@id/authorTitle"
         android:layout_alignParentRight="true"
         android:hint="@string/searchRadius"
         android:singleLine="true"
@@ -42,7 +55,7 @@
         android:layout_height="wrap_content"
         android:text="@string/searchButton"
         android:layout_below="@id/searchCity"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <Button
