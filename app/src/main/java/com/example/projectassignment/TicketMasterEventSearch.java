@@ -149,10 +149,8 @@ public class TicketMasterEventSearch extends AppCompatActivity {
     }
 
     /**
-     *
+     *On pause save the edit text contents with shared preference
      */
-
-    //On pause save the edit text contents with shared preference
     protected void onPause() {
         super.onPause();
         editor = sp.edit();
@@ -162,9 +160,8 @@ public class TicketMasterEventSearch extends AppCompatActivity {
     }
 
     /**
-     *
+     * This class is used for sorting through JSON details in sent url, and will handle error
      */
-    //This class will sort through JSON details of sent url, and will handle error
     private class EventQuery extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -227,9 +224,9 @@ public class TicketMasterEventSearch extends AppCompatActivity {
                             //finally grab the local date from startJO and put into string dateStart
                             String dateStart = (String) startJO.getString("localDate");
 
-                            //Get priceRanges array withing the singleJO
+                            //Get priceRanges array within the singleJO
                             JSONArray priceJO = (JSONArray) singleJO.getJSONArray("priceRanges");
-                            //get object withing the priceJO array
+                            //get object within the priceJO array
                             JSONObject price = (JSONObject)priceJO.get(0);
                             //Grab both min and max from the price Object
                             int minPrice = price.getInt("min");
@@ -262,21 +259,18 @@ public class TicketMasterEventSearch extends AppCompatActivity {
         }
 
         /**
-         *
+         * method for updating the progress bar
          * @param value
          */
-        //Updates the progress bar
         public void onProgressUpdate(Integer... value) {
             pbar.setVisibility(View.VISIBLE);
             pbar.setProgress(value[0]);
         }
 
         /**
-         *
+         * Once do in backGround is "Done" set progress bar to invisible and notify set data cahnge
          * @param fromDoInBackground
          */
-        //Once do in backGround is "Done"
-        //set progress bar to invisible and notify set data cahnge
         public void onPostExecute(String fromDoInBackground) {
             setProgress(100);
             pbar.setVisibility(View.INVISIBLE);
@@ -288,11 +282,10 @@ public class TicketMasterEventSearch extends AppCompatActivity {
     }
 
     /**
-     *
+     * This method is an adapter to inflate the ListView with another row, it is used for
+     *  adding the searched events as seperate entities among the listview
      */
 
-    //This is an adapter to inflate the ListView with another row, it is used for
-    //adding the searched events as seperate entities among the listview
     private class EventAdapter extends BaseAdapter {
 
         @Override // number of items in the list
@@ -301,33 +294,33 @@ public class TicketMasterEventSearch extends AppCompatActivity {
         }
 
         /**
-         *
+         * determines what object goes at row i
          * @param i
          * @return
          */
-        @Override // what object goes at row i
+        @Override
         public Object getItem(int i) {
             return eventAR.get(i);
         }
 
         /**
-         *
+         *  determines database id of item at row i
          * @param i
          * @return
          */
-        @Override //database id of item at row i
+        @Override
         public long getItemId(int i) {
             return i;
         }
 
         /**
-         *
+         * method to create display view
          * @param i
          * @param old
          * @param parent
          * @return
          */
-        @Override //controls which widgets are on the row
+        @Override
         public View getView(int i, View old, ViewGroup parent)
         {
             LayoutInflater inflater = getLayoutInflater();
