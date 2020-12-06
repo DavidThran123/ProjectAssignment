@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 public class TicketMasterEventSearch extends AppCompatActivity {
 
+    //declare variables
     private static final String API_KEY = "RINP3tjoIuw2xX9fusWR4iOAVdOtZzvj";
     EditText city, radius;
     Button searchButton , loadEventButton;
@@ -54,8 +55,12 @@ public class TicketMasterEventSearch extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_master_event_search);
+
+
+
         city = findViewById(R.id.searchCity);
         radius = findViewById(R.id.searchRadius);
         loadEventButton = findViewById(R.id.SavedSearch);
@@ -234,7 +239,6 @@ public class TicketMasterEventSearch extends AppCompatActivity {
                             Image image = thisEvent.getImage();
                             String imageURL = thisEvent.getImage().getURL();
 
-
                             eventData.putString("EVENTNAME", EventName);
                             eventData.putString("DATE", dateOfEvent);
                             eventData.putInt("MIN", min);
@@ -266,6 +270,4 @@ public class TicketMasterEventSearch extends AppCompatActivity {
             return newRow;
         }
     }
-
-
 }
