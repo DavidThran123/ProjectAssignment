@@ -179,7 +179,6 @@ public class SavedAlbums extends AppCompatActivity {
             return i;
         }
 
-
         @Override //controls which widgets are on the row
         public View getView(int i, View old, ViewGroup parent)
         {
