@@ -46,7 +46,7 @@ public class SavedCovid extends AppCompatActivity {
                     .setMessage("Country: "+scList.get(position).getCountry()+"\n"+"Country code: "+scList.get(position).getCountryCode()+"\n"+
                             "Province: "+scList.get(position).getProvince()+"\n"+"Start Date: "+ scList.get(position).getStartDate()+"\n"+
                             "Number of cases: "+scList.get(position).getCaseNumber())
-                    .setNeutralButton("Okay",(click,arg)->{})
+                    .setNeutralButton("Back",(click,arg)->{})
                     .setNegativeButton("Delete",(click,arg)->{
                         Snackbar.make(cntryNames,"Data deleted",Snackbar.LENGTH_SHORT).show();
                         scList.remove(position);

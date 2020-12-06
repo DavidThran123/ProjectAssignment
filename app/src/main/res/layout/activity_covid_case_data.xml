@@ -35,6 +35,16 @@
         android:textAllCaps="true"
         />
 
+    <EditText
+        android:id="@+id/calendarEndDateEditText"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/writeEndDate"
+        android:layout_below="@id/calendarEditText"
+        android:singleLine="true"
+        android:textAllCaps="true"
+        />
+
     <Button
         android:id="@+id/caseSearchCountryButton"
         android:layout_width="match_parent"
@@ -42,7 +52,7 @@
         android:cursorVisible="false"
         android:text="Search"
         android:visibility="visible"
-        android:layout_below="@id/calendarEditText"
+        android:layout_below="@id/calendarEndDateEditText"
         />
 
     <Button

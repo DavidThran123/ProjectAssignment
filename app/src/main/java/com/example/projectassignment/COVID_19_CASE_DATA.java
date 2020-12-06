@@ -43,6 +43,7 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
     ListView covidListView;
     Button saveButton;
     EditText dateSearch;
+    EditText endDateSearch;
 
     public int covidCase;
     public Bundle dataToPassFred;
@@ -54,6 +55,7 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
     public static final String PROVINCE_NAME = "ProvinceName";
     public static final String START_DATE = "StartDate";
     public static final String COVID_CASES = "CovidCases";
+    public static final String END_DATE = "EndDate";
 
     SharedPreferences sp = null;
     SharedPreferences.Editor e;
@@ -70,14 +72,17 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
 
         caseSearch = findViewById(R.id.caseSearchCountry);//edit text
         dateSearch = findViewById(R.id.calendarEditText);
+        endDateSearch = findViewById(R.id.calendarEndDateEditText);
 
         sp = getSharedPreferences("countrySave",Context.MODE_PRIVATE);
 
         String country = sp.getString(COUNTRY_NAME,"");
         String date = sp.getString(START_DATE,"");
+        String endDate = sp.getString(END_DATE,"");
 
         caseSearch.setText(country);
         dateSearch.setText(date);
+        endDateSearch.setText(endDate);
 
         caseTitle = findViewById(R.id.caseTitleJPark);
 
@@ -88,6 +93,8 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
             e.putString(COUNTRY_NAME,caseSearch.getText().toString());
             e.commit();
             e.putString(START_DATE,dateSearch.getText().toString());
+            e.commit();
+            e.putString(END_DATE,endDateSearch.getText().toString());
             e.commit();
             loadCovidList();
         });
@@ -110,9 +117,12 @@ public class COVID_19_CASE_DATA extends AppCompatActivity {//question: about dif
 
         EditText countryText = findViewById(R.id.caseSearchCountry);
         EditText dateText =  findViewById(R.id.calendarEditText);
+        EditText endDateText = findViewById(R.id.calendarEndDateEditText);
 
         goToCovidList.putExtra("country",countryText.getText().toString());
         goToCovidList.putExtra("dates",dateText.getText().toString());
+        goToCovidList.putExtra("endDates",endDateText.getText().toString());
+
         startActivity(goToCovidList);
     }
 

@@ -54,10 +54,11 @@ public class CovidList extends AppCompatActivity {
         Intent intent = getIntent();
         String countryNameList = intent.getStringExtra("country");
         String startDateList = intent.getStringExtra("dates");
+        String endDateList = intent.getStringExtra("endDates");
 
         CovidQuery query = new CovidQuery();
         try {
-            query.execute("https://api.covid19api.com/country/" + countryNameList + "/status/confirmed/live?from=" + startDateList + "T00:00:00Z&to=2020-12-05T00:00:00Z");
+            query.execute("https://api.covid19api.com/country/" + countryNameList + "/status/confirmed/live?from=" + startDateList + "T00:00:00Z&to="+endDateList+"T00:00:00Z");
         }catch(Exception e){
             e.printStackTrace();
         }
