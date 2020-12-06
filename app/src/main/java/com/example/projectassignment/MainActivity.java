@@ -13,27 +13,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button david = findViewById(R.id.davidsButton);
-        david.setOnClickListener(v -> {
-            Intent goToAudio = new Intent(MainActivity.this, .class);
-            startActivity(goToAudio);
+        //Matthew Chik's Search Recipe Activity
+        Button searchRecipeBtn = findViewById(R.id.recipeSearchButton);
+        searchRecipeBtn.setOnClickListener(v -> {
 
-        });
-        Button juhoon = findViewById(R.id.juhoonsButton);
-        juhoon.setOnClickListener(v -> {
-            Intent goToCovidCase = new Intent(MainActivity.this, .class);
-            startActivity(goToCovidCase);
-
-        });
-        Button nintendo = findViewById(R.id.nintendosButton);
-        nintendo.setOnClickListener(v -> {
-            Intent goToTicketMaster = new Intent(MainActivity.this, .class);
-            startActivity(goToTicketMaster);
-
-        });
-        Button matt = findViewById(R.id.mattsButton);
-        matt.setOnClickListener(v -> {
-            Intent goToRecipe = new Intent(MainActivity.this, .class);
+            Intent goToRecipe = new Intent(MainActivity.this, RecipeSearchActivity.class);
             startActivity(goToRecipe);
 
         });

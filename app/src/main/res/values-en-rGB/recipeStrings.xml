@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sayRecipes">Recipes</string>
+    <string name="sayRecipe">Recipe:</string>
+    <string name="sayHelp">Help</string>
+    <string name="saySavedRecipes">Saved Recipes</string>
+    <string name="recipeWelcome">Welcome to the Recipe Search Page</string>
+    <string name="recipeOnlineText">Online Recipe Searcher</string>
+    <string name="sayEnterRecipe">Enter Recipe</string>
+    <string name="sayEnterPreferredIngredients">Enter Preferred Ingredients</string>
+    <string name="saySearch">Search</string>
+    <string name="sayFavorite">Favourite</string>
+    <string name="sayFavorites">Favourites</string>
+    <string name="sayTitle">Title: </string>
+    <string name="sayIngredients">Ingredients:</string>
+    <string name="sayUrl">URL: </string>
+    <string name="sayRecipeSaved">Recipe Saved!</string>
+    <string name="sayRecipeAlreadySaved">Recipe is already saved.</string>
+    <string name="sayInstructions">"Instructions:"</string>
+    <string name="sayInstructionsRecipeList">Click on a recipe in the list to view the details. You can save a recipe by pressing favourite and you can go to the recipes website by clicking on the URL.</string>
+    <string name="sayOkay">Okay</string>
+    <string name="saySavedRecipe">Saved Recipe</string>
+    <string name="sayWebsite" >Website: </string>
+    <string name="sayGoToWebsite">[Go To Website]</string>
+    <string name="sayDelete">Delete</string>
+    <string name="sayRecipeDeleted">Recipe Deleted</string>
+    <string name="sayInstructionsRecipeSaved">Click on a recipe in the list to view the details.  You can also go to the recipes website by clicking [Go to website] or delete a recipe by selecting [delete]." </string>
+    <string name="sayInstructionsRecipeSearch">To use this interface enter a recipe name in the first search bar and add your ingredients (separated by commas) in the second search bar.  When you have all the information filled, then press the search button!" Press Favourites to check out your saved recipes.</string>
+
+</resources>
