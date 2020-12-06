@@ -55,6 +55,7 @@ public class DetailActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
+
             String imageURL = args[0];
 
             if (imageURL != null && !imageURL.equals("")) {

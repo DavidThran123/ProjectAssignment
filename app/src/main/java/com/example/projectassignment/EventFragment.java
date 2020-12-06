@@ -20,6 +20,7 @@ import android.widget.Toast;
 public class EventFragment extends Fragment {
 
     /**
+     * declare varaibles
      *
      */
     private static final String TAG = "LOG";
