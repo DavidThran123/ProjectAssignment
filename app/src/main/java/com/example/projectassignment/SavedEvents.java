@@ -152,9 +152,8 @@ public class SavedEvents extends AppCompatActivity {
 
         /**
          * method to create view for saved event including set click button for viewing and deleting the saved events
-         * @param i
-         * @param old
-         * @param parent
+         * @param i position of listview
+         *
          * @return the new row view
          */
         @Override

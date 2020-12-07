@@ -28,7 +28,7 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
 
     /**
      *  class to execute the database
-     * @param context
+     * @param context setting context of db
      */
 
     TicketMasterDatabaseHelper(Context context){

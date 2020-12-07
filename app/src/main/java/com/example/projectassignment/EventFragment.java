@@ -28,10 +28,10 @@ public class EventFragment extends Fragment {
 
     /**
      * method to make views, setting variables and attach them
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * @param inflater inflates the empty framelayout
+     * @param container framelayout
+     * @param savedInstanceState the info that is passing to fill elements UI
+     * @return the inflated fragment.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,8 +70,8 @@ public class EventFragment extends Fragment {
     }
 
     /**
-     * method to attaching all varaibles
-     * @param context
+     * method to attaching to parent activty
+     * @param context attach to the context of framelayout
      */
     @Override
     public void onAttach(Context context) {
