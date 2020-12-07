@@ -5,7 +5,6 @@
     <string name="searchCity">City Name</string>
     <string name="searchRadius">Search Radius</string>
     <string name="searchButton">Search</string>
-    <string name="helpButton">Help</string>
     <string name="SavedResults">Favourite Events</string>
 
     <string name="eventName">Events Name</string>
@@ -15,7 +14,6 @@
     <string name="link">URL</string>
 
     <string name="view">View</string>
-    <string name="save">Save</string>
     <string name="delete">Delete</string>
 
 
