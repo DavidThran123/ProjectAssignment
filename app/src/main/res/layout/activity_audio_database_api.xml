@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CFF4F1"
+    tools:context=".AUDIO_DATABASE_API">
+
+
+    <TextView
+        android:id="@+id/askTextBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#CFF4F1"
+        android:text="@string/titleDavidThran"
+        android:textColor="#3F51B5"
+        android:textSize="27dp" />
+
+    <EditText
+        android:id="@+id/artistName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/askTextBox"
+        android:background="#CFF4F1"
+        android:hint="Search Artist Here"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#3F51B5"
+        />
+
+    <Button
+        android:id="@+id/searchArtistButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/artistName"
+        android:background="#CFF4F1"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/searchButtonText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#CFF4F1" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchArtistButton"
+        android:background="#CFF4F1"
+        android:soundEffectsEnabled="false" />
+
+    <TextView
+        android:id="@+id/artistResultsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressBar"
+        android:layout_toLeftOf="@id/helpButton"
+        android:background="#CFF4F1"
+        android:text=""
+        android:textColor="#3F51B5"
+        android:textSize="25dp" />
+
+    <Button
+        android:id="@+id/helpButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressBar"
+        android:layout_alignParentRight="true"
+        android:text="@string/helpButton"
+        android:textColor="#CFF4F1"
+        />
+
+    <ListView
+        android:id="@+id/listViewAT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/artistResultsText"
+        android:background="#CFF4F1"
+        android:verticalScrollbarPosition="right"
+        android:layout_above="@id/albumSeeSaved"/>
+
+    <Button
+        android:id="@+id/albumSeeSaved"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/savedAlbums"
+        android:textColor="#CFF4F1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+</RelativeLayout>

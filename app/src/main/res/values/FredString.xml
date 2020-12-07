@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="searchCountryButtonText">COVID-19 CASE DATA - Fred Park</string>
+    <string name="covidListTitle">COVID-19 CASES</string>
+    <string name="searchCountry">Search country (in all capital letters)</string>
+    <string name="writeStartDate">Start date (Write in YYYY-MM-DD format)</string>
+    <string name="search">Search</string>
+    <string name="savedCountries">Saved Countries</string>
+    <string name="country">Country: </string>
+    <string name="countryCode">Country code: </string>
+    <string name="province">Province: </string>
+    <string name="startDate">Start date: </string>
+    <string name="numberOfCases">Number of cases: </string>
+    <string name="save">SAVE</string>
+    <string name="covidFragTitle">COVID-19 Data</string>
+    <string name="countriesSaved">Countries Saved</string>
+    <string name="writeEndDate">End date (Write in YYYY-MM-DD format)</string>
+    <string name="help">Help</string>
+
+
+
+</resources>

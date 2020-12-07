@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".COVID_19_CASE_DATA"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/caseTitleJPark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/caseTextView"
+        android:textSize="27dp"/>
+
+    <EditText
+        android:id="@+id/caseSearchCountry"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/searchCountry"
+        android:layout_below="@id/caseTitleJPark"
+        android:singleLine="true"
+        android:textAllCaps="true"
+        />
+
+    <EditText
+        android:id="@+id/calendarEditText"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/writeStartDate"
+        android:layout_below="@id/caseSearchCountry"
+        android:singleLine="true"
+        android:textAllCaps="true"
+        />
+
+    <EditText
+        android:id="@+id/calendarEndDateEditText"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/writeEndDate"
+        android:layout_below="@id/calendarEditText"
+        android:singleLine="true"
+        android:textAllCaps="true"
+        />
+
+    <Button
+        android:id="@+id/caseSearchCountryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:text="Search"
+        android:visibility="visible"
+        android:layout_below="@id/calendarEndDateEditText"
+        />
+
+    <Button
+        android:id="@+id/savedCountryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Saved countries"
+        android:text="@string/savedCountries"
+        android:layout_below="@id/caseSearchCountryButton"/>
+
+    <Button
+        android:id="@+id/helpCountryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Help"
+        android:text="@string/help"
+        android:layout_below="@id/savedCountryButton"/>
+
+</RelativeLayout>
