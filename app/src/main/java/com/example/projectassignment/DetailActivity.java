@@ -24,7 +24,7 @@ public class DetailActivity extends AppCompatActivity {
     ImageView imageUrlView;
 
     /**
-     * creating view with specifically including image view
+     * creating view with specifically for inclusion of image view
      * @param savedInstanceState reference to bundle
      */
     @Override
