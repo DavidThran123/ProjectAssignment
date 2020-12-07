@@ -15,9 +15,18 @@ import java.net.URL;
 
 public class DetailActivity extends AppCompatActivity {
 
+
+    /**
+     * delcare bitmap varaible for storing image data
+     * delcare imageview variable for image view
+     */
     Bitmap imageData;
     ImageView imageUrlView;
 
+    /**
+     * creating view with specifically including image view
+     * @param savedInstanceState reference to bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +60,10 @@ public class DetailActivity extends AppCompatActivity {
         new GetImageConnection().execute(imageURL);
     }
 
+    /**
+     * method to establish connection and retrieve image url to bitmap
+     */
+
     private class GetImageConnection extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -80,6 +93,10 @@ public class DetailActivity extends AppCompatActivity {
             return "Done";
         }
 
+        /**
+         * set the bitmap data to actual image view
+         * @param fromDoInBackground
+         */
         public void onPostExecute(String fromDoInBackground) {
             if(imageData != null) imageUrlView.setImageBitmap(imageData);
         }

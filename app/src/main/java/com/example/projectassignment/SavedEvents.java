@@ -39,7 +39,7 @@ public class SavedEvents extends AppCompatActivity {
 
     /**
      *
-     * @param savedInstanceState
+     * @param savedInstanceState reference to bundle project that is passed to this parameter
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
