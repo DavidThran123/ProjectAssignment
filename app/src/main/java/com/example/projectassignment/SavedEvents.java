@@ -67,7 +67,7 @@ public class SavedEvents extends AppCompatActivity {
         //load database
         loadEventsFromDatabase();
 
-        //set both views by associated ID
+        //set both views by related ID
         EventNames = (TextView) findViewById(R.id.EventsSavedTitle);
         EventNamesLV = (ListView) findViewById(R.id.EventsSavedListView);
 
