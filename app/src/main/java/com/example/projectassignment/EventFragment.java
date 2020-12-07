@@ -23,12 +23,11 @@ public class EventFragment extends Fragment {
      * declare varaibles
      *
      */
-    private static final String TAG = "LOG";
     private AppCompatActivity parentActivityDing;
 
 
     /**
-     *
+     * method to make views, setting variables and attach them
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -71,7 +70,7 @@ public class EventFragment extends Fragment {
     }
 
     /**
-     *
+     * method to attaching all varaibles
      * @param context
      */
     @Override

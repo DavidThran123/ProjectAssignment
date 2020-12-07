@@ -67,7 +67,7 @@ public class SavedEvents extends AppCompatActivity {
     }
 
     /**
-     *
+     * method for retrieving data from saved events in db
      */
 
     private void loadEventsFromDatabase()
@@ -102,28 +102,49 @@ public class SavedEvents extends AppCompatActivity {
 
 
     /**
-     *
+     *  adapter class
      */
     private class EventAdapter extends BaseAdapter {
 
+        /**
+         * method for get number of items in the list
+         * @return number of items
+         */
 
-        @Override // get number of items in the list
+        @Override
         public int getCount() {
             return  savedEventList.size();
         }
 
-        @Override // what object goes at row i
+        /**
+         * method for determines the object that goes at row i
+         * @param i int value passed to parameter
+         * @return get the value of i
+         */
+        @Override
         public Object getItem(int i) {
             return savedEventList.get(i);
         }
 
-        @Override //database id of item at row i
+        /**
+         * method for get the id of item at row i
+         * @param i int value passed to parameter
+         * @return event ID
+         */
+        @Override
         public long getItemId(int i) {
             return savedEventList.get(i).EventID;
         }
 
 
-        @Override //controls which widgets are on the row
+        /**
+         * method to create view for saved event including set button for viewing and deleting the saved events
+         * @param i
+         * @param old
+         * @param parent
+         * @return
+         */
+        @Override
         public View getView(int i, View old, ViewGroup parent)
         {
             LayoutInflater inflater = getLayoutInflater();
