@@ -42,7 +42,7 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        //String for creating the Albums table
+        //String for creating the event table
         String createTable;
         createTable = "CREATE TABLE " +TABLE_NAME+"(" + col1+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 col2+" TEXT , " +
@@ -53,16 +53,15 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
                 col7+" TEXT)";
 
 
-        //Executing both strings
         db.execSQL(createTable);
 
     }
 
     /**
      * method to update the db to newer version
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * @param db pass selecting database to parameter
+     * @param oldVersion pass the oldversion to  parameter for change
+     * @param newVersion pass the newer verson to parameter for change
      */
 
     @Override
@@ -75,9 +74,9 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
 
     /**
      *    method revert db to older version
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * @param db pass selecting database to parameter to change
+     * @param oldVersion pass the oldversion to parameter to change
+     * @param newVersion pass the new version to parameter to change
      */
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
