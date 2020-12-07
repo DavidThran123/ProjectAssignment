@@ -2,9 +2,7 @@ package com.example.projectassignment;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,10 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SavedEvents extends AppCompatActivity {
@@ -167,11 +161,10 @@ public class SavedEvents extends AppCompatActivity {
         public View getView(int i, View old, ViewGroup parent)
         {
             LayoutInflater inflater = getLayoutInflater();
-            View newRow = inflater.inflate(R.layout.dingeventlayout, parent, false);
+            View newRow = inflater.inflate(R.layout.ding_saved_event_layout, parent, false);
             TextView textEvent = newRow.findViewById(R.id.singleEvent);
             TextView textDate = newRow.findViewById(R.id.date);
-            Button delete = newRow.findViewById(R.id.save);
-            delete.setText("Delete");
+            Button delete = newRow.findViewById(R.id.delete);
             Button view = newRow.findViewById(R.id.view);
             Event thisEvent = (Event) getItem(i);
             textEvent.setText(thisEvent.getEventName());

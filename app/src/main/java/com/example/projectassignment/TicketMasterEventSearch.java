@@ -7,7 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -324,7 +322,7 @@ public class TicketMasterEventSearch extends AppCompatActivity {
         public View getView(int i, View old, ViewGroup parent)
         {
             LayoutInflater inflater = getLayoutInflater();
-            View newRow = inflater.inflate(R.layout.dingeventlayout, parent, false);
+            View newRow = inflater.inflate(R.layout.ding_event_layout, parent, false);
             TextView textEvent = newRow.findViewById(R.id.singleEvent);
             TextView textDate = newRow.findViewById(R.id.date);
             Button save = newRow.findViewById(R.id.save);
