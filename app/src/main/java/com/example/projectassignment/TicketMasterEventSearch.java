@@ -135,9 +135,9 @@ public class TicketMasterEventSearch extends AppCompatActivity {
                             "Enter the Search Radius in the second search textbox" +  "\n" +
                             "Click Search for result" + "\n"+
                             "After Search completed" + "\n"+
-                            "Click view button for event details"+ "\n"+
-                            "Click save button to save events"+ "\n"+
-                            "Checkout the saved events by clicking saved event button")
+                            "Click View button for event details"+ "\n"+
+                            "Click Save button to save events to favourite event"+ "\n"+
+                            "Check the saved events by clicking Favourite Event button")
                     .setNeutralButton("Okay",(click,arg)->
                     {
 

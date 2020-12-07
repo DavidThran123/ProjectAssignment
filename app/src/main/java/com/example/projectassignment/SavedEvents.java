@@ -52,6 +52,24 @@ public class SavedEvents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_events);
 
+        Button savedEventHelpButton = findViewById(R.id.savedEventHelpButtonDing);
+        savedEventHelpButton.setOnClickListener(v->
+        {
+            AlertDialog.Builder alertDialogBuilder;
+            alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Instructions:")
+                    .setMessage( "Instructions:"+"\n"+
+                            "Click View button for event details"+ "\n"+
+                            "Click delete button to delete saved events"+ "\n"
+                            )
+                    .setNeutralButton("Okay",(click,arg)->
+                    {
+
+                    })
+                    .setView(getLayoutInflater().inflate(R.layout.ticketmaster_alert_layout,null))
+                    .create().show();
+        });
+
         //load database
         loadEventsFromDatabase();
 
@@ -195,6 +213,7 @@ public class SavedEvents extends AppCompatActivity {
                     finish();
                 }
             });
+
 
             return newRow;
         }

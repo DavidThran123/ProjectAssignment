@@ -14,6 +14,6 @@
     <string name="maxPrice">Maximum Price ($) </string>
     <string name="link">Link</string>
 
-    <string name="SavedEvents">Events Saved:</string>
+    <string name="SavedEvents">Favourite Events Saved:</string>
 
 </resources>

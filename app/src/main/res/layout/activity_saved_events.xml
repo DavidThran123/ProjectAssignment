@@ -23,4 +23,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/EventsSavedTitle"
         android:verticalScrollbarPosition="right" />
+
+    <Button
+
+        android:id="@+id/savedEventHelpButtonDing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/helpButton"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
 </RelativeLayout>
