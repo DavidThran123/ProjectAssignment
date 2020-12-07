@@ -38,7 +38,7 @@ public class SavedEvents extends AppCompatActivity {
     public SQLiteDatabase saveAssist;
 
     /**
-     *
+     * method used to execute execute the saved event function and load saved event layout including set click help button
      * @param savedInstanceState reference to bundle project that is passed to this parameter
      */
     @Override
