@@ -37,7 +37,7 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
 
     /**
      *  method for creating table
-     * @param db
+     * @param db pass db to parameter to create table
      */
 
     @Override
