@@ -12,7 +12,12 @@
     <string name="eventDate">Date</string>
     <string name="minPrice">Minimum Price ($) </string>
     <string name="maxPrice">Maximum Price ($) </string>
-    <string name="link">Link</string>
+    <string name="link">URL</string>
+
+    <string name="view">View</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+
 
     <string name="SavedEvents">Favourite Events Saved:</string>
 
