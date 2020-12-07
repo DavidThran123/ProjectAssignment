@@ -161,7 +161,7 @@ public class SavedEvents extends AppCompatActivity {
         public View getView(int i, View old, ViewGroup parent)
         {
             LayoutInflater inflater = getLayoutInflater();
-            View newRow = inflater.inflate(R.layout.ding_saved_event_layout, parent, false);
+            View newRow = inflater.inflate(R.layout.activity_saved_event_layout, parent, false);
             TextView textEvent = newRow.findViewById(R.id.singleEvent);
             TextView textDate = newRow.findViewById(R.id.date);
             Button delete = newRow.findViewById(R.id.delete);
