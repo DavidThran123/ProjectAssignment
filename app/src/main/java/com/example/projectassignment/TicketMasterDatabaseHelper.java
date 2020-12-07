@@ -27,7 +27,7 @@ public class TicketMasterDatabaseHelper extends SQLiteOpenHelper {
     public final static String col7 = "ImageURL";
 
     /**
-     *  method to execute the database
+     *  class to execute the database
      * @param context
      */
 

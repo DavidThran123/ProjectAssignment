@@ -102,7 +102,8 @@ public class SavedEvents extends AppCompatActivity {
 
 
     /**
-     *  adapter class
+     *  an adapter class to inflate the ListView with another row, it is used for
+     *      *  adding the searched events as seperate entities among the listview
      */
     private class EventAdapter extends BaseAdapter {
 
@@ -138,11 +139,11 @@ public class SavedEvents extends AppCompatActivity {
 
 
         /**
-         * method to create view for saved event including set button for viewing and deleting the saved events
+         * method to create view for saved event including set click button for viewing and deleting the saved events
          * @param i
          * @param old
          * @param parent
-         * @return
+         * @return the new row view
          */
         @Override
         public View getView(int i, View old, ViewGroup parent)
