@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dingTitle">票大师活动查找</string>
+    <string name="authorTitle">制作者：孙鼎 版本 1.0</string>
+    <string name="searchCity">城市</string>
+    <string name="searchRadius">半径</string>
+    <string name="searchButton">查找</string>
+    <string name="helpButton">帮助</string>
+    <string name="SavedResults">喜欢的活动</string>
+
+    <string name="eventName">活动名字</string>
+    <string name="eventDate">日期</string>
+    <string name="minPrice">最低价 ($) </string>
+    <string name="maxPrice">最高价 ($) </string>
+    <string name="link">链接</string>
+
+    <string name="view">查看</string>
+    <string name="save">保存</string>
+    <string name="delete">删除</string>
+
+    <string name="SavedEvents">保存的喜欢的活动</string>
+</resources>

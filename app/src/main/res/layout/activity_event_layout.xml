@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/receive_message_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/singleEvent"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="18dp"
+        android:textColorHighlight="@color/black"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:text=""
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="10dp"
+        android:textColorHighlight="@color/black"/>
+    <Button
+        android:id="@+id/view"
+        android:text="@string/view"
+        android:textAllCaps="false"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="10dp"
+        android:textColorHighlight="@color/black"/>
+
+    <Button
+        android:id="@+id/save"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="7dp"
+        android:textColorHighlight="@color/black"/>
+</LinearLayout>

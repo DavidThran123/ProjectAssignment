@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TicketMasterEventSearch">
+
+
+    <TextView
+        android:id="@+id/dingTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:text="@string/dingTitle"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/authorTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/authorTitle"
+        android:layout_below="@id/dingTitle"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/searchCity"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/authorTitle"
+        android:layout_marginTop="10dp"
+        android:hint="@string/searchCity"
+        android:layout_alignParentLeft="true"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        />
+    <EditText
+        android:id="@+id/searchRadius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/authorTitle"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:hint="@string/searchRadius"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        />
+
+    <Button
+        android:id="@+id/searchButtonDing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/searchButton"
+        android:layout_below="@id/searchCity"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <Button
+        android:id="@+id/helpButtonDing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchButtonDing"
+        android:text="@string/helpButton"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        />
+
+    <ListView
+        android:id="@+id/listViewResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/helpButtonDing"
+        android:verticalScrollbarPosition="right"
+        android:layout_above="@id/progBar">
+
+
+    </ListView>
+
+    <ProgressBar
+        android:id="@+id/progBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/SavedSearch"
+        android:soundEffectsEnabled="true" />
+
+    <Button
+
+        android:id="@+id/SavedSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/SavedResults"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+</RelativeLayout>

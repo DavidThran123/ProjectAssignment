@@ -6,16 +6,22 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-
         android:theme="@style/Theme.ProjectAssignment"
         android:usesCleartextTraffic="true">
-        
+      
+        <activity android:name=".SavedEvents"></activity>
+        <activity android:name=".TicketMasterDatabaseHelper" />
+        <activity android:name=".EventFragment" />
+        <activity android:name=".DetailActivity" />
+        <activity android:name=".TicketMasterEventSearch" />
         <activity android:name=".CovidDetail"/>
         <activity android:name=".COVID_19_CASE_DATA"/>
         <activity android:name=".CovidList"/>
@@ -28,6 +34,7 @@
         <activity android:name=".RecipeListActivity" />
         <activity android:name=".RecipeSearchActivity" />
       
+
 
         <activity android:name=".MainActivity">
             <intent-filter>

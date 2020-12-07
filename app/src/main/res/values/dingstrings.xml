@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dingTitle">Ticket Master Event Search</string>
+    <string name="authorTitle">created by Ding Sun version 1.0</string>
+    <string name="searchCity">City Name</string>
+    <string name="searchRadius">Search Radius</string>
+    <string name="searchButton">Search</string>
+    <string name="helpButton">Help</string>
+    <string name="SavedResults">Favourite Events</string>
+
+    <string name="eventName">Events Name</string>
+    <string name="eventDate">Date</string>
+    <string name="minPrice">Minimum Price ($) </string>
+    <string name="maxPrice">Maximum Price ($) </string>
+    <string name="link">URL</string>
+
+    <string name="view">View</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+
+
+    <string name="SavedEvents">Favourite Events Saved:</string>
+
+</resources>
