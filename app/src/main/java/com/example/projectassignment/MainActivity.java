@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     message = "Going to Ticket Master...";
                     Intent goToTicketMaster = new Intent(MainActivity.this, TicketMasterEventSearch.class);
                     startActivity(goToTicketMaster);
-                    finish();
                     break;
                 case R.id.action_four:
                     message = "Going to Recipe Search";
@@ -103,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     message = "Going to Ticket Master...";
                     Intent goToTicketMaster = new Intent(MainActivity.this, TicketMasterEventSearch.class);
                     startActivity(goToTicketMaster);
-                    finish();
                     break;
                 case R.id.action_four:
                     message = "Going to Recipe Search";
