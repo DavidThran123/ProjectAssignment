@@ -190,12 +190,12 @@ public class TicketMasterEventSearch extends AppCompatActivity {
                 setProgress(40);
 
                 //Store the results into a string variable
-                String albumSearch = sb.toString();
+                String eventSearch = sb.toString();
 
                 setProgress(50);
 
                 //Make a JSONObject to store the results
-                JSONObject object = new JSONObject(albumSearch);
+                JSONObject object = new JSONObject(eventSearch);
 
                 setProgress(60);
 
