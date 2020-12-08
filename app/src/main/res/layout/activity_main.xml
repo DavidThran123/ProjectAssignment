@@ -1,46 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:visibility="visible"
-    tools:context=".MainActivity"
-    tools:visibility="visible">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/davidsButton"
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="#0099FF"
-        android:text="@string/davidButton"
-        android:textColor="#FFFFFF" />
-    <Button
-        android:id="@+id/juhoonsButton"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbar"/>
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="#0099FF"
-        android:text="@string/juhoonButton"
-        android:textColor="#FFFFFF" />
-    <Button
-        android:id="@+id/nintendosButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="#0099FF"
-        android:text="@string/nintendoButton"
-        android:textColor="#FFFFFF" />
-    <Button
-        android:id="@+id/recipeSearchButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="#0099FF"
-        android:text="@string/mattButton"
-        android:textColor="#FFFFFF" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        tools:openDrawer="start">
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/headers"
+            app:menu="@menu/menu"
+            android:id="@+id/nav_view"/>
 
-
-</LinearLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
+</RelativeLayout>
